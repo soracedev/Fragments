@@ -31,7 +31,7 @@ Collega la repo a [Vercel](https://vercel.com) — deploy automatico a ogni push
 │       └── mondo1.js          ← Nettuno (azioni, dialoghi, NPC)
 └── public/
     └── assets/
-        ├── images/            ← immagini di gioco (.jpg)
+        ├── images/            ← immagini di gioco (.png)
         └── audio/             ← musica (.mp3)
 ```
 
@@ -39,17 +39,17 @@ Collega la repo a [Vercel](https://vercel.com) — deploy automatico a ogni push
 
 Le immagini vanno in `public/assets/images/` con questi nomi:
 
-| File | Scena |
-|------|-------|
-| `title-bg.jpg` | Sfondo title screen (Fragments) |
-| `camera.jpg` | Camera da letto (hub) |
-| `piazza.jpg` | Piazza di Nettuno |
-| `vicolo.jpg` | Vicolo con saracinesca |
-| `enigma-ingranaggi.jpg` | Closeup meccanismo saracinesca |
-| `enigma-orologio.jpg` | Closeup orologio di Nettuno |
+| File                    | Scena                           |
+| ----------------------- | ------------------------------- |
+| `title-bg.png`          | Sfondo title screen (Fragments) |
+| `camera.png`            | Camera da letto (hub)           |
+| `piazza.png`            | Piazza di Nettuno               |
+| `vicolo.png`            | Vicolo con saracinesca          |
+| `enigma-ingranaggi.png` | Closeup meccanismo saracinesca  |
+| `enigma-orologio.png`   | Closeup orologio di Nettuno     |
 
 L'audio va in `public/assets/audio/`:
 
-| File | Uso |
-|------|-----|
+| File        | Uso                 |
+| ----------- | ------------------- |
 | `theme.mp3` | Musica title screen |

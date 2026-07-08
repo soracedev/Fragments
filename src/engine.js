@@ -74,6 +74,7 @@ export function speak(lines, cb) {
 function nextLine() {
   if (dQueue.length === 0) {
     $('#dialogue').classList.remove('show');
+    hidePortraits();
     dLock = false;
     const c = dCb;
     dCb = null;
@@ -83,11 +84,45 @@ function nextLine() {
   const l = dQueue.shift();
   const whoEl = $('#dWho');
   const txtEl = $('#dTxt');
-  whoEl.className = 'who' + (l.who === 'PROTAGONISTA' ? ' prot' : '') + (l.who === 'VOLPE' ? ' fox' : '');
+  whoEl.className = 'who' + (l.who === 'Nox' ? ' prot' : '') + (l.who === 'VOLPE' ? ' fox' : '');
   whoEl.textContent = l.who === 'VOLPE' ? '' : (l.who || '');
   whoEl.style.display = (l.who && l.who !== 'VOLPE') ? 'block' : 'none';
   txtEl.className = 'txt' + (l.stage ? ' stage' : '');
   txtEl.textContent = l.text;
+  updatePortraits(l);
+}
+
+// ---- Ritratti personaggio (stile visual novel) ----
+// image è il nome file senza estensione (es. "Nox_worried"); la cartella
+// del personaggio è tutto ciò che precede il primo "_".
+
+function portraitSrc(image) {
+  const folder = image.split('_')[0];
+  return `/assets/images/characters/${folder}/${image}.png`;
+}
+
+function setPortrait(el, image) {
+  if (!image) { el.classList.remove('show'); return; }
+  el.style.backgroundImage = `url("${portraitSrc(image)}")`;
+  el.classList.add('show');
+}
+
+function updatePortraits(l) {
+  const left = $('#portraitLeft');
+  const right = $('#portraitRight');
+  if (!left || !right) return;
+  if (l.who === 'Nox') setPortrait(left, l.image);
+  else if (l.who) setPortrait(right, l.image);
+  const active = l.who === 'Nox' ? 'left' : (l.who ? 'right' : null);
+  left.classList.toggle('dim', active !== 'left');
+  right.classList.toggle('dim', active !== 'right');
+}
+
+function hidePortraits() {
+  const left = $('#portraitLeft');
+  const right = $('#portraitRight');
+  if (left) left.classList.remove('show');
+  if (right) right.classList.remove('show');
 }
 
 // Avanza i dialoghi al click
@@ -98,10 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ---- Shortcut per costruire battute ----
 
-export const P  = t => ({ who: 'PROTAGONISTA', text: t });
-export const L  = t => ({ who: 'LEI (NETTUNO)', text: t });
-export const SG = t => ({ stage: true, text: t });
-export const FX = t => ({ who: 'VOLPE', stage: true, text: t });
+export const P  = (t, image = 'Nox_worried') => ({ who: 'Nox', text: t, image });
+export const L  = (t, image) => ({ who: 'Figura misteriosa', text: t, image });
+export const SG = (t, image) => ({ stage: true, text: t, image });
+export const FX = (t, image) => ({ who: 'VOLPE', stage: true, text: t, image });
 
 // ---- Parallax ----
 

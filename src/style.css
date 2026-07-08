@@ -76,6 +76,15 @@
   #introSkip:hover{ opacity:1; color:var(--glow); }
   @keyframes fadeUp{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
 
+  /* CHARACTER PORTRAITS */
+  .portrait{ position:absolute; bottom:0; width:42%; height:60%; z-index:20;
+    background-repeat:no-repeat; background-size:contain; background-position:bottom center;
+    opacity:0; filter:brightness(1); transition:opacity .22s ease, filter .22s ease; pointer-events:none; }
+  .portrait.left{ left:0; }
+  .portrait.right{ right:0; }
+  .portrait.show{ opacity:1; }
+  .portrait.dim{ filter:brightness(.55); }
+
   /* DIALOGUE */
   #dialogue{ position:absolute; left:0; right:0; bottom:0; z-index:40; padding:0 18px 22px; display:none; justify-content:center; cursor:pointer; }
   #dialogue.show{ display:flex; }

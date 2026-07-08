@@ -1,152 +1,298 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Fragments</title>
-  <link rel="stylesheet" href="/src/style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Fragments</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="stage" class="warm-0">
+      <!-- ===== SCENE: HUB / CAMERA ===== -->
+      <div class="scene active" data-scene="hub">
+        <div
+          class="layer"
+          data-depth="0.02"
+          style="background-image: url(&quot;/assets/images/camera.png&quot;)"
+        ></div>
+        <button
+          class="hotspot hidden"
+          style="left: 20%; top: 42%"
+          data-action="hub-desk"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot hidden"
+          style="left: 46%; top: 12%"
+          data-action="hub-window"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot hidden"
+          style="left: 78%; top: 60%"
+          data-action="hub-door"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+      </div>
 
-<div id="stage" class="warm-0">
+      <!-- ===== SCENE: N1 PIAZZA ===== -->
+      <div class="scene" data-scene="piazza">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="background-image: url(&quot;/assets/images/piazza.png&quot;)"
+        ></div>
+        <button
+          class="hotspot char hidden"
+          style="left: 30%; top: 62%"
+          data-action="lei"
+        >
+          <span class="ring"></span>
+        </button>
+        <button
+          class="hotspot hidden"
+          style="left: 51%; top: 45%"
+          data-action="piazza-clock"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot fox hidden"
+          style="left: 80%; top: 56%"
+          data-action="fox-vicolo"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot hidden"
+          style="left: 16%; top: 40%"
+          data-action="to-vicolo"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot hidden"
+          style="left: 70%; top: 30%"
+          data-action="to-negozio"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+      </div>
 
-  <!-- ===== SCENE: HUB / CAMERA ===== -->
-  <div class="scene active" data-scene="hub">
-    <div class="layer" data-depth="0.02" style="background-image:url('/assets/images/camera.jpg');"></div>
-    <button class="hotspot hidden" style="left:20%;top:42%;" data-action="hub-desk"><span class="ring"></span><span class="dot"></span></button>
-    <button class="hotspot hidden" style="left:46%;top:12%;" data-action="hub-window"><span class="ring"></span><span class="dot"></span></button>
-    <button class="hotspot hidden" style="left:78%;top:60%;" data-action="hub-door"><span class="ring"></span><span class="dot"></span></button>
-  </div>
+      <!-- ===== SCENE: N2 VICOLO ===== -->
+      <div class="scene" data-scene="vicolo">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="background-image: url(&quot;/assets/images/vicolo.png&quot;)"
+        ></div>
+        <button
+          class="hotspot"
+          style="left: 50%; top: 52%"
+          data-action="saracinesca"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot back"
+          style="left: 9%; top: 86%"
+          data-action="vicolo-back"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+      </div>
 
-  <!-- ===== SCENE: N1 PIAZZA ===== -->
-  <div class="scene" data-scene="piazza">
-    <div class="layer" data-depth="0.03" style="background-image:url('/assets/images/piazza.jpg');"></div>
-    <button class="hotspot char hidden" style="left:30%;top:62%;" data-action="lei"><span class="ring"></span></button>
-    <button class="hotspot hidden" style="left:51%;top:45%;" data-action="piazza-clock"><span class="ring"></span><span class="dot"></span></button>
-    <button class="hotspot fox hidden" style="left:80%;top:56%;" data-action="fox-vicolo"><span class="ring"></span><span class="dot"></span></button>
-    <button class="hotspot hidden" style="left:16%;top:40%;" data-action="to-vicolo"><span class="ring"></span><span class="dot"></span></button>
-    <button class="hotspot hidden" style="left:70%;top:30%;" data-action="to-negozio"><span class="ring"></span><span class="dot"></span></button>
-  </div>
+      <!-- ===== PARTICLES ===== -->
+      <div id="dust"></div>
 
-  <!-- ===== SCENE: N2 VICOLO ===== -->
-  <div class="scene" data-scene="vicolo">
-    <div class="layer" data-depth="0.03" style="background-image:url('/assets/images/vicolo.jpg');"></div>
-    <button class="hotspot" style="left:50%;top:52%;" data-action="saracinesca"><span class="ring"></span><span class="dot"></span></button>
-    <button class="hotspot back" style="left:9%;top:86%;" data-action="vicolo-back"><span class="ring"></span><span class="dot"></span></button>
-  </div>
+      <!-- ===== CHARACTER PORTRAITS ===== -->
+      <div id="portraitLeft" class="portrait left"></div>
+      <div id="portraitRight" class="portrait right"></div>
 
-  <!-- ===== PARTICLES ===== -->
-  <div id="dust"></div>
+      <!-- ===== HUD ===== -->
+      <div id="hud">
+        <div class="slot" data-die="1">&#9671;</div>
+        <div class="slot" data-die="2">&#9671;</div>
+        <div class="slot" data-die="3">&#9671;</div>
+        <button id="backpackBtn" title="Zaino">
+          &#127890;<span id="backpackBadge">0</span>
+        </button>
+      </div>
+      <div id="invhint"></div>
 
-  <!-- ===== HUD ===== -->
-  <div id="hud">
-    <div class="slot" data-die="1">&#9671;</div>
-    <div class="slot" data-die="2">&#9671;</div>
-    <div class="slot" data-die="3">&#9671;</div>
-    <button id="backpackBtn" title="Zaino">&#127890;<span id="backpackBadge">0</span></button>
-  </div>
-  <div id="invhint"></div>
+      <!-- ===== DIALOGUE ===== -->
+      <div id="dialogue">
+        <div class="box">
+          <div class="who" id="dWho"></div>
+          <div class="txt" id="dTxt"></div>
+          <div class="next">&#9662;</div>
+        </div>
+      </div>
 
-  <!-- ===== DIALOGUE ===== -->
-  <div id="dialogue"><div class="box">
-    <div class="who" id="dWho"></div>
-    <div class="txt" id="dTxt"></div>
-    <div class="next">&#9662;</div>
-  </div></div>
+      <!-- ===== PUZZLE: INGRANAGGI ===== -->
+      <div class="puzzle" id="gearPuzzle">
+        <div
+          class="zoombg"
+          style="
+            background-image: url(&quot;/assets/images/enigma-ingranaggi.png&quot;);
+          "
+        ></div>
+        <div class="scrim"></div>
+        <div id="gearZones">
+          <div class="gear" data-order="1" style="left: 37%; top: 47%">
+            <div class="cog"></div>
+            <div class="label">1</div>
+          </div>
+          <div class="gear" data-order="2" style="left: 56%; top: 39%">
+            <div class="cog"></div>
+            <div class="label">2</div>
+          </div>
+          <div class="gear" data-order="3" style="left: 62%; top: 60%">
+            <div class="cog"></div>
+            <div class="label">3</div>
+          </div>
+        </div>
+        <div class="pcard">
+          <h2>Il meccanismo</h2>
+          <p class="hint">
+            Gli ingranaggi si sono fermati. Rimettili in moto in ordine &mdash;
+            dal primo all'ultimo.
+          </p>
+          <div class="pfeedback" id="gearFb">&hellip;</div>
+          <div class="pactions">
+            <button class="link" id="gearBack">&larr; indietro</button>
+          </div>
+        </div>
+      </div>
 
-  <!-- ===== PUZZLE: INGRANAGGI ===== -->
-  <div class="puzzle" id="gearPuzzle">
-    <div class="zoombg" style="background-image:url('/assets/images/enigma-ingranaggi.jpg');"></div>
-    <div class="scrim"></div>
-    <div id="gearZones">
-      <div class="gear" data-order="1" style="left:37%;top:47%;"><div class="cog"></div><div class="label">1</div></div>
-      <div class="gear" data-order="2" style="left:56%;top:39%;"><div class="cog"></div><div class="label">2</div></div>
-      <div class="gear" data-order="3" style="left:62%;top:60%;"><div class="cog"></div><div class="label">3</div></div>
-    </div>
-    <div class="pcard">
-      <h2>Il meccanismo</h2>
-      <p class="hint">Gli ingranaggi si sono fermati. Rimettili in moto in ordine &mdash; dal primo all'ultimo.</p>
-      <div class="pfeedback" id="gearFb">&hellip;</div>
-      <div class="pactions"><button class="link" id="gearBack">&larr; indietro</button></div>
-    </div>
-  </div>
+      <!-- ===== PUZZLE: OROLOGIO ===== -->
+      <div class="puzzle" id="clockPuzzle">
+        <div
+          class="zoombg"
+          style="
+            background-image: url(&quot;/assets/images/enigma-orologio.png&quot;);
+          "
+        ></div>
+        <div class="scrim"></div>
+        <div class="pcard">
+          <h2>L'orologio di Nettuno</h2>
+          <p class="hint">
+            Si &egrave; fermato alla stessa ora di tutto il resto. Riportalo a
+            <em>03:25</em>.
+          </p>
+          <div id="clock">
+            <div class="pivot"></div>
+            <div class="hand" id="handM"></div>
+            <div class="hand" id="handH"></div>
+          </div>
+          <div class="dial">
+            <label>Ore</label
+            ><input type="range" id="rangeH" min="0" max="11" value="7" />
+          </div>
+          <div class="dial">
+            <label>Minuti</label
+            ><input
+              type="range"
+              id="rangeM"
+              min="0"
+              max="55"
+              step="5"
+              value="40"
+            />
+          </div>
+          <div class="pfeedback" id="clockFb">&hellip;</div>
+          <div class="pactions">
+            <button class="btn" id="clockOk" style="display: none">
+              Prosegui
+            </button>
+            <button class="link" id="clockBack">&larr; indietro</button>
+          </div>
+        </div>
+      </div>
 
-  <!-- ===== PUZZLE: OROLOGIO ===== -->
-  <div class="puzzle" id="clockPuzzle">
-    <div class="zoombg" style="background-image:url('/assets/images/enigma-orologio.jpg');"></div>
-    <div class="scrim"></div>
-    <div class="pcard">
-      <h2>L'orologio di Nettuno</h2>
-      <p class="hint">Si &egrave; fermato alla stessa ora di tutto il resto. Riportalo a <em>03:25</em>.</p>
-      <div id="clock"><div class="pivot"></div><div class="hand" id="handM"></div><div class="hand" id="handH"></div></div>
-      <div class="dial"><label>Ore</label><input type="range" id="rangeH" min="0" max="11" value="7"></div>
-      <div class="dial"><label>Minuti</label><input type="range" id="rangeM" min="0" max="55" step="5" value="40"></div>
-      <div class="pfeedback" id="clockFb">&hellip;</div>
-      <div class="pactions">
-        <button class="btn" id="clockOk" style="display:none;">Prosegui</button>
-        <button class="link" id="clockBack">&larr; indietro</button>
+      <!-- ===== INVENTARIO ===== -->
+      <div id="inventory">
+        <div class="invCard">
+          <div id="invListView">
+            <h2>Zaino</h2>
+            <div class="sub">Tocca un oggetto per vedere cos'è</div>
+            <div id="invGrid"></div>
+            <div id="invEmpty" style="display: none">
+              Non hai ancora raccolto nulla.
+            </div>
+          </div>
+          <div id="invDetail">
+            <div class="icon" id="invDetailIcon"></div>
+            <h3 id="invDetailName"></h3>
+            <p id="invDetailDesc"></p>
+            <button class="link" id="invBack">&larr; torna allo zaino</button>
+          </div>
+          <div id="invCloseWrap">
+            <button class="btn" id="invClose">Chiudi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== END CARD ===== -->
+      <div id="endcard">
+        <h2>Fine della bozza giocabile</h2>
+        <p id="endtext"></p>
+        <div style="margin-top: 30px">
+          <button class="btn" id="restart">Da capo</button>
+        </div>
+      </div>
+
+      <!-- ===== INTRO ===== -->
+      <div id="intro">
+        <p class="line" id="introLine"></p>
+        <button id="introSkip">salta &#9656;</button>
+      </div>
+
+      <!-- ===== OPTIONS ===== -->
+      <div id="options">
+        <div class="optCard">
+          <h2>Opzioni</h2>
+          <div class="optRow">
+            <label>Musica</label
+            ><input type="range" id="volMusic" min="0" max="100" value="55" />
+          </div>
+          <div class="optRow">
+            <label>Testo automatico</label
+            ><button class="toggle" id="toggleAuto" data-on="0">No</button>
+          </div>
+          <button class="btn" id="optBack" style="margin-top: 22px">
+            Indietro
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== TITLE SCREEN ===== -->
+      <audio id="themeAudio" loop preload="auto">
+        <source src="/assets/audio/theme.mp3" type="audio/mpeg" />
+      </audio>
+      <div id="title">
+        <div
+          class="bgpeek"
+          style="background-image: url(&quot;/assets/images/title-bg.png&quot;)"
+        ></div>
+        <div class="frame"></div>
+        <div class="titleMenu">
+          <nav class="menu">
+            <button class="menuBtn" id="newGameBtn">Nuova Partita</button>
+            <button class="menuBtn" id="continueBtn" disabled>Continua</button>
+            <button class="menuBtn" id="optionsBtn">Opzioni</button>
+          </nav>
+          <div class="credit">bozza &middot; prologo + nettuno</div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- ===== INVENTARIO ===== -->
-  <div id="inventory">
-    <div class="invCard">
-      <div id="invListView">
-        <h2>Zaino</h2>
-        <div class="sub">Tocca un oggetto per vedere cos'è</div>
-        <div id="invGrid"></div>
-        <div id="invEmpty" style="display:none;">Non hai ancora raccolto nulla.</div>
-      </div>
-      <div id="invDetail">
-        <div class="icon" id="invDetailIcon"></div>
-        <h3 id="invDetailName"></h3>
-        <p id="invDetailDesc"></p>
-        <button class="link" id="invBack">&larr; torna allo zaino</button>
-      </div>
-      <div id="invCloseWrap"><button class="btn" id="invClose">Chiudi</button></div>
-    </div>
-  </div>
-
-  <!-- ===== END CARD ===== -->
-  <div id="endcard">
-    <h2>Fine della bozza giocabile</h2>
-    <p id="endtext"></p>
-    <div style="margin-top:30px;"><button class="btn" id="restart">Da capo</button></div>
-  </div>
-
-  <!-- ===== INTRO ===== -->
-  <div id="intro"><p class="line" id="introLine"></p><button id="introSkip">salta &#9656;</button></div>
-
-  <!-- ===== OPTIONS ===== -->
-  <div id="options">
-    <div class="optCard">
-      <h2>Opzioni</h2>
-      <div class="optRow"><label>Musica</label><input type="range" id="volMusic" min="0" max="100" value="55"></div>
-      <div class="optRow"><label>Testo automatico</label><button class="toggle" id="toggleAuto" data-on="0">No</button></div>
-      <button class="btn" id="optBack" style="margin-top:22px;">Indietro</button>
-    </div>
-  </div>
-
-  <!-- ===== TITLE SCREEN ===== -->
-  <audio id="themeAudio" loop preload="auto"><source src="/assets/audio/theme.mp3" type="audio/mpeg"></audio>
-  <div id="title">
-    <div class="bgpeek" style="background-image:url('/assets/images/title-bg.jpg');"></div>
-    <div class="frame"></div>
-    <div class="titleMenu">
-      <div class="kicker">un piccolo gioco sulla memoria</div>
-      <h1>IL TEMPO FERMO<span class="small">03 : 25</span></h1>
-      <nav class="menu">
-        <button class="menuBtn" id="newGameBtn">Nuova Partita</button>
-        <button class="menuBtn" id="continueBtn" disabled>Continua</button>
-        <button class="menuBtn" id="optionsBtn">Opzioni</button>
-      </nav>
-      <div class="credit">bozza &middot; prologo + nettuno</div>
-    </div>
-  </div>
-
-</div>
-
-<script type="module" src="/src/main.js"></script>
-</body>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
