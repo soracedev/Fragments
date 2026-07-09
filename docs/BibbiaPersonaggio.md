@@ -41,13 +41,13 @@ Da spargere (con misura) per farla suonare vera:
 
 ## 4. Palette emoji (con significato)
 
-| Emoji    | Quando                                                  |
-| -------- | ------------------------------------------------------- |
-| 😂 🤣 💀 | difesa/sdrammatizzazione — le più frequenti in assoluto |
-| 🫠       | "mi sto sciogliendo", imbarazzo/disagio ironico         |
-| 😭 🥺 😔 | tenerezza o sconforto vero (guardia abbassata)          |
-| ❤️ 🦊    | affetto — **la volpe è la sua firma** (vedi §8)         |
-| 🤔 🙄 👀 | commento, scetticismo, sguardo obliquo                  |
+| Emoji    | Quando                                                            |
+| -------- | ----------------------------------------------------------------- |
+| 😂 🤣 💀 | difesa/sdrammatizzazione — le più frequenti in assoluto           |
+| 🫠       | "mi sto sciogliendo", imbarazzo/disagio ironico                   |
+| 😭 🥺 😔 | tenerezza o sconforto vero (guardia abbassata)                    |
+| ❤️ 🦊    | affetto — la volpe è un rito reale tra loro (non usata nel gioco) |
+| 🤔 🙄 👀 | commento, scetticismo, sguardo obliquo                            |
 
 Emoticon testuali sue: **"ç.ç"** (piangere), **"v.v"**, **"=\_="**.
 
@@ -109,19 +109,7 @@ Ognuna parla con la SUA voce, ma incastrata in un solo polo/difetto — così le
 
 ---
 
-## 8. Il motivo della VOLPE 🦊
-
-La volpe è la sua firma affettiva reale (la usa per i "buonanotte ❤️🦊").
-**Proposta di design:** l'animale-guida del gioco è una **volpe**, non un gatto.
-
-- È la presenza che la vede da sempre — coerente con "non sei invisibile, io ti ho sempre vista".
-- Non parla come le manifestazioni: comunica con presenza, gesti, comparse nei momenti giusti.
-- Ricompare in tutti e tre i mondi = continuità visiva ed emotiva lungo tutto il gioco.
-- Chiude il cerchio: la guida _è_ un pezzo di lei (e un segno privato tra voi due).
-
----
-
-## 9. Cosa NON fare (per non "romperla")
+## 8. Cosa NON fare (per non "romperla")
 
 - ❌ Frasi lunghe, liriche, da narratore. Lei non parla così.
 - ❌ Retorica motivazionale esplicita ("credi in te stessa!"). La ucciderebbe. Il messaggio passa per la metafora e per l'azione, mai per la predica.
@@ -131,7 +119,7 @@ La volpe è la sua firma affettiva reale (la usa per i "buonanotte ❤️🦊").
 
 ---
 
-## 10. Micro-esempi di calibrazione (voce neutra, solo per il ritmo)
+## 9. Micro-esempi di calibrazione (voce neutra, solo per il ritmo)
 
 Frammenti reali non intimi, utili solo a sentire la cadenza:
 

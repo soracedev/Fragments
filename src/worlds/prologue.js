@@ -1,18 +1,19 @@
 // ============================================================
-// PROLOGO — intro + prima interazione nella camera.
+// PROLOGO — P0 monologo a schermo nero + P1 camera da letto.
 // ============================================================
 
 import { S, writeSave } from '../state.js';
-import { $, speak, P, SG, show } from '../engine.js';
+import { $, speak, P, SG, show, setHS, fadeWhite, isDialogueLocked } from '../engine.js';
+import { arrivePiazza } from './mondo1.js';
 
-// ---- Testo introduttivo (riscrivibile con parole tue) ----
+// ---- P0 · Monologo a schermo nero ----
 
 const INTRO_LINES = [
-  "Ti sei svegliata, ma qualcosa non torna.",
-  "Il telefono segna sempre la stessa ora. 03:25.",
-  "Non c\u2019\u00e8 vento. Non cantano gli uccelli. Non c\u2019\u00e8 nessun suono.",
-  "Come se il tempo, qui, avesse deciso di fermarsi.",
-  "\u2014 o come se qualcuno gli avesse chiesto di farlo."
+  "Ricordo solo che stavo scrollando YouTube cercando chissà cosa...",
+  "Poi le 3:00 di notte. Non ho sonno, ma decido di andare a dormire.",
+  "Metto la sveglia per domani mattina. Vorrei provare a impegnare la giornata, concludendo qualcosa... Sì. Ma cosa?",
+  "Senza rendermene conto chiudo gli occhi. Al risveglio c'era qualcosa di strano — non saprei descriverlo.",
+  "Era come se il tempo stesso fosse fermo. Un silenzio quasi inquietante.",
 ];
 
 let introIdx = 0;
@@ -51,22 +52,74 @@ export function initIntro() {
   $('#introSkip').addEventListener('click', endIntro);
 }
 
-// ---- Prologo vero e proprio ----
+// ---- P1 · Camera da letto ----
 
 function startPrologue() {
   $('#hud').classList.add('show');
   show('hub');
 
   speak([
-    P("Ok."),
-    P("Ok, non \u00e8 ok. Manca qualcosa."),
-    SG("La stanza \u00e8 immobile. Nessun'ombra si muove. Il telefono sul comodino segna le 03:25."),
-    P("Le 03:25. Anche ieri. Anche l'altro ieri, mi pare \u2014 boh, non lo so nemmeno pi\u00f9."),
-    SG("Sul davanzale, qualcosa di rossiccio guizza e sparisce dietro l'angolo."),
-    P("...c'era qualcosa l\u00ec? Vabb\u00e8."),
-  ], () => {
-    S.flags.prologueDone = true;
-    writeSave();
-    if (typeof window.__refreshHotspots === 'function') window.__refreshHotspots();
+    P('Ok.'),
+    P('Ok, non è ok. Manca qualcosa.'),
+    SG("La stanza è immobile. Luce piatta, nessun'ombra viva. Sul letto il gatto dorme beato — l'unica cosa che sembra normale qui dentro."),
+    P('Non ha suonato la sveglia. Che strano...'),
+  ], refreshPrologueHotspots);
+}
+
+// I quattro hotspot sono sempre attivi: nessun ordine imposto.
+export function refreshPrologueHotspots() {
+  if (S.scene !== 'hub') return;
+  setHS('gatto', true);
+  setHS('telefono', true);
+  setHS('finestra', true);
+  setHS('porta', true);
+}
+
+const ACTIONS = {
+  'gatto': () => speak([P('Beato tu che dormi. Bella la vita eh?')]),
+
+  'telefono': () => {
+    if (S.flags.checkedPhone) {
+      speak([P('Niente da fare, sembra bloccato. Segna sempre le 3:00.')]);
+      return;
+    }
+    speak([
+      P('...?!?'),
+      P('Le 3:00 del mattino? Impossibile, di fuori è giorno e ricordo di essermi addormentata.'),
+      P('Niente da fare, sembra bloccato. A quanto pare non prende né internet né la linea del telefono. Sai che novità.'),
+      P('Fammi andare a controllare giù da mia nonna. Con il suo WiFi dovrei riuscire a collegarmi.'),
+    ], () => {
+      S.flags.checkedPhone = true;
+      writeSave();
+    });
+  },
+
+  'finestra': () => {
+    if (S.flags.checkedWindow) {
+      speak([P('Non so dire se sia rilassante o meno.')]);
+      return;
+    }
+    speak([
+      P('Che tempo strano, mai vista tutta questa nebbia. Non si sentono nemmeno gli uccellini o il rumore del vento.'),
+      P('Non so dire se sia rilassante o meno.'),
+    ], () => {
+      S.flags.checkedWindow = true;
+      writeSave();
+    });
+  },
+
+  'porta': () => speak([
+    P('È il momento di alzarsi.'),
+  ], () => fadeWhite(() => { show('piazza'); arrivePiazza(); })),
+};
+
+export function initPrologueHotspots() {
+  window.__refreshPrologueHotspots = refreshPrologueHotspots;
+
+  $('#stage').addEventListener('click', e => {
+    const h = e.target.closest('.hotspot');
+    if (!h || isDialogueLocked()) return;
+    const action = h.dataset.action;
+    if (ACTIONS[action]) ACTIONS[action]();
   });
 }

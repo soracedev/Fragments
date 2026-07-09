@@ -5,8 +5,21 @@
 
 export const S = {
   scene: 'hub',
-  has: { lancetta: false, orologioTasca: false },
-  flags: { prologueDone: false, arrivedPiazza: false, clockFixed: false, leiResisted: false },
+  has: {
+    ingranaggio: false, // N3 fontana → sblocca il minigioco saracinesca
+    lancetta: false,    // N2 saracinesca → serve all'orologio di N1
+    chiave: false,      // N1 orologio riparato → apre la porta della Casa
+    dado: false,        // Casa (WIP) → sblocca la figura sulla spiaggia
+  },
+  flags: {
+    checkedPhone: false,
+    checkedWindow: false,
+    talkedToFigure: false,
+    shutterOpened: false,
+    clockFixed: false,
+    readNote: false,
+    dadoGifted: false,
+  },
   dice: [],
   inventory: [],
   warmth: 0,

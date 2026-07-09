@@ -1,130 +1,211 @@
 // ============================================================
 // MONDO 1 — NETTUNO (La Città Ferma)
-// Tutte le azioni degli hotspot di questo mondo, dialoghi con
-// Lei-Nettuno, e logica di avanzamento.
+//
+// Quattro location collegate:
+//   N1 piazza   — orologio, figura misteriosa, porta della Casa
+//   N2 vicolo   — saracinesca (serve l'ingranaggio) → lancetta
+//   N3 nettuno  — fontana: ingranaggio + bigliettino
+//   N4 spiaggia — secondo incontro con la figura (serve il dado)
 // ============================================================
 
 import { S, writeSave } from '../state.js';
-import { $, speak, show, setHS, hs, P, L, SG, FX, say, isDialogueLocked } from '../engine.js';
-import { openGear } from '../puzzles/gears.js';
+import { $, speak, show, setHS, hs, fadeWhite, setWarmth, collectDie, P, L, SG, isDialogueLocked } from '../engine.js';
+import { openShutter } from '../puzzles/shutter.js';
 import { openClock } from '../puzzles/clock.js';
+import { openCloseup } from '../closeup.js';
+import { addItem } from '../inventory.js';
+
+// La Casa non è ancora stata progettata: senza di lei il DADO non è
+// ottenibile e la figura sulla spiaggia non comparirebbe mai. Finché
+// dura, la porta della Casa consegna il dado direttamente.
+// → Metti a false quando la Casa esisterà davvero.
+const DEBUG_DADO_DALLA_CASA = true;
+
+const TESTO_BIGLIETTINO =
+  "Ma l'acqua qui dentro è solo bella da vedere? Serve a qualcosa? " +
+  'Mi sento un po’ come quest’acqua.';
 
 // ---- Hotspot refresh (specifico per questo mondo) ----
 
 export function refreshHotspots() {
-  if (S.scene === 'hub') {
-    setHS('hub-desk', S.flags.prologueDone);
-    setHS('hub-window', S.flags.prologueDone);
-    setHS('hub-door', S.flags.prologueDone);
-  }
   if (S.scene === 'piazza') {
-    setHS('lei', true);
-    setHS('piazza-clock', S.flags.arrivedPiazza);
-    setHS('fox-vicolo', S.flags.arrivedPiazza && !S.has.lancetta);
-    setHS('to-vicolo', S.flags.arrivedPiazza);
-    setHS('to-negozio', S.flags.clockFixed && S.flags.leiResisted);
+    const t = S.flags.talkedToFigure;
+    setHS('figura', t);
+    setHS('piazza-clock', t);
+    setHS('to-vicolo', t);
+    setHS('to-nettuno', t);
+    setHS('porta-casa', S.flags.clockFixed);
     if (hs('piazza-clock')) hs('piazza-clock').classList.toggle('done', S.flags.clockFixed);
   }
+
+  if (S.scene === 'spiaggia') {
+    setHS('figura-spiaggia', S.has.dado && !S.flags.dadoGifted);
+  }
 }
 
-// ---- Arrivo in piazza ----
+// ---- N1 · Arrivo in piazza (dialogo automatico) ----
 
-function arrivePiazza() {
-  S.flags.arrivedPiazza = true;
+export function arrivePiazza() {
   writeSave();
   refreshHotspots();
+  // Il dialogo d'arrivo si gioca una volta sola: rientrando in piazza
+  // dalla camera (dopo la spiaggia) la scena è già "conosciuta".
+  if (S.flags.talkedToFigure) return;
   speak([
-    SG("La piazza di Nettuno. Foschia bassa, l'orologio pubblico fermo. Su una panchina, seduta, una ragazza dallo sguardo basso."),
-    P("Ah. Ok, quindi \u00e8 tipo cos\u00ec che funziona."),
-  ], () => talkLei(true));
+    P('Ma cosa...?'),
+    P('Sto sognando, è impossibile!'),
+    P("Ho avuto un'amnesia o qualcosa di simile? Come sono finita in piazza?"),
+    P('Stranamente però non mi sento agitata...'),
+    SG("Un'ombra: una figura poco distinta, seduta su una panchina vicino all'orologio."),
+    P('Ok, sono sicura che quella cosa non fosse lì fino a poco fa.'),
+    P('Ehi. Scusami? Sai dirmi dove siamo?'),
+    L('Ehi. Se sei venuta a dirmi che devo «reagire», puoi anche tornare da dove sei venuta.'),
+    P('No, tranquilla. Non sono neanche brava a dirlo a me, figurati a te.'),
+    L("Vedi quell'orologio? È fermo da... non lo so. Ho smesso di controllare, credo."),
+    L('Comunque va bene così. Tanto anche se riparte, poi si rompe di nuovo. No?'),
+    P('Manca la lancetta piccola. Tutto qui?'),
+    P('Pensi che io sia in grado di poter uscire da qualunque sia questo posto e tornare a casa mia, se lo aggiusto?'),
+    L('Non saprei. Prova pure. Io resto qui.'),
+    P('Va bene, va bene. Ti lascio ai tuoi pensieri.'),
+  ], () => {
+    S.flags.talkedToFigure = true;
+    writeSave();
+    refreshHotspots();
+  });
 }
 
-// ---- Dialoghi con Lei-Nettuno ----
+// ---- Dialoghi ripetibili con la figura (N1) ----
 
-function talkLei(first) {
-  if (S.flags.clockFixed && !S.has.orologioTasca && S.flags.leiResisted) {
-    speak([
-      L("Ok, riparte. E quindi?"),
-      L("Va bene, eh. Sul serio. Solo... non \u00e8 che uno \u00abriparte\u00bb cos\u00ec, perch\u00e9 un orologio ticchetta di nuovo."),
-    ]);
+function talkFigure() {
+  if (S.flags.clockFixed) {
+    speak([L('Va bene, eh. Sul serio. Solo... non è che uno «riparte» così, perché un orologio ticchetta di nuovo.')]);
     return;
   }
-  if (first) {
-    speak([
-      P("Ehi."),
-      L("Ehi. Se sei venuta a dirmi che devo \u00abreagire\u00bb, puoi anche tornare da dove sei venuta."),
-      P("No, tranquilla. Non sono neanche brava a dirlo a me, figurati a te."),
-      L("L'orologio \u00e8 fermo da... non lo so. Da quando ho smesso di controllare, credo."),
-      L("Comunque va bene cos\u00ec. Tanto anche se riparte, poi si rompe di nuovo. No?"),
-      P("Manca la lancetta piccola. Tutto qui?"),
-      L("Boh. Prova pure. Io resto qui."),
-      FX("Sul muretto in fondo, una volpe si \u00e8 seduta. Guarda verso la traversa a sinistra."),
-    ], () => {
-      setHS('fox-vicolo', true);
-      refreshHotspots();
-    });
-  } else {
-    speak([L("Sono ancora qui. Non vado da nessuna parte, tranquilla.")]);
-  }
+  speak([L('Se vuoi riparare l’orologio, fa pure. A me non cambia nulla, credo.')]);
 }
 
-// ---- Fine bozza (placeholder per il negozio) ----
+// ---- N4 · Secondo incontro con la figura ----
 
-function showEnd() {
-  $('#endtext').textContent =
-    "L'orologio di Nettuno batte di nuovo le ore, e una finestra si \u00e8 accesa. " +
-    "Il primo dado \u00e8 tuo. Da qui la storia prosegue nel vecchio negozio \u2014 " +
-    "e verso i due mondi che restano.";
-  $('#endcard').classList.add('show');
+function talkFigureBeach() {
+  speak([
+    P('Alla fine vedo che ti sei mossa.'),
+    L('O magari sono sempre stata qui. Ferma a contemplare il vuoto.'),
+    L('Boh, non ci faccio più caso a dove sto. Tanto non cambia niente.'),
+    P("Sono proprio sicura di averti visto vicino all'orologio poco fa."),
+    L('Ha ripreso a ticchettare. Il tempo scorre, ed io resto immobile.'),
+    L('Forse è più facile così. Magari è l’unica cosa che mi riesce bene.'),
+    SG('Nox tira fuori il dado che ha trovato nella casa.'),
+    P('...Questo è tuo? Lo hai fatto tu? È molto bello.'),
+    SG('La figura trasale per un attimo, quasi a mostrare un’emozione.'),
+    L('Non è niente di che. È pieno di imperfezioni.', 'FiguraMisteriosa_neutral2'),
+    P('Non sono forse quelle a renderlo unico?'),
+    P('E comunque questo smentisce il fatto che tu sia capace solo a restare immobile.'),
+    L('...', 'FiguraMisteriosa_neutral2'),
+    SG("L'ombra fissa Nox intensamente."),
+    L('Tu dici? Sarà... Vabbè, per questa volta te lo regalo. Puoi tenerlo.', 'FiguraMisteriosa_neutral2'),
+  ], () => {
+    S.flags.dadoGifted = true;
+    collectDie(1);
+    writeSave();
+    fadeWhite(() => {
+      show('hub');
+      setWarmth(1);
+      writeSave();
+      refreshHotspots();
+      if (typeof window.__refreshPrologueHotspots === 'function') window.__refreshPrologueHotspots();
+    }, 1000);
+  });
 }
 
 // ---- Mappa azioni hotspot ----
 
 const ACTIONS = {
-  // --- HUB ---
-  'hub-desk': () => speak([
-    P("Le 03:25. Da qui non si muove."),
-    P("Se la risposta fosse in questa stanza, l'avrei gi\u00e0 trovata. Immagino."),
-  ]),
-  'hub-window': () => speak([
-    SG("Fuori, tutto \u00e8 fermo. Nemmeno una foglia."),
-    P("Manco un albero che si muove. Comunque bel panorama da incubo, complimenti a chi l'ha scelto."),
-  ]),
-  'hub-door': () => speak([
-    P("Va bene. O esco, o resto qui a fissare un orologio rotto. Detta cos\u00ec sembra facile."),
-  ], () => { show('piazza'); arrivePiazza(); }),
-
-  // --- PIAZZA ---
-  'lei': () => talkLei(false),
-  'fox-vicolo': () => speak([
-    FX("La volpe \u00e8 seduta su un muretto. Ti guarda, poi si volta verso la traversa a sinistra della piazza."),
-    P("Va bene, va bene, ho capito. Di l\u00e0."),
-  ], () => { setHS('to-vicolo', true); }),
+  // --- N1 PIAZZA DELL'OROLOGIO ---
+  'figura': talkFigure,
   'to-vicolo': () => show('vicolo'),
+  'to-nettuno': () => { show('nettuno'); refreshHotspots(); },
+
   'piazza-clock': () => {
-    if (S.flags.clockFixed) { speak([P("Ticchetta di nuovo. Un rumore quasi dimenticato.")]); return; }
-    if (!S.has.lancetta) { speak([P("Manca la lancetta piccola. Devo trovarla prima.")]); return; }
+    if (S.flags.clockFixed) { speak([P('Ticchetta di nuovo. Un rumore quasi dimenticato.')]); return; }
+    if (!S.has.lancetta) {
+      speak([P("Manca la lancetta delle ore all'orologio. Forse riparandolo potrei uscire da questo posto.")]);
+      return;
+    }
     openClock();
   },
-  'to-negozio': () => speak([
-    SG("Una finestra prima buia, in fondo alla piazza, ora \u00e8 illuminata."),
-  ], showEnd),
 
-  // --- VICOLO ---
-  'saracinesca': () => {
-    if (S.has.lancetta) { speak([P("Ho gi\u00e0 preso quello che serviva, qui.")]); return; }
+  'porta-casa': () => {
+    if (S.has.dado) { speak([P('Sono già stata dentro. Il buio è rimasto dov’era.')]); return; }
+    if (!DEBUG_DADO_DALLA_CASA) {
+      speak([P('Si apre. Dietro, solo buio. Direi che per oggi mi fermo qui.')]);
+      return;
+    }
     speak([
-      SG("Una vecchia saracinesca arrugginita, mezza abbassata. Sotto, qualcosa di metallico incastrato."),
-      P("C'\u00e8 qualcosa l\u00ec sotto. Ovviamente nel punto pi\u00f9 scomodo possibile."),
-    ], openGear);
+      P('Si apre. Dietro, solo buio. Direi che per oggi mi fermo qui.'),
+      SG('[SEGNAPOSTO DI SVILUPPO] La Casa non è ancora stata scritta. Per ora Nox ne esce con un dado di resina in tasca.'),
+    ], () => {
+      S.has.dado = true;
+      addItem('dado1');
+      writeSave();
+      refreshHotspots();
+    });
   },
-  'vicolo-back': () => show('piazza'),
+
+  // --- N2 VICOLO SARACINESCA ---
+  'saracinesca': () => {
+    if (S.has.lancetta) { speak([P('Ho già preso quello che mi serviva, qui.')]); return; }
+    if (!S.has.ingranaggio) {
+      speak([
+        P('Una vecchia saracinesca. Sembra esserci qualcosa incastrato lì sotto, ovviamente nel punto più scomodo possibile.'),
+        P('Il meccanismo per alzarla sembra rotto, forse manca qualcosa...'),
+      ]);
+      return;
+    }
+    speak([
+      P('Una vecchia saracinesca. Sembra esserci qualcosa incastrato lì sotto, ovviamente nel punto più scomodo possibile.'),
+      P('Forse con questo potrebbe aprirsi...'),
+    ], openShutter);
+  },
+  'vicolo-back': () => { show('piazza'); refreshHotspots(); },
+
+  // --- N3 PIAZZA DEL DIO NETTUNO ---
+  'ingranaggio': () => {
+    if (S.has.ingranaggio) { speak([P('La fontana è vuota. Solo alghe, e acqua che non va da nessuna parte.')]); return; }
+    speak([
+      P('Un vecchio ingranaggio dentro una fontana? Potrebbe tornarmi utile.'),
+    ], () => {
+      S.has.ingranaggio = true;
+      addItem('ingranaggio');
+      writeSave();
+      refreshHotspots();
+    });
+  },
+
+  'bigliettino': () => {
+    openCloseup({ image: '/assets/images/bigliettino.png', text: TESTO_BIGLIETTINO }, () => {
+      if (S.flags.readNote) return;
+      S.flags.readNote = true;
+      writeSave();
+      speak([P('Chi l’ha scritto non stava parlando dell’acqua.')]);
+    });
+  },
+
+  'to-spiaggia': () => { show('spiaggia'); refreshHotspots(); },
+  'nettuno-back': () => { show('piazza'); refreshHotspots(); },
+
+  // --- N4 SPIAGGIA DEGLI SCOGLI ---
+  'spiaggia-cielo': () => speak([
+    P('Certo che questo posto senza nessuno in giro è uno spettacolo.'),
+    P('Magari fosse sempre così.'),
+  ]),
+  'figura-spiaggia': talkFigureBeach,
+  'spiaggia-back': () => { show('nettuno'); refreshHotspots(); },
 };
 
-// ---- Callback per puzzles (bridge tra moduli) ----
+// ---- Callback per i puzzle (bridge fra moduli) ----
 
 window.__refreshHotspots = refreshHotspots;
-window.__onClockDone = () => { setHS('to-negozio', true); };
+window.__onClockDone = refreshHotspots;
 
 // ---- Init: listener unico sullo stage ----
 
@@ -135,8 +216,6 @@ export function initMondo1() {
     const action = h.dataset.action;
     if (ACTIONS[action]) ACTIONS[action]();
   });
-
-  $('#restart').addEventListener('click', () => location.reload());
 
   refreshHotspots();
 }

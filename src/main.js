@@ -3,11 +3,12 @@
 // ============================================================
 
 import { S, hasSave, readSave, writeSave } from './state.js';
-import { $, show, collectDie, say, initParallax, initDust } from './engine.js';
+import { $, show, collectDie, say, setWarmth, initParallax, initDust } from './engine.js';
 import { refreshBackpackBadge, initInventoryUI } from './inventory.js';
-import { initGearPuzzle } from './puzzles/gears.js';
+import { initCloseup } from './closeup.js';
+import { initShutterPuzzle } from './puzzles/shutter.js';
 import { initClockPuzzle } from './puzzles/clock.js';
-import { runIntro, initIntro } from './worlds/prologue.js';
+import { runIntro, initIntro, initPrologueHotspots, refreshPrologueHotspots } from './worlds/prologue.js';
 import { initMondo1, refreshHotspots } from './worlds/mondo1.js';
 
 // ---- Attendi il DOM ----
@@ -17,9 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initParallax();
   initDust();
   initInventoryUI();
-  initGearPuzzle();
+  initCloseup();
+  initShutterPuzzle();
   initClockPuzzle();
   initIntro();
+  initPrologueHotspots();
   initMondo1();
 
   // ---- Title Screen ----
@@ -66,6 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
     closeTitle();
     $('#hud').classList.add('show');
     show(S.scene || 'hub');
+    setWarmth(S.warmth || 0);
+    refreshPrologueHotspots();
     refreshHotspots();
     refreshBackpackBadge();
     (S.dice || []).forEach(n => {

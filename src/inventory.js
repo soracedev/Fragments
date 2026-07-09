@@ -9,15 +9,25 @@ import { S, writeSave } from './state.js';
 import { $ } from './engine.js';
 
 export const ITEM_DB = {
+  ingranaggio: {
+    icon: '⚙️',
+    name: 'Ingranaggio arrugginito',
+    desc: "Ripescato dalla fontana del Dio Nettuno. Denti consumati, ruggine ovunque, eppure gira ancora. Sembra fatto apposta per un meccanismo rimasto scoperto da qualche parte.",
+  },
   lancetta: {
     icon: '\u{1F550}',
-    name: "Lancetta d'orologio",
-    desc: "Una piccola lancetta di ferro battuto, trovata incastrata dietro la saracinesca del vicolo. È servita a rimettere in moto l'orologio di Nettuno.",
+    name: 'Lancetta delle ore',
+    desc: "Una piccola lancetta di ferro battuto, trovata sotto la saracinesca del vicolo. È quella corta: quella che segna le ore, non i minuti.",
+  },
+  chiave: {
+    icon: '\u{1F511}',
+    name: 'Chiave',
+    desc: "Caduta da dietro il quadrante nel momento esatto in cui l'orologio è ripartito. Qualcuno l'aveva lasciata lì perché qualcuno, prima o poi, lo aggiustasse.",
   },
   dado1: {
     icon: '\u{1F3B2}',
-    name: 'Dado di resina \u2014 I',
-    desc: "Il primo dado, trovato incastonato nel meccanismo dell'orologio riparato. Non è un difetto: le piccole imperfezioni sono la firma di un pezzo fatto a mano.",
+    name: 'Dado di resina — I',
+    desc: "Il primo dado. Le piccole imperfezioni non sono difetti: sono la firma di un pezzo fatto a mano.",
   },
   // ---- MONDO 2 e 3: aggiungi qui ----
 };

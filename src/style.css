@@ -2,10 +2,14 @@
   *{ box-sizing:border-box; margin:0; padding:0; }
   html,body{ height:100%; overflow:hidden; background:#0e0f14; }
   body{ font-family:ui-serif,Georgia,'Times New Roman',serif; color:var(--ink);
-        -webkit-user-select:none; user-select:none; touch-action:manipulation; }
+        -webkit-user-select:none; user-select:none; touch-action:manipulation;
+        display:flex; align-items:center; justify-content:center; }
 
+  /* overflow:clip, non hidden: `hidden` resta un contenitore scrollabile, e il
+     browser lo scrolla per portare in vista un bottone che prende il focus —
+     .layer sborda del 3% per il parallax, così tutta la scena slittava di ~29px. */
   #stage{ position:relative; width:100vw; height:100vh; aspect-ratio:4/3;
-          max-width:960px; max-height:720px; margin:auto; overflow:hidden; background:#14151c; }
+          max-width:960px; max-height:720px; overflow:hidden; overflow:clip; background:#14151c; }
   @media(min-aspect-ratio:4/3){ #stage{ width:auto; height:100vh; } }
 
   .scene{ position:absolute; inset:0; opacity:0; transition:opacity 1.1s ease; pointer-events:none; }
@@ -25,8 +29,6 @@
   .hotspot.hidden{ display:none; }
   .hotspot.back .ring{ width:38px; height:38px; border-style:dashed; }
   .hotspot.char .ring{ width:80px; height:120px; border-radius:44% 44% 40% 40%; border-color:rgba(242,217,168,.35); }
-  .hotspot.fox .ring{ width:46px; height:46px; border-color:rgba(201,138,107,.7); }
-  .hotspot.fox .dot{ background:var(--accent); }
 
   .btn{ font-family:inherit; font-size:14px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink);
     background:rgba(20,21,28,.5); border:1px solid var(--muted); padding:12px 26px; cursor:pointer; transition:.3s; }
@@ -76,6 +78,11 @@
   #introSkip:hover{ opacity:1; color:var(--glow); }
   @keyframes fadeUp{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
 
+  /* DISSOLVENZA BIANCA (transizioni fra scene) */
+  #whiteout{ position:absolute; inset:0; z-index:45; background:#f4f1ea; opacity:0;
+    pointer-events:none; transition:opacity .7s ease; }
+  #whiteout.on{ opacity:1; }
+
   /* CHARACTER PORTRAITS */
   .portrait{ position:absolute; bottom:0; width:42%; height:60%; z-index:20;
     background-repeat:no-repeat; background-size:contain; background-position:bottom center;
@@ -92,11 +99,18 @@
     border:1px solid rgba(139,142,163,.28); border-top:2px solid rgba(242,217,168,.4); padding:16px 22px 18px; border-radius:4px; animation:boxUp .35s ease both; }
   @keyframes boxUp{ from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:none;} }
   #dialogue .who{ font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin-bottom:7px; }
-  #dialogue .who.prot{ color:var(--glow); } #dialogue .who.fox{ color:#c98a6b; }
+  #dialogue .who.prot{ color:var(--glow); }
   #dialogue .txt{ font-size:17px; line-height:1.55; min-height:1.5em; }
   #dialogue .txt.stage{ font-style:italic; color:var(--muted); font-size:15.5px; }
   #dialogue .next{ position:absolute; right:14px; bottom:10px; font-size:12px; color:var(--muted); letter-spacing:.15em; animation:blink 1.4s ease-in-out infinite; }
   @keyframes blink{ 0%,100%{opacity:.3;} 50%{opacity:.9;} }
+
+  /* NARRAZIONE BREVE */
+  #narrBox{ position:absolute; left:50%; bottom:26px; transform:translateX(-50%); z-index:38;
+    max-width:70%; text-align:center; font-size:14px; letter-spacing:.06em; color:var(--muted);
+    background:rgba(12,13,18,.72); border:1px solid rgba(139,142,163,.2); padding:9px 18px; border-radius:3px;
+    opacity:0; pointer-events:none; transition:opacity .5s ease; }
+  #narrBox.show{ opacity:1; }
 
   /* HUD */
   #hud{ position:absolute; top:14px; right:14px; z-index:35; display:flex; gap:8px; align-items:center; opacity:0; transition:opacity 1s; }
@@ -135,6 +149,16 @@
   #invDetail p{ font-size:14px; line-height:1.6; color:var(--ink); margin-bottom:20px; }
   #invCloseWrap{ margin-top:16px; text-align:center; }
 
+  /* CLOSEUP — vista ravvicinata di un oggetto (bigliettino, incisioni, ...) */
+  #closeup{ position:absolute; inset:0; z-index:64; display:none; align-items:center; justify-content:center;
+    background:rgba(8,9,13,.94); backdrop-filter:blur(5px); }
+  #closeup.open{ display:flex; }
+  .cuWrap{ display:flex; flex-direction:column; align-items:center; gap:6px; max-height:92%; animation:fadeUp .5s both; }
+  .cuImage{ position:relative; width:min(300px,68vw); aspect-ratio:1200/1818; max-height:74vh;
+    background-size:contain; background-repeat:no-repeat; background-position:center;
+    display:flex; align-items:center; justify-content:center; padding:16% 14%; }
+  .cuText{ font-size:clamp(12px,2.1vw,15px); line-height:1.75; text-align:center; color:#2b2519;
+    font-style:italic; text-wrap:balance; }
 
   /* PUZZLE GENERIC */
   .puzzle{ position:absolute; inset:0; z-index:50; display:none; align-items:flex-end; justify-content:center; }
@@ -151,51 +175,33 @@
   .link{ background:none; border:0; color:var(--muted); font-family:inherit; font-size:12px; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; padding:10px; }
   .link:hover{ color:var(--ink); }
 
-  /* GEAR puzzle — ingranaggi in vero CSS 3D (perspective + preserve-3d, niente librerie) */
-  #gearZones{ position:absolute; inset:0; z-index:2; perspective:900px; }
-  .gear{ position:absolute; width:78px; height:78px; transform-style:preserve-3d;
-    transform:translate(-50%,-50%) rotateX(38deg); cursor:pointer; transition:filter .25s; }
-  .gear .cog{ position:absolute; inset:0; border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, #5a5e6e, #2a2c37 70%);
-    clip-path: polygon(
-      50% 0%, 58% 0%, 61% 10%, 71% 6%, 76% 15%, 87% 15%, 89% 26%,
-      100% 31%, 96% 42%, 100% 50%, 96% 58%, 100% 69%, 89% 74%,
-      87% 85%, 76% 85%, 71% 94%, 61% 90%, 58% 100%, 42% 100%,
-      39% 90%, 29% 94%, 24% 85%, 13% 85%, 11% 74%, 0% 69%,
-      4% 58%, 0% 50%, 4% 42%, 0% 31%, 11% 26%, 13% 15%, 24% 15%,
-      29% 6%, 39% 10%);
-    box-shadow: inset 0 3px 6px rgba(255,255,255,.12), inset 0 -6px 10px rgba(0,0,0,.5);
-    border:1px solid rgba(139,142,163,.35); }
-  .gear .cog::before{ content:''; position:absolute; inset:26%; border-radius:50%;
-    background:radial-gradient(circle at 40% 35%, #3a3d4f, #1c1e28 75%);
-    box-shadow: inset 0 2px 4px rgba(0,0,0,.6); }
-  .gear .label{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    color:var(--glow); font-size:14px; letter-spacing:.1em; transform:translateZ(2px); pointer-events:none; }
-  .gear:hover .cog{ filter:brightness(1.25); }
-  .gear.lit{ animation:cogSpin3d 2.6s linear infinite; }
-  .gear.lit .cog{ background:radial-gradient(circle at 35% 30%, rgba(242,217,168,.55), rgba(201,138,107,.5) 70%);
-    box-shadow: inset 0 3px 6px rgba(255,255,255,.35), inset 0 -6px 10px rgba(0,0,0,.4), 0 0 20px rgba(201,138,107,.55); }
-  @keyframes cogSpin3d{
-    from{ transform:translate(-50%,-50%) rotateX(38deg) rotateZ(0deg); }
-    to{   transform:translate(-50%,-50%) rotateX(38deg) rotateZ(360deg); }
-  }
+  /* SARACINESCA puzzle — disco da far girare, con resistenza */
+  #shutterDisc{ position:absolute; left:68%; top:34%; width:min(180px,34%); aspect-ratio:1;
+    transform:translate(-50%,-50%) rotate(0deg); transform-origin:50% 50%; z-index:3;
+    background-image:url("/assets/images/saracinesca-disco.png");
+    background-size:contain; background-repeat:no-repeat; background-position:center;
+    cursor:grab; touch-action:none; filter:drop-shadow(0 6px 18px rgba(0,0,0,.55)); }
+  #shutterDisc.grabbing{ cursor:grabbing; }
+  #shutterDisc.solved{ filter:drop-shadow(0 0 22px rgba(242,217,168,.65)); }
+  #shutterBar{ height:4px; border-radius:2px; background:rgba(139,142,163,.25); overflow:hidden; margin:2px 0 4px; }
+  #shutterFill{ height:100%; width:0%; border-radius:2px; background:linear-gradient(90deg,var(--accent),var(--glow)); transition:width .08s linear; }
 
-  /* CLOCK puzzle */
-  #clock{ width:120px; height:120px; margin:0 auto 14px; border-radius:50%; border:2px solid rgba(242,217,168,.35); position:relative; background:radial-gradient(circle, rgba(35,37,48,.6), rgba(22,23,31,.6)); }
-  .hand{ position:absolute; left:50%; bottom:50%; transform-origin:bottom center; border-radius:2px; }
-  #handH{ width:5px; height:34px; margin-left:-2.5px; background:var(--glow); }
-  #handM{ width:3px; height:48px; margin-left:-1.5px; background:var(--accent); }
-  #clock .pivot{ position:absolute; left:50%; top:50%; width:11px; height:11px; background:var(--ink); border-radius:50%; transform:translate(-50%,-50%); z-index:5; }
+  /* OROLOGIO puzzle — quadrante illustrato + lancette sprite.
+     Perno del quadrante misurato sull'immagine: 49.79% / 47.16%.
+     Perno degli sprite lancetta (il foro dell'anello): 75.55% / 74.43%.
+     Gli sprite sono disegnati in diagonale: l'offset di rotazione che li
+     riporta a mezzogiorno è applicato in clock.js, non qui. */
+  #clock{ position:relative; width:min(320px,100%); aspect-ratio:576/433; margin:0 auto 14px;
+    background-image:url("/assets/images/quadrante_orologio.png");
+    background-size:contain; background-repeat:no-repeat; background-position:center; }
+  .hand{ position:absolute; left:49.79%; top:47.16%; transform-origin:75.55% 74.43%;
+    background-size:contain; background-repeat:no-repeat; background-position:center; }
+  #handH{ width:12.03%; aspect-ratio:1/1; background-image:url("/assets/images/orologio-lancetta-ore.png"); z-index:3; }
+  #handM{ width:22.03%; aspect-ratio:2/1; background-image:url("/assets/images/orologio-lancetta-minuti.png"); z-index:2; }
+  #clock .pivot{ position:absolute; left:49.79%; top:47.16%; width:7px; height:7px; background:#1a1712; border-radius:50%; transform:translate(-50%,-50%); z-index:4; }
   .dial{ display:flex; gap:12px; justify-content:center; align-items:center; margin-bottom:8px; }
   .dial label{ font-size:12px; color:var(--muted); letter-spacing:.1em; width:52px; text-align:right; }
   input[type=range]{ width:150px; accent-color:var(--accent); }
-
-  /* END CARD */
-  #endcard{ position:absolute; inset:0; z-index:58; display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-    background:radial-gradient(130% 100% at 50% 45%, #23283a, #14151c 65%, #0c0d12); padding:0 32px; }
-  #endcard.show{ display:flex; }
-  #endcard h2{ font-weight:400; letter-spacing:.14em; font-size:clamp(24px,4vw,34px); margin-bottom:16px; animation:fadeUp 1s both; }
-  #endcard p{ color:var(--muted); max-width:460px; line-height:1.7; animation:fadeUp 1s .3s both; }
 
   .warm-0 .scene .layer{ filter:saturate(.7) brightness(.86); }
   .warm-1 .scene .layer{ filter:saturate(.85) brightness(.94); }

@@ -19,13 +19,12 @@ suoi blocchi emotivi reali: sentirsi ferma, non vista, impostora. Il messaggio
 del gioco — "non sei bloccata, non sei invisibile, non sei incapace" — passa
 interamente per la meccanica e la metafora, **mai per prediche esplicite**.
 
-**Protagonista**: una versione di lei, che parla con la **sua voce reale**
+**Protagonista**: Nox, una versione di lei, che parla con la **sua voce reale**
 (analizzata da storico WhatsApp — vedi Bibbia Personaggio).
 
-**Volpe 🦊**: l'animale-guida che la accompagna in tutti i mondi. Rappresenta
-Luca (lo sviluppatore). Non parla mai con frasi — solo presenza, gesti,
-indicazioni silenziose. La volpe è un rito reale tra loro (emoji del
-buonanotte). La rivelazione finale è che la volpe era lui.
+**Nessun animale-guida**: la volpe è stata rimossa dal design. Nox si orienta
+da sola, tramite osservazione delle scene e dialogo con le figure che incontra
+— nessun elemento esterno le indica la strada.
 
 **Dadi di resina**: collezionabili, uno per mondo. Riferimento al fatto che
 Desy fa dadi in resina artigianali e soffre di sindrome dell'impostore
@@ -38,19 +37,22 @@ sua abilità. Alla fine si combinano per aprire un messaggio personale di Luca.
 
 ### Hub: La Camera da Letto
 
-La protagonista si sveglia nella sua stanza. Tutto è fermo — l'orologio segna
-le 03:25, non c'è vento, nessun suono. Tornando dall'hub dopo ogni mondo, la
-stanza si "riscalda" progressivamente (feedback visivo via filtri CSS:
-`warm-0` → `warm-3`). I dadi raccolti si accumulano in uno scrigno visibile.
+Nox si sveglia nella sua stanza. Tutto è fermo — l'orologio segna le 03:00
+(l'ora delle streghe: soglia simbolica tra il mondo reale e il viaggio
+interiore che sta per affrontare), non c'è vento, nessun suono. Il gatto
+dorme beato sul letto. Tornando dall'hub dopo ogni mondo, la stanza si
+"riscalda" progressivamente (feedback visivo via filtri CSS: `warm-0` →
+`warm-3`). I dadi raccolti si accumulano in uno scrigno visibile.
 
 ### Mondo 1 — La Città Ferma (Nettuno)
 
 **Tema**: sentirsi rimasta indietro, il fallimento, l'incapacità di progredire.
 **Ambientazione**: Nettuno (città reale, significativa per loro).
-**Manifestazione (NPC)**: "Lei-Nettuno" — una versione di lei che ha smesso di
-provarci. Parla con la sua voce reale nel registro rassegnato ("vabbè,
-tanto..."). La protagonista deve rimettere in moto la città e convincerla (con
-i fatti, non a parole) che si può ripartire.
+**Manifestazione (NPC)**: una **figura misteriosa, ombra indistinta ed eterea**
+(etichettata "?" nei dialoghi, senza nome) che ha smesso di provarci. Parla
+con la sua voce reale nel registro rassegnato ("vabbè, tanto..."). Nox deve
+rimettere in moto la città e convincerla (con i fatti, non a parole) che si
+può ripartire.
 **Dado**: trovato dentro l'orologio riparato, incastonato con precisione.
 
 ### Mondo 2 — La Solitudine
@@ -60,12 +62,12 @@ i fatti, non a parole) che si può ripartire.
 diverso, aspetto diverso). Non ricorda/sente di aver perso qualcosa. Solo
 piano piano, da dettagli che combaciano con la sua vita, la protagonista (e il
 giocatore) capisce che sta aiutando se stessa.
-**Volpe**: qui ha il ruolo più forte — è l'unica presenza che il
-personaggio-manifestazione vede fin dall'inizio. "Non sei invisibile, io ti ho
-sempre vista."
 **Dado**: donato dal personaggio-manifestazione dopo essere stato "visto".
 **Stato**: struttura narrativa definita a grandi linee, puzzle specifici e
-storyboard da scrivere.
+storyboard da scrivere. Da ripensare la parte "chi la vede fin dall'inizio",
+in precedenza affidata alla volpe (ora rimossa) — va trovato un nuovo
+veicolo per questo beat, potrebbe essere la stessa manifestazione o un
+dettaglio ambientale.
 
 ### Mondo 3 — L'Impostora
 
@@ -116,23 +118,26 @@ che il vero ultimo passo non è complesso, è solo _scegliere di farlo_.
 8. **Riordino temporale** — frammenti da riordinare cronologicamente
 9. **Simon Says / sequenza audio** — ripeti una sequenza (opzionale)
 
-### Catena di dipendenze Mondo 1 (implementata)
+### Catena di dipendenze Mondo 1 (revisionata, v2)
 
 ```
-N1 Piazza (arrivo) → incontra LEI-NETTUNO, nota orologio fermo, volpe indica vicolo
+P2 Piazza (arrivo) → Nox perplessa, nota la FIGURA su una panchina
+  [GATE] nessun altro hotspot visibile finché non le parla
+  ↓
+N1 Piazza → dialogo con la FIGURA ("?") → orologio fermo, obiettivo dichiarato
+  → Nox nota da sola il vicolo laterale
   ↓
 N2 Vicolo → enigma ingranaggi → alza saracinesca → prendi LANCETTA
   ↓
-N1 (ritorno) → usa LANCETTA sull'orologio → enigma orologio (03:25)
+N1 (ritorno) → usa LANCETTA sull'orologio → enigma orologio (03:00)
   → DADO #1 dentro il meccanismo
-  → LEI-NETTUNO resiste ("va bene, tanto...")
+  → la FIGURA resiste ("va bene, tanto...")
   → si illumina una finestra lontana
   ↓
 N4 Vecchio negozio (DA FARE) → tracce nella polvere → OROLOGIO DA TASCA
   ↓
-N1 (ritorno finale) → mostra OROLOGIO DA TASCA a LEI-NETTUNO
+N1 (ritorno finale) → mostra OROLOGIO DA TASCA alla FIGURA
   → lei cede, Nettuno "riparte", il mondo si scalda
-  → la volpe appare sulla porta di casa
   ↓
 HUB → sveglia riparte, stanza si riscalda (warm-1)
 ```
@@ -171,7 +176,7 @@ fragments/
 │   ├── inventory.js        ← sistema zaino con database oggetti
 │   ├── style.css           ← tutti gli stili
 │   ├── puzzles/
-│   │   ├── clock.js        ← enigma orologio (slider → 03:25)
+│   │   ├── clock.js        ← enigma orologio (slider → 03:00)
 │   │   └── gears.js        ← enigma ingranaggi (sequenza click)
 │   └── worlds/
 │       ├── prologue.js     ← intro testuale + prima interazione camera
@@ -225,7 +230,6 @@ palette fredda/nebbiosa che si scalda col progresso del gioco.
 
 - Vecchio negozio illuminato (N4, Mondo 1)
 - Protagonista (poche pose statiche: idle, esamina, reazione)
-- Volpe (3-4 pose: seduta, indica, cammina, guarda)
 - Fondali Mondo 2 (5-6 scene, ambientazione da definire)
 - Fondali Mondo 3 (5-6 scene, stanza degli specchi)
 - Musica per Mondo 1, 2, 3 (opzionale, può restare silenzioso/ambient)
@@ -238,8 +242,9 @@ palette fredda/nebbiosa che si scalda col progresso del gioco.
 
 - [x] Title screen con musica, menu (Nuova Partita / Continua / Opzioni)
 - [x] Intro testuale a comparsa con skip
-- [x] Prologo: camera, dialoghi, guizzo della volpe
-- [x] Mondo 1 parziale: piazza → vicolo → enigma ingranaggi → lancetta → enigma orologio → dado #1 → resistenza di Lei-Nettuno → finestra illuminata
+- [x] Prologo: camera, dialoghi (da aggiornare con gatto + telefono madre, v. storyboard v2)
+- [x] Mondo 1 parziale (v1 codice): piazza → vicolo → enigma ingranaggi → lancetta → enigma orologio → dado #1 → resistenza della figura → finestra illuminata
+      _(nota: dialoghi e struttura da riallineare alla revisione narrativa v2 — vedi storyboard-prologo-mondo1-v2.md)_
 - [x] Motore di gioco: scene manager, dialogue engine con nomi personaggi colorati, parallax, polvere sospesa
 - [x] Sistema warmth (riscaldamento progressivo via CSS filter)
 - [x] HUD con slot dadi
@@ -251,12 +256,11 @@ palette fredda/nebbiosa che si scalda col progresso del gioco.
 ### Da fare 🔲
 
 - [ ] Mondo 1: scena N4 (vecchio negozio) con puzzle tracce + orologio da tasca
-- [ ] Mondo 1: resa finale di Lei-Nettuno + ritorno all'hub
+- [ ] Mondo 1: resa finale della figura + ritorno all'hub
 - [ ] Mondo 2: design completo, storyboard, puzzle, asset, codice
 - [ ] Mondo 3: design completo, storyboard, puzzle, asset, codice
 - [ ] Finale: combinazione dadi + messaggio personale
 - [ ] Asset protagonista (sprite statici)
-- [ ] Asset volpe (sprite statici)
 - [ ] Audio ambientale per scene di gioco
 - [ ] Scene generate da JS (non hardcoded in index.html) per scalabilità
 - [ ] APK via Capacitor (post-completamento contenuti)
@@ -277,7 +281,8 @@ Contiene la voce di Desy distillata in regole usabili per i dialoghi:
 - Emoji con significato (😂💀🫠 = difesa; 😭🥺 = guardia abbassata; 🦊 = Luca)
 - Due poli: deflessione ironica (70%) vs tenerezza scoperta (30%)
 - Come scrivere la protagonista, le 3 manifestazioni, e cosa NON fare
-- **CORREZIONE IMPORTANTE**: la volpe 🦊 rappresenta LUCA, non Desy
+- **NOTA**: la volpe 🦊 (rito reale tra Luca e Desy) è stata rimossa come
+  elemento di gioco — resta solo un dettaglio biografico, non un personaggio
 
 ### Storyboard Prologo + Mondo 1 (`storyboard-prologo-mondo1.md`)
 
@@ -295,8 +300,8 @@ Script dialogico completo con:
 
 1. **Lineare tra mondi, backtracking solo interno** — ogni mondo è un capitolo
    sigillato, non si torna indietro finché non lo chiudi
-2. **La volpe non parla MAI** — solo azioni, presenza, gesti. Le sue "righe"
-   nei dialoghi sono sempre in corsivo come regia
+2. **Nessun animale-guida** — Nox si orienta da sola tramite osservazione
+   e dialogo, senza elementi esterni che indicano la strada
 3. **Niente retorica motivazionale** — il messaggio passa per metafora e azione.
    "Credi in te stessa!" ucciderebbe tutto il gioco
 4. **La tenerezza va guadagnata** — la protagonista inizia in Polo A (ironica,

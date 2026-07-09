@@ -1,51 +1,91 @@
-# Storyboard — Prologo + Mondo 1 (Nettuno)
+# Storyboard — Mondo 1: Nettuno (revisione 3)
 
-### "Il Tempo Fermo"
+### "Fragments" — protagonista: Nox
 
-> Bozza di lavoro. Voce della protagonista e delle manifestazioni secondo la
-> Bibbia del Personaggio. La Volpe rappresenta Luca — non parla mai con frasi
-> complete, solo presenza, piccoli gesti, al massimo didascalie brevissime.
-
----
-
-## 0 · Mappa delle dipendenze (Mondo 1)
-
-```
-N1 Piazza (arrivo)
- │  incontra FIGURA MISTERIOSA, nota l'orologio fermo
- │  la Volpe indica la traversa
- ▼
-N2 Vicolo / saracinesca abbassata
- │  enigma ingranaggi → alza saracinesca → prendi LANCETTA
- ▼
-N3 Piazza → usa LANCETTA sull'orologio
- │  enigma orologio (03:25) → OROLOGIO RIPARTE
- │  dentro il meccanismo: DADO #1
- │  FIGURA MISTERIOSA non si convince ("va bene, tanto...")
- │  si accende una finestra lontana, prima buia
- ▼
-N4 Vecchio negozio (vetrina rotta, ora illuminata)
- │  tracce di passi nella polvere → mini puzzle di percorso
- │  dentro: OROLOGIO DA TASCA (oggetto-simbolo del mondo)
- ▼
-N5 Piazza → mostra OROLOGIO DA TASCA a FIGURA MISTERIOSA
- │  lei cede, il mondo si scalda, Nettuno "riparte"
- │  la Volpe appare un'ultima volta sulla porta di casa
- ▼
-torna a HUB (camera) → sveglia riparte, stanza si riscalda (warm-1)
-```
-
-Oggetti che attraversano le scene: **lancetta** (N2→N3), **orologio da tasca**
-(N4→N5), **dado #1** (N3→ HUB, si aggiunge allo scrigno).
+> Questa versione **sostituisce la v2** e integra la mappa completa del
+> Mondo 1: non più solo Piazza dell'Orologio, ma quattro location collegate
+> (Vicolo Saracinesca, Piazza del Dio Nettuno, Spiaggia degli Scogli) più il
+> rimando alla Casa (ancora da scrivere). Include il dialogo iniziale a
+> schermo nero fuso con le righe già esistenti.
 
 ---
 
-## PROLOGO — La Stanza
+## 0 · Mappa completa
 
-**Scena P1 · Camera da letto, appena sveglia**
+```
+PROLOGO
+P0 Schermo nero — monologo introduttivo
+ ↓
+P1 Camera — Nox nota l'anomalia
+   hotspot sempre disponibili: telefono · gatto · finestra · porta
+ ↓ (porta → dissolvenza bianca)
 
-_(Visivo: luce piatta, nessun'ombra viva, tutto immobile. Il telefono sul
-comodino segna 03:25 e non cambia.)_
+MONDO 1 — NETTUNO
+N1 Piazza dell'Orologio (arrivo)
+   dialogo automatico con la FIGURA all'ingresso in scena
+   [dialogo concluso] → si sbloccano: FIGURA (ripetibile) · OROLOGIO ·
+                          hotspot basso-sx (Vicolo) · hotspot alto-dx (Piazza Nettuno)
+ │
+ ├──→ N2 Vicolo Saracinesca (basso-sx da N1)
+ │      ↺ torna a N1
+ │      SENZA ingranaggio: solo testo d'ambiente
+ │      CON ingranaggio (ottenuto in N3): minigioco rotazione 360°
+ │        → ricompensa: LANCETTA (delle ore)
+ │
+ └──→ N3 Piazza del Dio Nettuno (alto-dx da N1)
+        destra → torna a N1
+        statua/fontana → INGRANAGGIO (inventario) + BIGLIETTINO (testo in primo piano)
+        sinistra → N4 Spiaggia degli Scogli
+
+        N4 Spiaggia degli Scogli
+          destra (cielo) → solo testo d'ambiente
+          "?" compare SOLO se DADO già ottenuto in Casa (WIP)
+            → dialogo, la figura regala il dado a Nox
+          in basso → torna a N3
+
+N1 (con LANCETTA in inventario) → usa su OROLOGIO
+   → minigioco slider (ore + minuti, indipendenti) → target 03:00
+   → risolto: CLICK, cade la CHIAVE, dialogo, finestra si illumina
+   → nuovo hotspot: porta sotto la finestra → CASA (WIP, richiede CHIAVE)
+```
+
+**Oggetti che attraversano le scene**: `ingranaggio` (N3 → N2) · `lancetta`
+(N2 → N1, orologio) · `chiave` (N1 → porta casa) · `dado` (Casa/WIP → N4).
+
+---
+
+## PROLOGO
+
+### P0 · Schermo nero — monologo
+
+_(Solo testo su nero, nessun visivo. Le righe si susseguono come nell'intro
+già implementata — comparsa/dissolvenza, non a blocco unico.)_
+
+> **NOX** _(voce fuori campo)_
+> Ricordo solo che stavo scrollando YouTube cercando chissà cosa...
+
+> **NOX**
+> Poi le 3:00 di notte. Non ho sonno, ma decido di andare a dormire.
+
+> **NOX**
+> Metto la sveglia per domani mattina. Vorrei provare a impegnare la
+> giornata, concludendo qualcosa... Sì. Ma cosa?
+
+> **NOX**
+> Senza rendermene conto chiudo gli occhi. Al risveglio c'era qualcosa di
+> strano — non saprei descriverlo.
+
+> **NOX**
+> Era come se il tempo stesso fosse fermo. Un silenzio quasi inquietante.
+
+_(Dissolvenza dal nero alla Scena P1.)_
+
+---
+
+### P1 · Camera da letto
+
+_(Visivo: luce piatta, tutto immobile. Sulla scrivania, il telefono. Sul
+letto, il gatto dorme beato.)_
 
 > **NOX** _(fra sé, guardando il soffitto)_
 > Ok.
@@ -53,254 +93,429 @@ comodino segna 03:25 e non cambia.)_
 > **NOX**
 > Ok, non è ok. Manca qualcosa.
 
-_(Il giocatore può cliccare la sveglia/telefono.)_
-
-> **NOX** _(esamina il telefono)_
-> Le 03:25. Anche ieri. Anche l'altro ieri, mi pare — boh, non lo so nemmeno più.
-
-_(Hotspot finestra: fuori, immobile, senza vento.)_
+_(Nota di continuità: queste due righe, già presenti nella v1/v2, restano
+come primo respiro dopo il monologo a schermo nero — il passaggio dal
+"racconto" al "presente" della scena.)_
 
 > **NOX**
-> Manco un albero che si muove. Comunque bel panorama da incubo, complimenti a chi l'ha scelto.
-
-_(Battuta di deflessione — Polo A, coerente da §5 della bibbia: sdrammatizza subito.)_
-
-_(Sul davanzale, un piccolo movimento — qualcosa di rossiccio sparisce dietro
-l'angolo. Se il giocatore ci clicca:)_
+> Non ha suonato la sveglia. Che strano...
 
 > **NOX**
-> ...c'era qualcosa lì? Vabbè.
+> ...?!?
 
-_(Prima comparsa-lampo della Volpe: non si mostra ancora per intero, solo un
-guizzo. Il giocatore non sa ancora cos'è.)_
+> **NOX**
+> Le 3:00 del mattino? Impossibile, di fuori è giorno e ricordo di essermi
+> addormentata.
 
-_(Hotspot porta: inizialmente non si apre da sola — bisogna aver esaminato
-finestra + telefono almeno una volta. Piccola gate, coerente con "prima
-guarda, poi agisci".)_
+> **NOX**
+> "Niente da fare, sembra bloccato. A quanto pare non prende né internet né
+> la linea del telefono. Sai che novità."
 
-> **NOX** _(mano sulla maniglia)_
-> Va bene. O esco, o resto qui a fissare un orologio rotto. Detta così sembra facile.
+> **NOX**
+> Fammi andare a controllare giù da mia nonna. Con il suo WiFi dovrei
+> riuscire a collegarmi.
 
-_(Transizione a N1.)_
+_(Nota: qui "nonna" sostituisce la precedente "madre" delle revisioni
+passate — allineato ai nuovi appunti. Se il telefono della nonna è un
+hotspot separato o solo una battuta di passaggio è da decidere: nella
+lista sotto non compare come hotspot a sé, quindi per ora resta solo testo
+di intenzione, non un'azione giocabile.)_
+
+**Hotspot disponibili in camera (sempre attivi, nessun ordine imposto):**
+
+> **Gatto**
+> "Beato tu che dormi. Bella la vita eh?"
+
+> **Telefono**
+> "Niente da fare, sembra bloccato. Segna sempre le 3:00."
+
+> **Finestra**
+> "Che tempo strano, mai vista tutta questa nebbia. Non si sentono nemmeno
+> gli uccellini o il rumore del vento."
+> "Non so dire se sia rilassante o meno."
+
+> **Porta della camera**
+> "È il momento di alzarsi."
+
+_(Interazione con la porta → transizione a dissolvenza bianca → Scena N1.)_
 
 ---
 
-## MONDO 1 — NETTUNO (La Città Ferma)
+## MONDO 1 — NETTUNO
 
-**Scena N1 · Piazza, arrivo**
+### N1 · Piazza dell'Orologio (arrivo)
 
-_(Visivo: la piazza di Nettuno, foschia bassa, l'orologio pubblico fermo.
-Panchine vuote. Su una panchina, seduta, FIGURA MISTERIOSA — stessa età, aspetto
-simile ma non identico alla protagonista, sguardo basso.)_
-
-> **NOX** _(guardandosi intorno)_
-> Ah. Ok, quindi è tipo così che funziona.
-
-_(Hotspot su FIGURA MISTERIOSA.)_
+_(Il dialogo parte automaticamente all'ingresso in scena — non richiede un
+click su un hotspot. Il giocatore osserva.)_
 
 > **NOX**
-> Ehi.
+> Ma cosa...?
 
-> **FIGURA MISTERIOSA** _(senza alzare troppo lo sguardo)_
-> Ehi. Se sei venuta a dirmi che devo "reagire", puoi anche tornare da dove sei venuta.
+> **NOX**
+> Sto sognando, è impossibile!
+
+> **NOX**
+> Ho avuto un'amnesia o qualcosa di simile? Come sono finita in piazza?
+
+> **NOX**
+> Stranamente però non mi sento agitata...
+
+_(Nota un'ombra: una figura poco distinta, seduta su una panchina vicino
+all'orologio.)_
+
+> **NOX**
+> Ok, sono sicura che quella cosa non fosse lì fino a poco fa.
+
+> **NOX** _(avvicinandosi)_
+> Ehi. Scusami? Sai dirmi dove siamo?
+
+> **?** _(senza alzare troppo lo sguardo)_
+> Ehi. Se sei venuta a dirmi che devo "reagire", puoi anche tornare da dove
+> sei venuta.
 
 > **NOX**
 > No, tranquilla. Non sono neanche brava a dirlo a me, figurati a te.
 
-_(Riconoscimento reciproco implicito — non dichiarato, il giocatore lo nota.)_
+> **?**
+> Vedi quell'orologio? È fermo da... non lo so. Ho smesso di controllare,
+> credo.
 
-> **FIGURA MISTERIOSA**
-> L'orologio è fermo da... non lo so. Da quando ho smesso di controllare, credo.
-
-> **FIGURA MISTERIOSA**
+> **?**
 > Comunque va bene così. Tanto anche se riparte, poi si rompe di nuovo. No?
 
-_(Qui la battuta-tipo della bibbia, §7, usata quasi identica — deve suonare
-familiare a chi la legge.)_
-
-> **NOX** _(guardando l'orologio)_
+> **NOX**
 > Manca la lancetta piccola. Tutto qui?
 
-> **FIGURA MISTERIOSA** _(scrollando le spalle)_
-> Boh. Prova pure. Io resto qui.
+> **NOX**
+> Pensi che io sia in grado di poter uscire da qualunque sia questo posto e
+> tornare a casa mia, se lo aggiusto?
 
-_(La Volpe compare per la prima volta per intero — seduta su un muretto
-lontano, immobile, guarda verso il vicolo laterale. Se il giocatore ci
-clicca:)_
-
-> _(La Volpe non dice nulla. Si volta verso la traversa a sinistra della
-> piazza, poi torna a guardare la protagonista.)_
+> **?** _(scrollando le spalle)_
+> Non saprei. Prova pure. Io resto qui.
 
 > **NOX**
-> Va bene, va bene, ho capito. Di là.
+> Va bene, va bene. Ti lascio ai tuoi pensieri.
 
-_(Hotspot vicolo → N2. L'hotspot sull'orologio, se cliccato ora, dà solo:)_
+_(Fine del dialogo automatico. Si sbloccano: FIGURA come hotspot ripetibile,
+OROLOGIO, e i due passaggi — basso-sx verso il Vicolo, alto-dx verso la
+Piazza del Dio Nettuno.)_
 
-> **NOX**
-> Manca un pezzo. Devo trovarlo prima.
+**Hotspot ripetibile — Figura misteriosa (prima dell'orologio riparato):**
+
+> "Se vuoi riparare l'orologio, fa pure. A me non cambia nulla, credo."
+
+**Hotspot ripetibile — Figura (dopo l'orologio riparato):**
+
+> "Va bene, eh. Sul serio. Solo... non è che uno «riparte» così, perché un
+> orologio ticchetta di nuovo."
+
+**Hotspot — Orologio (senza lancetta):**
+
+> "Manca la lancetta delle ore all'orologio. Forse riparandolo potrei uscire
+> da questo posto."
 
 ---
 
-**Scena N2 · Vicolo, saracinesca abbassata**
+### N2 · Vicolo Saracinesca
 
-_(Visivo: un vicolo laterale di Nettuno, una vecchia saracinesca arrugginita
-mezza abbassata. Sotto, si intravede qualcosa di metallico incastrato.)_
+_(Raggiungibile dal punto basso-sinistra di N1. Hotspot per tornare a N1
+sempre presente.)_
 
-> **NOX** _(china a guardare sotto)_
-> C'è qualcosa lì sotto. Ovviamente nel punto più scomodo possibile.
+**Saracinesca — SENZA ingranaggio:**
 
-_(Hotspot → apre enigma ingranaggi: sequenza da riattivare in ordine — 3-4
-ruote dentate da cliccare nell'ordine corretto, dedotto da un dettaglio visivo
-nella scena, es. numeri quasi cancellati su ciascuna ruota.)_
+> "Una vecchia saracinesca. Sembra esserci qualcosa incastrato lì sotto,
+> ovviamente nel punto più scomodo possibile."
+> "Il meccanismo per alzarla sembra rotto, forse manca qualcosa..."
 
-> **NOX** _(durante l'enigma, se sbaglia)_
-> No. Non così. — Vabbè, riprovo, mica scappa nessuno.
+**Saracinesca — CON ingranaggio (ottenuto in N3):**
 
-> **NOX** _(risolto)_
-> Eccola.
+> "Una vecchia saracinesca. Sembra esserci qualcosa incastrato lì sotto,
+> ovviamente nel punto più scomodo possibile."
+> "Forse con questo potrebbe aprirsi..."
 
-_(Prende la LANCETTA. Torna in N1 automaticamente o via hotspot indietro.)_
+_(Si avvia il minigioco. Vedi §Minigiochi più sotto per la meccanica di
+rotazione a 360°.)_
+
+**Risolto:**
+
+> "Sembra la lancetta di un orologio!"
+
+_(La LANCETTA si aggiunge all'inventario/zaino.)_
+
+**Se si interagisce di nuovo con la saracinesca dopo aver preso la lancetta:**
+
+> "Ho già preso quello che mi serviva, qui."
 
 ---
 
-**Scena N1 (ritorno) · Piazza**
+### N3 · Piazza del Dio Nettuno
 
-> **FIGURA MISTERIOSA** _(vedendo la lancetta)_
-> L'hai trovata. Bene per te.
+_(Raggiungibile dal punto alto-destra di N1. Nuova location.)_
+
+**Destra:** torna a N1 (Piazza dell'Orologio)
+
+**Statua del Dio Nettuno / fontana:**
+
+- **Ingranaggio** dentro la fontana — cliccabile, si aggiunge all'inventario:
+  > "Un vecchio ingranaggio dentro una fontana? Potrebbe tornarmi utile."
+- **Bigliettino** posato sul bordo della fontana — al click, mostra in
+  primo piano l'immagine di un foglietto con una frase di riflessione che
+  rispecchia i dilemmi di Nox:
+  > _(bozza di testo, da rifinire)_
+  > "Ma l'acqua qui dentro è solo bella da vedere? Serve a qualcosa? Mi
+  > sento un po' come quest'acqua."
+
+**Sinistra:** transizione a N4 (Spiaggia degli Scogli)
+
+---
+
+### N4 · Spiaggia degli Scogli
+
+_(Raggiungibile da N3, sinistra.)_
+
+**Destra (verso il cielo) — solo testo d'ambiente:**
 
 > **NOX**
-> "Bene per te" detto così sembra "peggio per me", giusto per dire.
+> Certo che questo posto senza nessuno in giro è uno spettacolo.
 
-> **FIGURA MISTERIOSA** _(quasi un mezzo sorriso, subito ritirato)_
-> ...non intendevo così. Comunque fai pure.
+> **NOX**
+> Magari fosse sempre così.
 
-_(Hotspot orologio → apre l'enigma delle lancette, stile prototipo: due
-slider, target 03:25.)_
+**Figura "?" — compare SOLO se il DADO è già stato ottenuto in Casa (WIP):**
 
-> **NOX** _(mentre regola le lancette)_
-> 03:25. Perché proprio quell'ora, poi, chissà.
+> **NOX**
+> Alla fine vedo che ti sei mossa.
 
-_(Risolto: l'orologio riparte. Dentro il meccanismo, incastonato, il DADO #1.)_
+> **?**
+> O magari sono sempre stata qui. Ferma a contemplare il vuoto.
 
-> **NOX** _(trovando il dado)_
-> ...e questo? Non è un pezzo dell'orologio.
+> **?**
+> _(riga da scrivere — nell'appunto originale è lasciata vuota;_
+> _segnaposto per una battuta di transizione prima della riga successiva)_
 
-> **NOX** _(esaminandolo da vicino)_
-> È... uno dei suoi. Fatto bene, pure. Certo che qui dentro le cose strane non finiscono mai.
+> **NOX**
+> Sono proprio sicura di averti visto vicino all'orologio poco fa.
 
-_(Il dado si aggiunge all'HUD. L'orologio ora ticchetta, ma la piazza resta
-per lo più fredda — micro-feedback, non risoluzione totale.)_
+> **?**
+> Ha ripreso a ticchettare. Il tempo scorre, ed io resto immobile.
 
-> **FIGURA MISTERIOSA** _(guardando l'orologio muoversi, senza calore)_
+> **?**
+> Forse è più facile così. Magari è l'unica cosa che mi riesce bene.
+
+_(Nox mostra il dado che ha trovato nella casa.)_
+
+> **NOX**
+> ...Questo è tuo? Lo hai fatto tu? È molto bello.
+
+_(La figura misteriosa trasale per un attimo, quasi a mostrare un'emozione.)_
+
+> **?**
+> Non è niente di che. È pieno di imperfezioni.
+
+> **NOX**
+> Non sono forse quelle a renderlo unico?
+
+> **NOX**
+> E comunque questo smentisce il fatto che tu sia capace solo a restare
+> immobile.
+
+> **?**
+> ...
+
+_(L'ombra fissa Nox intensamente.)_
+
+> **?**
+> Tu dici? Sarà... Vabbè, per questa volta te lo regalo. Puoi tenerlo.
+
+_(Dissolvenza bianca → si torna in camera/hub.)_
+
+**In basso:** torna a N3 (Piazza del Dio Nettuno)
+
+---
+
+### N1 · Piazza dell'Orologio (con lancetta) — risoluzione
+
+_(Usando la LANCETTA sull'orologio si avvia il minigioco — vedi §Minigiochi.
+Target: le lancette allineate sulle 03:00.)_
+
+**Risolto:**
+
+> "L'orologio ha ripreso a funzionare."
+
+_(CLICK! Da dietro l'orologio cade una CHIAVE, si aggiunge all'inventario.)_
+
+> **NOX**
+> Hai visto? Incredibile, ma ce l'ho fatta.
+
+> **?**
 > Ok, riparte. E quindi?
 
-> **FIGURA MISTERIOSA**
-> Va bene, eh. Sul serio. Solo... non è che uno "riparte" così, perché un orologio ticchetta di nuovo.
+> **?**
+> Va bene, eh. Sul serio. Solo... non è che uno «riparte» così, perché un
+> orologio ticchetta di nuovo.
 
-_(Qui la resistenza vera — l'enigma da solo non basta, coerente con "convince
-con i fatti, non basta un solo fatto". In lontananza, una finestra prima buia
-ora è illuminata — visibile solo ora che l'orologio è ripartito.)_
-
-> **NOX** _(notando la finestra)_
-> ...quella finestra prima non c'era, o non era accesa?
-
-> **FIGURA MISTERIOSA** _(guardando anche lei, per la prima volta con un filo di
-> curiosità)_
-> Non... non lo so. Forse no.
-
-_(Hotspot verso la finestra/il vecchio negozio → N4.)_
+_(Una finestra prima buia, in fondo alla piazza, ora è illuminata. Si
+sblocca un nuovo hotspot: la porta sotto la finestra — usando la CHIAVE si
+entra nella Casa.)_
 
 ---
 
-**Scena N4 · Vecchio negozio, vetrina illuminata**
+## CASA — work in progress
 
-_(Visivo: una vetrina rotta, ora con luce calda dentro. Sul pavimento
-polveroso, tracce di passi — non le proprie.)_
-
-> **NOX**
-> Delle tracce. Non mie, queste.
-
-_(Mini puzzle: seguire le tracce cliccandole in sequenza — si interrompono e
-riprendono, richiedendo di dedurre la direzione dal verso dei passi.)_
-
-> **NOX** _(a metà percorso)_
-> Chi cammina in un posto dove non entra più nessuno...
-
-*(Risolto: le tracce portano a un vecchio bancone. Sopra, l'OROLOGIO DA
-TASCA, fermo anche lui, ma inciso con qualcosa — una data, un'iniziale,
-qualcosa che *lei* riconoscerebbe.)*
-
-> **NOX** _(prendendolo)_
-> Questo... lo riconoscerebbe, se lo vedesse.
-
-_(Nota di produzione: qui va l'incisione vera — una data o iniziali che
-significano qualcosa per voi due. Segnaposto da riempire.)_
-
-_(La Volpe appare per un istante sulla soglia del negozio, poi sparisce.
-Nessuna battuta: solo presenza, a conferma che si è sulla strada giusta.)_
+_(Sezione non ancora scritta. Deve contenere almeno: dove si trova il DADO
+che serve per lo sblocco della figura in N4, e come si esce per tornare in
+piazza. Segnaposto per la prossima sessione di scrittura.)_
 
 ---
 
-**Scena N1 (ritorno finale) · Piazza**
+## Minigiochi — specifiche
 
-> **NOX** _(porgendo l'orologio da tasca)_
-> Guarda cosa ho trovato.
+### 1. Orologio: slider ore + minuti indipendenti (aggiornato)
 
-_(FIGURA MISTERIOSA lo guarda a lungo, prima di parlare.)_
+**Differenza rispetto alle versioni precedenti**: non più un solo blocco
+"lancette insieme", ma **tre sprite separati**:
 
-> **FIGURA MISTERIOSA**
-> ...non pensavo fosse ancora qui.
+- Quadrante dell'orologio (sfondo fisso)
+- Lancetta dei minuti (sprite isolato, ruota sul proprio perno)
+- Lancetta delle ore (sprite isolato, ruota sul proprio perno)
 
-> **FIGURA MISTERIOSA** _(voce più bassa, Polo B — tenerezza scoperta, guadagnata
-> solo ora)_
-> Va bene. Ok. Forse... forse un pezzo può ripartire per davvero.
+Due slider indipendenti (uno per le ore, uno per i minuti) muovono le
+rispettive lancette in tempo reale. Target: **03:00** esatto.
 
-_(Qui la resa non è magica né improvvisa: è "forse", coerente con la sua
-voce reale — non fa mai affermazioni assolute.)_
+_(Questo si collega direttamente al workflow di animazione sprite discusso
+in precedenza: quadrante e lancette vanno generati/ritagliati come immagini
+separate con pivot allineato, per la rotazione via CSS/JS.)_
 
-> **NOX**
-> Non deve ripartire tutto insieme. Un pezzo alla volta va benissimo.
+### 2. Saracinesca: rotazione a 360° con resistenza (nuovo)
 
-_(La protagonista le restituisce, con dolcezza, esattamente il tipo di frase
-minimizzante che FIGURA MISTERIOSA usa per sminuirsi — ribaltata in permesso
-gentile. È il device centrale della bibbia, §6.)_
+Sostituisce il precedente enigma a sequenza di ingranaggi. Meccanica:
 
-_(La piazza si scalda visivamente: luci, colori, un accenno di vento nelle
-foglie finora immobili. FIGURA MISTERIOSA si alza dalla panchina — non sparisce
-bruscamente, si allontana camminando verso il fondo della piazza, come
-qualcuno che finalmente ha un posto dove andare.)_
+- Il giocatore trascina (drag) un disco con un perno centrale
+- La rotazione **fa resistenza**: se il giocatore smette di trascinare o
+  inverte direzione, il disco torna leggermente indietro
+- Serve una rotazione **continua e sostenuta** per accumulare progresso
+  fino a 360°
+- Al completamento, la saracinesca si alza e rivela l'oggetto (lancetta)
 
-> **FIGURA MISTERIOSA** _(voltandosi, ultima battuta, quasi un sorriso vero)_
-> Comunque grazie. Non fare quella faccia, lo so che non ti piace quando te lo dico.
-
-_(Torna il Polo A per uscire di scena — coerente, non "guarita" di colpo,
-solo un po' più leggera.)_
-
-_(Hotspot: la porta di casa, prima solo intuita, ora visibile in fondo alla
-piazza. La Volpe è seduta lì accanto, aspetta.)_
+_(Nota tecnica per l'implementazione futura: si traduce in un accumulatore
+d'angolo che aumenta mentre il drag è in corso nella direzione giusta, e
+decade lentamente nel tempo se il drag si ferma — non un semplice
+"trascina fino in fondo".)_
 
 ---
 
-**Transizione a HUB**
+## Oggetti — tabella riepilogativa
 
-_(Torna in camera. La sveglia sul comodino riparte con un ticchettio sommesso.
-La luce è leggermente più calda — `warm-1`. Il dado #1 è visibile nello
-scrigno.)_
-
-> **NOX** _(guardando la sveglia muoversi)_
-> Uno.
-
-_(Una parola sola. Non serve altro — coerente con l'economia di linguaggio
-di tutta la sua voce.)_
+| Oggetto              | Ottenuto in                             | Usato in                                                           |
+| -------------------- | --------------------------------------- | ------------------------------------------------------------------ |
+| Ingranaggio          | N3, statua/fontana                      | N2, sblocca minigioco saracinesca                                  |
+| Lancetta (delle ore) | N2, risolvendo il minigioco saracinesca | N1, minigioco orologio                                             |
+| Chiave               | N1, cade dall'orologio riparato         | Porta sotto la finestra → Casa (WIP)                               |
+| Dado                 | Casa (WIP)                              | N4, dialogo finale con la figura                                   |
+| Bigliettino          | N3, fontana                             | Solo testo/immagine in primo piano, nessun uso meccanico (per ora) |
 
 ---
 
-## Note aperte per la prossima sessione
+## Cosa cambia rispetto alla v2
 
-- **Incisione sull'orologio da tasca**: da definire con voi due (data/iniziali).
-- **Numero/simbolo sulla faccia del dado #1**: da decidere per la combinazione finale.
-- Verificare che l'enigma ingranaggi (N2) non richieda più di 3-4 click in
-  sequenza — deve restare un intermezzo, non un ostacolo.
-- La Volpe appare 3 volte nel capitolo (finestra P1, muretto N1, soglia N4,
-  porta finale N1) — da bilanciare: se sembra troppo, tagliare la comparsa
-  in N4.
+1. **Monologo a schermo nero** aggiunto come vera apertura del gioco,
+   fuso con le righe "Ok. Ok, non è ok. Manca qualcosa." già esistenti.
+2. **Nonna al posto della madre** per il secondo controllo dell'ora
+   (per ora solo accennato a parole, non ancora un hotspot separato).
+3. **Il dialogo con la figura in N1 parte automaticamente** all'arrivo in
+   scena, non richiede più un click esplicito — semplifica il gate
+   introdotto in v2 (non serve più perché il dialogo blocca comunque gli
+   altri hotspot finché non finisce).
+4. **Mappa del Mondo 1 molto più ampia**: da una singola piazza a quattro
+   location (Piazza Orologio, Vicolo, Piazza Nettuno, Spiaggia).
+5. **Minigioco orologio ridisegnato**: tre sprite separati (quadrante +
+   2 lancette indipendenti) invece di un blocco unico — coerente con il
+   workflow di animazione discusso.
+6. **Minigioco saracinesca ridisegnato**: rotazione a 360° con resistenza,
+   al posto della sequenza a tre click. Richiede un oggetto precedente
+   (ingranaggio) invece di essere accessibile da subito.
+7. **Nuovo oggetto: la chiave**, cade dall'orologio riparato, apre la casa.
+8. **Nuovo oggetto: il bigliettino**, puramente narrativo/atmosferico.
+9. **Introduzione della Spiaggia degli Scogli** con un secondo incontro
+   con la figura, condizionato al possesso del dado — il dado stesso ora
+   si ottiene nella Casa (non più dentro l'orologio come in v1/v2).
+
+## Asset — mappa immagini (per Claude Code)
+
+> Convenzione cartelle come da `README.md` del progetto Vite:
+> sfondi e sprite in `public/assets/images/`, riferiti nel codice come
+> `/assets/images/nomefile.jpg` (o `.png` per gli sprite trasparenti).
+>
+> **Tipo**: `sfondo` = immagine scena intera · `sprite` = elemento isolato
+> con trasparenza, animato/mosso via CSS-JS · `icona` = piccola immagine per
+> inventario/zaino · `closeup` = immagine ravvicinata per un pannello enigma.
+
+### Prologo
+
+| Scena/Elemento           | File           | Tipo   | Stato     |
+| ------------------------ | -------------- | ------ | --------- |
+| Camera da letto (sfondo) | `camera.jpg`   | sfondo | ✅ esiste |
+| Title screen             | `title-bg.jpg` | sfondo | ✅ esiste |
+
+### N1 — Piazza dell'Orologio
+
+| Scena/Elemento                      | File                           | Tipo           | Stato                                                                                                      |
+| ----------------------------------- | ------------------------------ | -------------- | ---------------------------------------------------------------------------------------------------------- |
+| Piazza (sfondo)                     | `piazza.jpg`                   | sfondo         | ✅ esiste                                                                                                  |
+| Orologio — closeup per il minigioco | `orologio-quadrante.jpg`       | sfondo/closeup | 🔲 da rifare (prima era `enigma-orologio.jpg` con lancette disegnate fisse — va rigenerato SENZA lancette) |
+| Lancetta delle ore (isolata)        | `orologio-lancetta-ore.png`    | sprite         | 🔲 da generare, sfondo trasparente, pivot alla base                                                        |
+| Lancetta dei minuti (isolata)       | `orologio-lancetta-minuti.png` | sprite         | 🔲 da generare, sfondo trasparente, pivot alla base                                                        |
+| Chiave (che cade dall'orologio)     | `chiave.png`                   | sprite/icona   | 🔲 da generare                                                                                             |
+
+### N2 — Vicolo Saracinesca
+
+| Scena/Elemento                                                             | File                                           | Tipo           | Stato                                                                                                                                                                        |
+| -------------------------------------------------------------------------- | ---------------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Vicolo (sfondo)                                                            | `vicolo.jpg`                                   | sfondo         | ✅ esiste                                                                                                                                                                    |
+| Saracinesca — closeup per il minigioco                                     | `saracinesca-meccanismo.jpg`                   | sfondo/closeup | 🔲 da rifare (prima era `enigma-ingranaggi.jpg` pensato per il vecchio enigma a sequenza — il nuovo meccanismo a rotazione 360° ha bisogno di un disco visibile e isolabile) |
+| Disco rotante con perno                                                    | `saracinesca-disco.png`                        | sprite         | 🔲 da generare, sfondo trasparente, pivot al centro                                                                                                                          |
+| Lancetta trovata (stesso oggetto di sopra, prima di essere "riconosciuta") | riusa `orologio-lancetta-ore.png` o icona a sé | sprite/icona   | 🔲 da decidere se è lo stesso sprite o un'icona semplificata per l'inventario                                                                                                |
+
+### N3 — Piazza del Dio Nettuno _(location nuova, nessun asset esiste ancora)_
+
+| Scena/Elemento                        | File                  | Tipo         | Stato                                                                                         |
+| ------------------------------------- | --------------------- | ------------ | --------------------------------------------------------------------------------------------- |
+| Piazza del Dio Nettuno (sfondo)       | `piazza-nettuno.jpg`  | sfondo       | 🔲 da generare                                                                                |
+| Statua/fontana — eventuale closeup    | `fontana-nettuno.jpg` | closeup      | 🔲 opzionale, solo se serve una vista ravvicinata                                             |
+| Ingranaggio (nella fontana)           | `ingranaggio.png`     | sprite/icona | 🔲 da generare, sfondo trasparente                                                            |
+| Bigliettino — immagine in primo piano | `bigliettino.jpg`     | closeup      | 🔲 da generare (foglietto con testo leggibile, o testo sovrapposto via CSS su un fondo carta) |
+
+### N4 — Spiaggia degli Scogli _(location nuova, nessun asset esiste ancora)_
+
+| Scena/Elemento                 | File           | Tipo   | Stato          |
+| ------------------------------ | -------------- | ------ | -------------- |
+| Spiaggia degli Scogli (sfondo) | `spiaggia.jpg` | sfondo | 🔲 da generare |
+
+### Casa _(work in progress — nessun asset possibile finché la sezione non è scritta)_
+
+| Scena/Elemento | File | Tipo | Stato                                 |
+| -------------- | ---- | ---- | ------------------------------------- |
+| —              | —    | —    | 🔲 in attesa del design della sezione |
+
+### Oggetti — icone inventario (riepilogo)
+
+| Oggetto     | File icona zaino  | Stato                                                  |
+| ----------- | ----------------- | ------------------------------------------------------ |
+| Ingranaggio | `ingranaggio.png` | 🔲 da generare (può coincidere con lo sprite di scena) |
+| Lancetta    | `lancetta.png`    | 🔲 da generare                                         |
+| Chiave      | `chiave.png`      | 🔲 da generare                                         |
+| Dado        | `dado.png`        | 🔲 da generare                                         |
+
+--- APPUNTI SOLO PER UTENTE, NON PER FLUSSO IA E SVILUPPO CODICE, IGNORARE ---
+
+- **Riga vuota nel dialogo N4**: nell'appunto originale una battuta di "?"
+  è lasciata senza testo, tra "ferma a contemplare il vuoto" e la risposta
+  di Nox. Da scrivere — non l'ho inventata perché è un punto emotivamente
+  delicato del dialogo che probabilmente vuoi scrivere tu.
+- **Casa**: intera sezione da progettare — location del dado, eventuali
+  enigmi, come si esce.
+- **Telefono della nonna**: valutare se diventa un hotspot vero (con una sua
+  scena/dialogo) o resta solo una battuta di passaggio prima della
+  transizione in piazza.
+- **Testo del bigliettino**: quello riportato è una bozza, liberissimo di
+  riscriverlo.

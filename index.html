@@ -11,7 +11,7 @@
   </head>
   <body>
     <div id="stage" class="warm-0">
-      <!-- ===== SCENE: HUB / CAMERA ===== -->
+      <!-- ===== SCENE: HUB / CAMERA (P1) ===== -->
       <div class="scene active" data-scene="hub">
         <div
           class="layer"
@@ -20,28 +20,35 @@
         ></div>
         <button
           class="hotspot hidden"
-          style="left: 20%; top: 42%"
-          data-action="hub-desk"
+          style="left: 84%; top: 52%"
+          data-action="gatto"
         >
           <span class="ring"></span><span class="dot"></span>
         </button>
         <button
           class="hotspot hidden"
-          style="left: 46%; top: 12%"
-          data-action="hub-window"
+          style="left: 27%; top: 42%"
+          data-action="telefono"
         >
           <span class="ring"></span><span class="dot"></span>
         </button>
         <button
           class="hotspot hidden"
-          style="left: 78%; top: 60%"
-          data-action="hub-door"
+          style="left: 43%; top: 13%"
+          data-action="finestra"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot hidden"
+          style="left: 50%; top: 90%"
+          data-action="porta"
         >
           <span class="ring"></span><span class="dot"></span>
         </button>
       </div>
 
-      <!-- ===== SCENE: N1 PIAZZA ===== -->
+      <!-- ===== SCENE: N1 PIAZZA DELL'OROLOGIO ===== -->
       <div class="scene" data-scene="piazza">
         <div
           class="layer"
@@ -50,42 +57,42 @@
         ></div>
         <button
           class="hotspot char hidden"
-          style="left: 30%; top: 62%"
-          data-action="lei"
+          style="left: 41%; top: 62%"
+          data-action="figura"
         >
           <span class="ring"></span>
         </button>
         <button
           class="hotspot hidden"
-          style="left: 51%; top: 45%"
+          style="left: 52%; top: 44%"
           data-action="piazza-clock"
         >
           <span class="ring"></span><span class="dot"></span>
         </button>
         <button
-          class="hotspot fox hidden"
-          style="left: 80%; top: 56%"
-          data-action="fox-vicolo"
-        >
-          <span class="ring"></span><span class="dot"></span>
-        </button>
-        <button
           class="hotspot hidden"
-          style="left: 16%; top: 40%"
+          style="left: 10%; top: 80%"
           data-action="to-vicolo"
         >
           <span class="ring"></span><span class="dot"></span>
         </button>
         <button
           class="hotspot hidden"
-          style="left: 70%; top: 30%"
-          data-action="to-negozio"
+          style="left: 86%; top: 34%"
+          data-action="to-nettuno"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot hidden"
+          style="left: 64%; top: 53%"
+          data-action="porta-casa"
         >
           <span class="ring"></span><span class="dot"></span>
         </button>
       </div>
 
-      <!-- ===== SCENE: N2 VICOLO ===== -->
+      <!-- ===== SCENE: N2 VICOLO SARACINESCA ===== -->
       <div class="scene" data-scene="vicolo">
         <div
           class="layer"
@@ -108,12 +115,84 @@
         </button>
       </div>
 
+      <!-- ===== SCENE: N3 PIAZZA DEL DIO NETTUNO ===== -->
+      <div class="scene" data-scene="nettuno">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="
+            background-image: url(&quot;/assets/images/piazza-nettuno.png&quot;);
+          "
+        ></div>
+        <button
+          class="hotspot"
+          style="left: 43%; top: 77%"
+          data-action="ingranaggio"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot"
+          style="left: 29%; top: 84%"
+          data-action="bigliettino"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot back"
+          style="left: 5%; top: 55%"
+          data-action="to-spiaggia"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot back"
+          style="left: 95%; top: 55%"
+          data-action="nettuno-back"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+      </div>
+
+      <!-- ===== SCENE: N4 SPIAGGIA DEGLI SCOGLI ===== -->
+      <div class="scene" data-scene="spiaggia">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="background-image: url(&quot;/assets/images/spiaggia.png&quot;)"
+        ></div>
+        <button
+          class="hotspot"
+          style="left: 85%; top: 15%"
+          data-action="spiaggia-cielo"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot char hidden"
+          style="left: 57%; top: 54%"
+          data-action="figura-spiaggia"
+        >
+          <span class="ring"></span>
+        </button>
+        <button
+          class="hotspot back"
+          style="left: 50%; top: 92%"
+          data-action="spiaggia-back"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+      </div>
+
       <!-- ===== PARTICLES ===== -->
       <div id="dust"></div>
 
       <!-- ===== CHARACTER PORTRAITS ===== -->
       <div id="portraitLeft" class="portrait left"></div>
       <div id="portraitRight" class="portrait right"></div>
+
+      <!-- ===== DISSOLVENZA BIANCA ===== -->
+      <div id="whiteout"></div>
 
       <!-- ===== HUD ===== -->
       <div id="hud">
@@ -125,6 +204,7 @@
         </button>
       </div>
       <div id="invhint"></div>
+      <div id="narrBox"></div>
 
       <!-- ===== DIALOGUE ===== -->
       <div id="dialogue">
@@ -135,38 +215,26 @@
         </div>
       </div>
 
-      <!-- ===== PUZZLE: INGRANAGGI ===== -->
-      <div class="puzzle" id="gearPuzzle">
+      <!-- ===== PUZZLE: SARACINESCA (rotazione 360 gradi con resistenza) ===== -->
+      <div class="puzzle" id="shutterPuzzle">
         <div
           class="zoombg"
           style="
-            background-image: url(&quot;/assets/images/enigma-ingranaggi.png&quot;);
+            background-image: url(&quot;/assets/images/saracinesca-meccanismo.png&quot;);
           "
         ></div>
         <div class="scrim"></div>
-        <div id="gearZones">
-          <div class="gear" data-order="1" style="left: 37%; top: 47%">
-            <div class="cog"></div>
-            <div class="label">1</div>
-          </div>
-          <div class="gear" data-order="2" style="left: 56%; top: 39%">
-            <div class="cog"></div>
-            <div class="label">2</div>
-          </div>
-          <div class="gear" data-order="3" style="left: 62%; top: 60%">
-            <div class="cog"></div>
-            <div class="label">3</div>
-          </div>
-        </div>
+        <div id="shutterDisc"></div>
         <div class="pcard">
           <h2>Il meccanismo</h2>
           <p class="hint">
-            Gli ingranaggi si sono fermati. Rimettili in moto in ordine &mdash;
-            dal primo all'ultimo.
+            L'ingranaggio entra al suo posto. Adesso gira &mdash; senza
+            fermarti, o torna indietro da solo.
           </p>
-          <div class="pfeedback" id="gearFb">&hellip;</div>
+          <div id="shutterBar"><div id="shutterFill"></div></div>
+          <div class="pfeedback" id="shutterFb">&hellip;</div>
           <div class="pactions">
-            <button class="link" id="gearBack">&larr; indietro</button>
+            <button class="link" id="shutterBack">&larr; indietro</button>
           </div>
         </div>
       </div>
@@ -184,12 +252,12 @@
           <h2>L'orologio di Nettuno</h2>
           <p class="hint">
             Si &egrave; fermato alla stessa ora di tutto il resto. Riportalo a
-            <em>03:25</em>.
+            <em>03:00</em>.
           </p>
           <div id="clock">
-            <div class="pivot"></div>
             <div class="hand" id="handM"></div>
             <div class="hand" id="handH"></div>
+            <div class="pivot"></div>
           </div>
           <div class="dial">
             <label>Ore</label
@@ -216,6 +284,16 @@
         </div>
       </div>
 
+      <!-- ===== CLOSEUP (oggetti da guardare da vicino) ===== -->
+      <div id="closeup">
+        <div class="cuWrap">
+          <div class="cuImage" id="cuImage">
+            <p class="cuText" id="cuText"></p>
+          </div>
+          <button class="link" id="cuClose">&larr; indietro</button>
+        </div>
+      </div>
+
       <!-- ===== INVENTARIO ===== -->
       <div id="inventory">
         <div class="invCard">
@@ -236,15 +314,6 @@
           <div id="invCloseWrap">
             <button class="btn" id="invClose">Chiudi</button>
           </div>
-        </div>
-      </div>
-
-      <!-- ===== END CARD ===== -->
-      <div id="endcard">
-        <h2>Fine della bozza giocabile</h2>
-        <p id="endtext"></p>
-        <div style="margin-top: 30px">
-          <button class="btn" id="restart">Da capo</button>
         </div>
       </div>
 
