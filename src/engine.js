@@ -27,6 +27,34 @@ export function setHS(action, visible) {
   if (el) el.classList.toggle("hidden", !visible);
 }
 
+// ---- Etichette di navigazione ----
+// Nomi leggibili delle scene, mostrati sopra gli hotspot di viaggio
+// (.hotspot.nav[data-goto]). Unica fonte dei nomi: modificali qui.
+export const SCENE_NAMES = {
+  hub: "Camera",
+  piazza: "Piazza dell'Orologio",
+  vicolo: "Vicolo Saracinesca",
+  nettuno: "Piazza Nettuno",
+  spiaggia: "Spiaggia degli Scogli",
+  "casa-soggiorno": "Soggiorno",
+  "casa-bagno": "Bagno",
+};
+
+// Inietta l'etichetta col nome della destinazione in ogni hotspot di
+// navigazione. Chiamata una volta all'avvio (gli hotspot sono statici).
+// `data-label` sull'hotspot sovrascrive il nome della mappa (serve p.es.
+// alla porta in piazza: "Appartamento" invece di "Soggiorno").
+export function initNavLabels() {
+  $$(".hotspot.nav[data-goto]").forEach((el) => {
+    const name = el.dataset.label || SCENE_NAMES[el.dataset.goto];
+    if (!name || el.querySelector(".label")) return;
+    const label = document.createElement("span");
+    label.className = "label";
+    label.textContent = name;
+    el.appendChild(label);
+  });
+}
+
 // ---- Dissolvenza bianca fra due scene ----
 // `swap` viene eseguita a schermo pieno bianco, poi il bianco svanisce.
 

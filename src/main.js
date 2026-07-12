@@ -3,11 +3,13 @@
 // ============================================================
 
 import { S, hasSave, readSave, writeSave } from './state.js';
-import { $, show, collectDie, say, setWarmth, initParallax, initDust } from './engine.js';
+import { $, show, collectDie, say, setWarmth, initParallax, initDust, initNavLabels } from './engine.js';
 import { refreshBackpackBadge, initInventoryUI } from './inventory.js';
 import { initCloseup } from './closeup.js';
 import { initShutterPuzzle } from './puzzles/shutter.js';
 import { initClockPuzzle } from './puzzles/clock.js';
+import { initSafePuzzle } from './puzzles/safe.js';
+import { initMirrorPuzzle } from './puzzles/mirror.js';
 import { runIntro, initIntro, initPrologueHotspots, refreshPrologueHotspots } from './worlds/prologue.js';
 import { initMondo1, refreshHotspots } from './worlds/mondo1.js';
 
@@ -21,9 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initCloseup();
   initShutterPuzzle();
   initClockPuzzle();
+  initSafePuzzle();
+  initMirrorPuzzle();
   initIntro();
   initPrologueHotspots();
   initMondo1();
+  initNavLabels();
 
   // ---- Title Screen ----
   const themeAudio = $('#themeAudio');

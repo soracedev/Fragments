@@ -40,11 +40,13 @@
           <span class="ring"></span><span class="dot"></span>
         </button>
         <button
-          class="hotspot hidden"
+          class="hotspot nav hidden"
           style="left: 50%; top: 90%"
           data-action="porta"
+          data-goto="piazza"
+          data-dir="up"
         >
-          <span class="ring"></span><span class="dot"></span>
+          <span class="ring"></span><span class="arrow"></span>
         </button>
       </div>
 
@@ -53,7 +55,7 @@
         <div
           class="layer"
           data-depth="0.03"
-          style="background-image: url(&quot;/assets/images/piazza.png&quot;)"
+          style="background-image: url(&quot;/assets/images/CittaFerma/piazza.png&quot;)"
         ></div>
         <button
           class="hotspot char hidden"
@@ -70,25 +72,32 @@
           <span class="ring"></span><span class="dot"></span>
         </button>
         <button
-          class="hotspot hidden"
+          class="hotspot nav hidden"
           style="left: 10%; top: 80%"
           data-action="to-vicolo"
+          data-goto="vicolo"
+          data-dir="left"
         >
-          <span class="ring"></span><span class="dot"></span>
+          <span class="ring"></span><span class="arrow"></span>
         </button>
         <button
-          class="hotspot hidden"
+          class="hotspot nav hidden"
           style="left: 86%; top: 34%"
           data-action="to-nettuno"
+          data-goto="nettuno"
+          data-dir="right"
         >
-          <span class="ring"></span><span class="dot"></span>
+          <span class="ring"></span><span class="arrow"></span>
         </button>
         <button
-          class="hotspot hidden"
+          class="hotspot nav hidden"
           style="left: 64%; top: 53%"
           data-action="porta-casa"
+          data-goto="casa-soggiorno"
+          data-label="Appartamento"
+          data-dir="up"
         >
-          <span class="ring"></span><span class="dot"></span>
+          <span class="ring"></span><span class="arrow"></span>
         </button>
       </div>
 
@@ -97,7 +106,7 @@
         <div
           class="layer"
           data-depth="0.03"
-          style="background-image: url(&quot;/assets/images/vicolo.png&quot;)"
+          style="background-image: url(&quot;/assets/images/CittaFerma/vicolo.png&quot;)"
         ></div>
         <button
           class="hotspot"
@@ -107,11 +116,13 @@
           <span class="ring"></span><span class="dot"></span>
         </button>
         <button
-          class="hotspot back"
-          style="left: 9%; top: 86%"
+          class="hotspot nav"
+          style="left: 90%; top: 86%"
           data-action="vicolo-back"
+          data-goto="piazza"
+          data-dir="right"
         >
-          <span class="ring"></span><span class="dot"></span>
+          <span class="ring"></span><span class="arrow"></span>
         </button>
       </div>
 
@@ -121,7 +132,7 @@
           class="layer"
           data-depth="0.03"
           style="
-            background-image: url(&quot;/assets/images/piazza-nettuno.png&quot;);
+            background-image: url(&quot;/assets/images/CittaFerma/piazza-nettuno.png&quot;);
           "
         ></div>
         <button
@@ -139,18 +150,22 @@
           <span class="ring"></span><span class="dot"></span>
         </button>
         <button
-          class="hotspot back"
-          style="left: 5%; top: 55%"
+          class="hotspot nav"
+          style="left: 5%; top: 45%"
           data-action="to-spiaggia"
+          data-goto="spiaggia"
+          data-dir="left"
         >
-          <span class="ring"></span><span class="dot"></span>
+          <span class="ring"></span><span class="arrow"></span>
         </button>
         <button
-          class="hotspot back"
-          style="left: 95%; top: 55%"
+          class="hotspot nav"
+          style="left: 8%; top: 82%"
           data-action="nettuno-back"
+          data-goto="piazza"
+          data-dir="left"
         >
-          <span class="ring"></span><span class="dot"></span>
+          <span class="ring"></span><span class="arrow"></span>
         </button>
       </div>
 
@@ -159,7 +174,7 @@
         <div
           class="layer"
           data-depth="0.03"
-          style="background-image: url(&quot;/assets/images/spiaggia.png&quot;)"
+          style="background-image: url(&quot;/assets/images/CittaFerma/spiaggia.png&quot;)"
         ></div>
         <button
           class="hotspot"
@@ -176,11 +191,79 @@
           <span class="ring"></span>
         </button>
         <button
-          class="hotspot back"
-          style="left: 50%; top: 92%"
+          class="hotspot nav"
+          style="left: 90%; top: 88%"
           data-action="spiaggia-back"
+          data-goto="nettuno"
+          data-dir="right"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+      </div>
+
+      <!-- ===== SCENE: CASA · SOGGIORNO ===== -->
+      <div class="scene" data-scene="casa-soggiorno">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="background-image: url(&quot;/assets/images/CittaFerma/casa-soggiorno.png&quot;)"
+        ></div>
+        <button
+          class="hotspot"
+          style="left: 72%; top: 27%"
+          data-action="quadro"
         >
           <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot"
+          style="left: 52%; top: 62%"
+          data-action="bigliettino-casa"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot nav"
+          style="left: 88%; top: 55%"
+          data-action="to-bagno"
+          data-goto="casa-bagno"
+          data-dir="right"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+        <button
+          class="hotspot nav"
+          style="left: 10%; top: 86%"
+          data-action="soggiorno-exit"
+          data-goto="piazza"
+          data-dir="left"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+      </div>
+
+      <!-- ===== SCENE: CASA · BAGNO ===== -->
+      <div class="scene" data-scene="casa-bagno">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="background-image: url(&quot;/assets/images/CittaFerma/casa-bagno.png&quot;)"
+        ></div>
+        <button
+          class="hotspot"
+          style="left: 73%; top: 27%"
+          data-action="specchio"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot nav"
+          style="left: 10%; top: 86%"
+          data-action="to-soggiorno"
+          data-goto="casa-soggiorno"
+          data-dir="left"
+        >
+          <span class="ring"></span><span class="arrow"></span>
         </button>
       </div>
 
@@ -220,7 +303,7 @@
         <div
           class="zoombg"
           style="
-            background-image: url(&quot;/assets/images/saracinesca-meccanismo.png&quot;);
+            background-image: url(&quot;/assets/images/CittaFerma/saracinesca-meccanismo.png&quot;);
           "
         ></div>
         <div class="scrim"></div>
@@ -239,47 +322,59 @@
         </div>
       </div>
 
-      <!-- ===== PUZZLE: OROLOGIO ===== -->
+      <!-- ===== PUZZLE: OROLOGIO (trascina le lancette a 03:00) ===== -->
       <div class="puzzle" id="clockPuzzle">
         <div
           class="zoombg"
-          style="
-            background-image: url(&quot;/assets/images/enigma-orologio.png&quot;);
-          "
+          style="background-image: url(&quot;/assets/images/CittaFerma/piazza.png&quot;)"
+        ></div>
+        <div class="scrim"></div>
+        <div id="clock">
+          <div class="hand" id="handM"></div>
+          <div class="hand" id="handH"></div>
+          <div class="pivot"></div>
+        </div>
+        <div class="pfeedback" id="clockFb">&hellip;</div>
+        <button class="link" id="clockBack">&larr; indietro</button>
+      </div>
+
+      <!-- ===== PUZZLE: CASSAFORTE (codice 210525) ===== -->
+      <div class="puzzle" id="safePuzzle">
+        <div
+          class="zoombg"
+          style="background-image: url('/assets/images/CittaFerma/wallsafe.png')"
         ></div>
         <div class="scrim"></div>
         <div class="pcard">
-          <h2>L'orologio di Nettuno</h2>
-          <p class="hint">
-            Si &egrave; fermato alla stessa ora di tutto il resto. Riportalo a
-            <em>03:00</em>.
-          </p>
-          <div id="clock">
-            <div class="hand" id="handM"></div>
-            <div class="hand" id="handH"></div>
-            <div class="pivot"></div>
-          </div>
-          <div class="dial">
-            <label>Ore</label
-            ><input type="range" id="rangeH" min="0" max="11" value="7" />
-          </div>
-          <div class="dial">
-            <label>Minuti</label
-            ><input
-              type="range"
-              id="rangeM"
-              min="0"
-              max="55"
-              step="5"
-              value="40"
-            />
-          </div>
-          <div class="pfeedback" id="clockFb">&hellip;</div>
+          <h2>La cassaforte</h2>
+          <p class="hint">Sei cifre. Da qualche parte le hai già viste.</p>
+          <div id="safeDisplay">––––––</div>
+          <div id="safeKeys"></div>
+          <div class="pfeedback" id="safeFb">&hellip;</div>
           <div class="pactions">
-            <button class="btn" id="clockOk" style="display: none">
-              Prosegui
-            </button>
-            <button class="link" id="clockBack">&larr; indietro</button>
+            <button class="link" id="safeBack">&larr; indietro</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PUZZLE: SPECCHIO APPANNATO (attesa vapore) ===== -->
+      <div class="puzzle" id="mirrorPuzzle">
+        <div
+          class="zoombg"
+          id="mirrorBg"
+          style="background-image: url('/assets/images/CittaFerma/closeup-specchio.png')"
+        ></div>
+        <div id="mirrorSteam"></div>
+        <div class="scrim"></div>
+        <button class="hotspot" id="mirrorTap" style="left: 52%; top: 60%">
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <div class="pcard">
+          <h2>Lo specchio</h2>
+          <p class="hint" id="mirrorHint">Apri l'acqua calda dal rubinetto.</p>
+          <div id="mirrorBar"><div id="mirrorFill"></div></div>
+          <div class="pactions">
+            <button class="link" id="mirrorBack">&larr; indietro</button>
           </div>
         </div>
       </div>

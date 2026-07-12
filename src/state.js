@@ -19,6 +19,7 @@ export const S = {
     clockFixed: false,
     readNote: false,
     dadoGifted: false,
+    mirrorSolved: false, // Casa-Bagno: enigma specchio risolto → bagno resta casa-bagno-2
   },
   dice: [],
   inventory: [],

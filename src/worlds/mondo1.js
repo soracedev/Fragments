@@ -12,24 +12,62 @@ import { S, writeSave } from '../state.js';
 import { $, speak, show, setHS, hs, fadeWhite, setWarmth, collectDie, P, L, SG, isDialogueLocked } from '../engine.js';
 import { openShutter } from '../puzzles/shutter.js';
 import { openClock } from '../puzzles/clock.js';
+import { openSafe } from '../puzzles/safe.js';
+import { openMirror } from '../puzzles/mirror.js';
 import { openCloseup } from '../closeup.js';
 import { addItem } from '../inventory.js';
-
-// La Casa non è ancora stata progettata: senza di lei il DADO non è
-// ottenibile e la figura sulla spiaggia non comparirebbe mai. Finché
-// dura, la porta della Casa consegna il dado direttamente.
-// → Metti a false quando la Casa esisterà davvero.
-const DEBUG_DADO_DALLA_CASA = true;
 
 const TESTO_BIGLIETTINO =
   "Ma l'acqua qui dentro è solo bella da vedere? Serve a qualcosa? " +
   'Mi sento un po’ come quest’acqua.';
+
+// ---- Stati della Piazza (swap sfondo in base al momento della storia) ----
+//   A (arrivo)        piazza.png    — orologio fermo, figura sulla panchina
+//   B (orologio ok)   piazza-2.png  — finestra accesa, porta "Appartamento" sbloccata
+//   C (dado ottenuto) piazza-3.png  — la figura non è più sulla panchina
+const PIAZZA_BG = {
+  A: '/assets/images/CittaFerma/piazza.png',
+  B: '/assets/images/CittaFerma/piazza-2.png',
+  C: '/assets/images/CittaFerma/piazza-3.png',
+};
+
+function setPiazzaState() {
+  const layer = $('.scene[data-scene="piazza"] .layer');
+  if (!layer) return;
+  const state = S.has.dado ? 'C' : S.flags.clockFixed ? 'B' : 'A';
+  layer.style.backgroundImage = `url("${PIAZZA_BG[state]}")`;
+}
+
+// ---- Stato del Bagno (swap permanente dopo l'enigma dello specchio) ----
+const BAGNO_BG = {
+  base: '/assets/images/CittaFerma/casa-bagno.png',
+  solved: '/assets/images/CittaFerma/casa-bagno-2.png',
+};
+
+function setBagnoState() {
+  const layer = $('.scene[data-scene="casa-bagno"] .layer');
+  if (!layer) return;
+  layer.style.backgroundImage = `url("${BAGNO_BG[S.flags.mirrorSolved ? 'solved' : 'base']}")`;
+}
+
+// ---- Stato della Spiaggia (la figura appare nell'arte col dado) ----
+const SPIAGGIA_BG = {
+  base: '/assets/images/CittaFerma/spiaggia.png',
+  reveal: '/assets/images/CittaFerma/spiaggia-2.png',
+};
+
+function setSpiaggiaState() {
+  const layer = $('.scene[data-scene="spiaggia"] .layer');
+  if (!layer) return;
+  layer.style.backgroundImage = `url("${SPIAGGIA_BG[S.has.dado ? 'reveal' : 'base']}")`;
+}
 
 // ---- Hotspot refresh (specifico per questo mondo) ----
 
 export function refreshHotspots() {
   if (S.scene === 'piazza') {
     const t = S.flags.talkedToFigure;
+    setPiazzaState();
     setHS('figura', t);
     setHS('piazza-clock', t);
     setHS('to-vicolo', t);
@@ -38,7 +76,18 @@ export function refreshHotspots() {
     if (hs('piazza-clock')) hs('piazza-clock').classList.toggle('done', S.flags.clockFixed);
   }
 
+  if (S.scene === 'casa-soggiorno') {
+    // Il Quadro è "done" una volta preso il dado dalla cassaforte.
+    if (hs('quadro')) hs('quadro').classList.toggle('done', S.has.dado);
+  }
+
+  if (S.scene === 'casa-bagno') {
+    setBagnoState();
+    if (hs('specchio')) hs('specchio').classList.toggle('done', S.flags.mirrorSolved);
+  }
+
   if (S.scene === 'spiaggia') {
+    setSpiaggiaState();
     setHS('figura-spiaggia', S.has.dado && !S.flags.dadoGifted);
   }
 }
@@ -77,6 +126,11 @@ export function arrivePiazza() {
 // ---- Dialoghi ripetibili con la figura (N1) ----
 
 function talkFigure() {
+  if (S.has.dado) {
+    // Stato C: la figura non è più sulla panchina — solo una riga di flavor.
+    speak([P('Alla fine si è mossa. Chissà dove è finita.')]);
+    return;
+  }
   if (S.flags.clockFixed) {
     speak([L('Va bene, eh. Sul serio. Solo... non è che uno «riparte» così, perché un orologio ticchetta di nuovo.')]);
     return;
@@ -135,21 +189,35 @@ const ACTIONS = {
   },
 
   'porta-casa': () => {
-    if (S.has.dado) { speak([P('Sono già stata dentro. Il buio è rimasto dov’era.')]); return; }
-    if (!DEBUG_DADO_DALLA_CASA) {
-      speak([P('Si apre. Dietro, solo buio. Direi che per oggi mi fermo qui.')]);
-      return;
-    }
-    speak([
-      P('Si apre. Dietro, solo buio. Direi che per oggi mi fermo qui.'),
-      SG('[SEGNAPOSTO DI SVILUPPO] La Casa non è ancora stata scritta. Per ora Nox ne esce con un dado di resina in tasca.'),
-    ], () => {
-      S.has.dado = true;
-      addItem('dado1');
-      writeSave();
-      refreshHotspots();
-    });
+    if (!S.has.chiave) { speak([P('È chiusa. Ci vorrebbe una chiave.')]); return; }
+    show('casa-soggiorno');
+    refreshHotspots();
   },
+
+  // --- CASA · SOGGIORNO ---
+  'quadro': () => {
+    if (S.has.dado) { speak([P('La cassaforte è aperta. Non c’è rimasto altro, qui dietro.')]); return; }
+    speak([
+      P('Noto un piccolo spessore fra il muro e il quadro.'),
+      P('Sembra esserci qualcosa qui dietro.'),
+    ], openSafe);
+  },
+
+  'bigliettino-casa': () => {
+    // [SEGNAPOSTO FASE 2] Immagine e testo del bigliettino di Casa non
+    // esistono ancora (path da confermare, testo da scrivere).
+    speak([P('Un foglietto. La grafia è incerta.'), SG('[SEGNAPOSTO DI SVILUPPO] Testo del bigliettino di Casa da scrivere.')]);
+  },
+
+  'to-bagno': () => { show('casa-bagno'); refreshHotspots(); },
+  'soggiorno-exit': () => { show('piazza'); refreshHotspots(); },
+
+  // --- CASA · BAGNO ---
+  'specchio': () => {
+    if (S.flags.mirrorSolved) { speak([P('Il numero è ancora lì, disegnato nella condensa. 210525.')]); return; }
+    openMirror();
+  },
+  'to-soggiorno': () => { show('casa-soggiorno'); refreshHotspots(); },
 
   // --- N2 VICOLO SARACINESCA ---
   'saracinesca': () => {

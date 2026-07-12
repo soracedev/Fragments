@@ -27,8 +27,19 @@
   .hotspot .dot{ position:absolute; width:6px; height:6px; border-radius:50%; background:var(--glow); }
   .hotspot.done{ pointer-events:none; opacity:.5; } .hotspot.done .ring{ animation:none; border-color:rgba(201,138,107,.45);} .hotspot.done .dot{ background:var(--accent);}
   .hotspot.hidden{ display:none; }
-  .hotspot.back .ring{ width:38px; height:38px; border-style:dashed; }
   .hotspot.char .ring{ width:80px; height:120px; border-radius:44% 44% 40% 40%; border-color:rgba(242,217,168,.35); }
+
+  /* Hotspot di navigazione (cambio scena): anello pulsante + freccia
+     direzionale al posto del puntino, con etichetta del luogo sopra. */
+  .hotspot.nav .arrow{ position:absolute; top:50%; left:50%; width:11px; height:11px;
+            border-top:2px solid var(--glow); border-right:2px solid var(--glow); }
+  .hotspot.nav[data-dir="right"] .arrow{ transform:translate(-60%,-50%) rotate(45deg); }
+  .hotspot.nav[data-dir="left"]  .arrow{ transform:translate(-40%,-50%) rotate(-135deg); }
+  .hotspot.nav[data-dir="up"]    .arrow{ transform:translate(-50%,-40%) rotate(-45deg); }
+  .hotspot.nav .label{ position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%);
+            white-space:nowrap; font-family:inherit; font-size:12px; color:var(--glow);
+            background:rgba(14,15,20,.72); border:1px solid rgba(242,217,168,.18);
+            padding:3px 10px; border-radius:12px; pointer-events:none; }
 
   .btn{ font-family:inherit; font-size:14px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink);
     background:rgba(20,21,28,.5); border:1px solid var(--muted); padding:12px 26px; cursor:pointer; transition:.3s; }
@@ -175,10 +186,13 @@
   .link{ background:none; border:0; color:var(--muted); font-family:inherit; font-size:12px; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; padding:10px; }
   .link:hover{ color:var(--ink); }
 
-  /* SARACINESCA puzzle — disco da far girare, con resistenza */
+  /* SARACINESCA puzzle — disco da far girare, con resistenza.
+     Scrim uniforme e più scuro del default: lo sfondo arretra,
+     l'ingranaggio resta l'unico punto luminoso. */
+  #shutterPuzzle .scrim{ background:rgba(12,13,18,.65); }
   #shutterDisc{ position:absolute; left:68%; top:34%; width:min(180px,34%); aspect-ratio:1;
     transform:translate(-50%,-50%) rotate(0deg); transform-origin:50% 50%; z-index:3;
-    background-image:url("/assets/images/saracinesca-disco.png");
+    background-image:url("/assets/images/CittaFerma/saracinesca-disco.png");
     background-size:contain; background-repeat:no-repeat; background-position:center;
     cursor:grab; touch-action:none; filter:drop-shadow(0 6px 18px rgba(0,0,0,.55)); }
   #shutterDisc.grabbing{ cursor:grabbing; }
@@ -186,22 +200,46 @@
   #shutterBar{ height:4px; border-radius:2px; background:rgba(139,142,163,.25); overflow:hidden; margin:2px 0 4px; }
   #shutterFill{ height:100%; width:0%; border-radius:2px; background:linear-gradient(90deg,var(--accent),var(--glow)); transition:width .08s linear; }
 
-  /* OROLOGIO puzzle — quadrante illustrato + lancette sprite.
+  /* OROLOGIO puzzle — quadrante illustrato + lancette sprite, a tutto
+     schermo sopra la piazza sfocata. Le lancette si trascinano col dito.
      Perno del quadrante misurato sull'immagine: 49.79% / 47.16%.
      Perno degli sprite lancetta (il foro dell'anello): 75.55% / 74.43%.
      Gli sprite sono disegnati in diagonale: l'offset di rotazione che li
      riporta a mezzogiorno è applicato in clock.js, non qui. */
-  #clock{ position:relative; width:min(320px,100%); aspect-ratio:576/433; margin:0 auto 14px;
-    background-image:url("/assets/images/quadrante_orologio.png");
-    background-size:contain; background-repeat:no-repeat; background-position:center; }
+  #clockPuzzle .zoombg{ filter:blur(4px); transform:scale(1.06); }
+  #clockPuzzle .scrim{ background:rgba(12,13,18,.55); }
+  #clock{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:min(76%, 90vh); aspect-ratio:576/433; z-index:2;
+    cursor:grab; touch-action:none;
+    background-image:url("/assets/images/CittaFerma/quadrante_orologio.png");
+    background-size:contain; background-repeat:no-repeat; background-position:center;
+    filter:drop-shadow(0 10px 30px rgba(0,0,0,.6)); }
+  #clock.grabbing{ cursor:grabbing; }
+  #clock.solved{ filter:drop-shadow(0 0 26px rgba(242,217,168,.55)); }
   .hand{ position:absolute; left:49.79%; top:47.16%; transform-origin:75.55% 74.43%;
-    background-size:contain; background-repeat:no-repeat; background-position:center; }
-  #handH{ width:12.03%; aspect-ratio:1/1; background-image:url("/assets/images/orologio-lancetta-ore.png"); z-index:3; }
-  #handM{ width:22.03%; aspect-ratio:2/1; background-image:url("/assets/images/orologio-lancetta-minuti.png"); z-index:2; }
+    background-size:contain; background-repeat:no-repeat; background-position:center;
+    pointer-events:none; }
+  .hand.snap{ transition:transform .18s ease; }
+  #handH{ width:12.03%; aspect-ratio:1/1; background-image:url("/assets/images/CittaFerma/orologio-lancetta-ore.png"); z-index:3; }
+  #handM{ width:22.03%; aspect-ratio:2/1; background-image:url("/assets/images/CittaFerma/orologio-lancetta-minuti.png"); z-index:2; }
   #clock .pivot{ position:absolute; left:49.79%; top:47.16%; width:7px; height:7px; background:#1a1712; border-radius:50%; transform:translate(-50%,-50%); z-index:4; }
-  .dial{ display:flex; gap:12px; justify-content:center; align-items:center; margin-bottom:8px; }
-  .dial label{ font-size:12px; color:var(--muted); letter-spacing:.1em; width:52px; text-align:right; }
+  #clockPuzzle .pfeedback{ position:absolute; z-index:3; left:0; right:0; bottom:6%;
+    margin:0; text-align:center; text-shadow:0 1px 8px rgba(0,0,0,.85); }
+  #clockPuzzle .link{ position:absolute; z-index:3; top:10px; left:10px; }
   input[type=range]{ width:150px; accent-color:var(--accent); }
+
+  /* CASSAFORTE puzzle — display 6 cifre + tastierino numerico. */
+  #safeDisplay{ font-size:26px; letter-spacing:.34em; color:var(--glow); margin:4px 0 14px; font-variant-numeric:tabular-nums; }
+  #safeKeys{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  #safeKeys button{ font-family:inherit; font-size:18px; color:var(--ink); background:rgba(139,142,163,.12);
+    border:1px solid rgba(139,142,163,.3); border-radius:6px; padding:12px 0; cursor:pointer; transition:.2s; }
+  #safeKeys button:hover{ border-color:var(--glow); color:var(--glow); }
+
+  /* SPECCHIO puzzle — velo di vapore che si addensa, poi il numero affiora. */
+  #mirrorSteam{ position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0; transition:opacity .35s ease;
+    background:radial-gradient(120% 90% at 50% 35%, rgba(232,236,240,.96), rgba(210,216,222,.9)); }
+  #mirrorBar{ height:4px; border-radius:2px; background:rgba(139,142,163,.25); overflow:hidden; margin:2px 0 4px; }
+  #mirrorFill{ height:100%; width:0%; border-radius:2px; background:linear-gradient(90deg,var(--accent),var(--glow)); transition:width .12s linear; }
 
   .warm-0 .scene .layer{ filter:saturate(.7) brightness(.86); }
   .warm-1 .scene .layer{ filter:saturate(.85) brightness(.94); }
