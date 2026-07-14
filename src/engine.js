@@ -38,6 +38,7 @@ export const SCENE_NAMES = {
   spiaggia: "Spiaggia degli Scogli",
   "casa-soggiorno": "Soggiorno",
   "casa-bagno": "Bagno",
+  "fuori-casa": "Fuori casa",
 };
 
 // Inietta l'etichetta col nome della destinazione in ogni hotspot di

@@ -44,6 +44,7 @@
           style="left: 50%; top: 90%"
           data-action="porta"
           data-goto="piazza"
+          data-label="Fuori casa"
           data-dir="up"
         >
           <span class="ring"></span><span class="arrow"></span>
@@ -217,7 +218,7 @@
         </button>
         <button
           class="hotspot"
-          style="left: 52%; top: 62%"
+          style="left: 25%; top: 79%"
           data-action="bigliettino-casa"
         >
           <span class="ring"></span><span class="dot"></span>
@@ -233,7 +234,7 @@
         </button>
         <button
           class="hotspot nav"
-          style="left: 10%; top: 86%"
+          style="left: 9%; top: 10%"
           data-action="soggiorno-exit"
           data-goto="piazza"
           data-dir="left"
@@ -262,6 +263,27 @@
           data-action="to-soggiorno"
           data-goto="casa-soggiorno"
           data-dir="left"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+      </div>
+
+      <!-- ===== SCENE: FUORI CASA (placeholder — arte e hotspot da definire) ===== -->
+      <div class="scene" data-scene="fuori-casa">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="
+            background-color: #d6d2c8;
+            background-image: url(&quot;/assets/images/casa/fuori-casa.png&quot;);
+          "
+        ></div>
+        <button
+          class="hotspot nav"
+          style="left: 50%; top: 90%"
+          data-action="fuori-casa-back"
+          data-goto="hub"
+          data-dir="down"
         >
           <span class="ring"></span><span class="arrow"></span>
         </button>
@@ -363,6 +385,14 @@
           class="zoombg"
           id="mirrorBg"
           style="background-image: url('/assets/images/CittaFerma/closeup-specchio.png')"
+        ></div>
+        <div
+          class="zoombg"
+          id="mirrorNumber"
+          style="
+            opacity: 0;
+            background-image: url('/assets/images/CittaFerma/closeup-specchio-numero.png');
+          "
         ></div>
         <div id="mirrorSteam"></div>
         <div class="scrim"></div>

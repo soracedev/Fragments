@@ -35,60 +35,103 @@ sua abilità. Alla fine si combinano per aprire un messaggio personale di Luca.
 
 ## 2. Struttura narrativa
 
+> **Aggiornamento strutturale importante**: il gioco ha **due mondi**, non
+> tre. Non esiste un "Mondo 3" separato — l'arco della sindrome
+> dell'impostore attraversa tutto il gioco tramite una figura persistente
+> (vedi sotto) e si risolve nel finale del Mondo 2, non in un capitolo a sé.
+
 ### Hub: La Camera da Letto
 
 Nox si sveglia nella sua stanza. Tutto è fermo — l'orologio segna le 03:00
 (l'ora delle streghe: soglia simbolica tra il mondo reale e il viaggio
 interiore che sta per affrontare), non c'è vento, nessun suono. Il gatto
-dorme beato sul letto. Tornando dall'hub dopo ogni mondo, la stanza si
+dorme beato sul letto. Tornando dall'hub dopo il Mondo 1, la stanza si
 "riscalda" progressivamente (feedback visivo via filtri CSS: `warm-0` →
 `warm-3`). I dadi raccolti si accumulano in uno scrigno visibile.
+
+**Comportamento a due stadi della porta** ("Fuori casa"): la prima volta
+che Nox esce, la porta la porta in realtà a Nettuno (Mondo 1) — non lo sa,
+il giocatore nemmeno. Solo dopo aver chiuso il Mondo 2, la stessa porta
+porta davvero fuori, a una scena reale ancora da progettare.
+
+### La Figura misteriosa — presenza costante (non più una manifestazione per mondo)
+
+**Cambiamento rispetto al design originale**: non ci sono tre manifestazioni
+diverse, una per mondo. C'è **una Figura 1**, sempre la stessa (etichettata
+"?" nei dialoghi, mai un nome), che accompagna Nox dall'inizio alla fine
+del gioco — svalutandola, sminuendola, demoralizzandola. È di fatto la voce
+della sindrome dell'impostore, incarnata, non relegata a un capitolo finale.
+Il suo registro si evolve col mondo in cui appare:
+
+- **A Nettuno**: rassegnazione, il tema del "tanto è inutile provarci"
+- **A Casa Familiare**: si sposta sulla relazione — "non mi ha mai amato
+  davvero", dubbi sul rapporto con l'altro
+- **Nella Stanza dei Dadi (finale)**: l'attacco più diretto, unisce
+  entrambi i temi — incapacità personale e non essere amata abbastanza
+
+Si sono già incontrate (a Nettuno prima, poi di nuovo a Casa Familiare) — la
+Figura 1 lo ricorda, non è un incontro isolato per mondo.
 
 ### Mondo 1 — La Città Ferma (Nettuno)
 
 **Tema**: sentirsi rimasta indietro, il fallimento, l'incapacità di progredire.
-**Ambientazione**: Nettuno (città reale, significativa per loro).
-**Manifestazione (NPC)**: una **figura misteriosa, ombra indistinta ed eterea**
-(etichettata "?" nei dialoghi, senza nome) che ha smesso di provarci. Parla
-con la sua voce reale nel registro rassegnato ("vabbè, tanto..."). Nox deve
-rimettere in moto la città e convincerla (con i fatti, non a parole) che si
-può ripartire.
-**Dado**: trovato dentro l'orologio riparato, incastonato con precisione.
+**Ambientazione**: Nettuno (città reale, significativa per loro). Stile
+visivo: illustrazione digitale stilizzata (coerente con tutto il resto del
+mondo onirico).
+**Dado ottenuto**: **D4** — trovato dentro una cassaforte a muro in una
+sezione "Casa" raggiungibile dalla piazza (Soggiorno + Bagno, con un enigma
+di specchio appannato che rivela il codice della cassaforte).
+**Stato**: storyboard completo (v3/v4/v5), mancano solo asset grafici e
+implementazione codice.
 
-### Mondo 2 — La Solitudine
+### Mondo 2 — Casa Familiare (La Solitudine)
 
 **Tema**: sentirsi sola/non amata anche quando qualcuno le è vicino.
-**Manifestazione**: un personaggio che _è_ lei ma con superficie diversa (nome
-diverso, aspetto diverso). Non ricorda/sente di aver perso qualcosa. Solo
-piano piano, da dettagli che combaciano con la sua vita, la protagonista (e il
-giocatore) capisce che sta aiutando se stessa.
-**Dado**: donato dal personaggio-manifestazione dopo essere stato "visto".
-**Stato**: struttura narrativa definita a grandi linee, puzzle specifici e
-storyboard da scrivere. Da ripensare la parte "chi la vede fin dall'inizio",
-in precedenza affidata alla volpe (ora rimossa) — va trovato un nuovo
-veicolo per questo beat, potrebbe essere la stessa manifestazione o un
-dettaglio ambientale.
-
-### Mondo 3 — L'Impostora
-
-**Tema**: sindrome dell'impostore. Il nemico finale è un'Ombra — una versione
-di lei che usa la sua stessa autoironia come arma contro di sé.
-**Meccanica chiave**: "trova le differenze" tra lei e il riflesso (specchi,
-stanza degli specchi). Ogni differenza trovata zittisce una frase dell'Ombra.
-Il climax non è sconfiggere l'Ombra ma farla coincidere — l'Ombra sparisce
-non perché eliminata ma perché non ha più motivo di esistere.
-**Dado**: estratto dalle mani dell'Ombra. L'Ombra lo mostrava come "prova"
-di incapacità, ma esaminandolo da vicino i "difetti" sono la firma di un
-pezzo artigianale — non errori, autenticità.
-**Stato**: concept definito, dettagli puzzle e storyboard da scrivere.
+**Ambientazione**: la vera casa di Luca. Le foto reali servono solo come
+riferimento/base — vengono rifatte in stile illustrato, coerente con
+Nettuno. Nessun contrasto di linguaggio visivo tra i due mondi, lo stile
+resta unico in tutto il gioco.
+**Come ci si arriva**: dal "Fuori casa" del Mondo 1 (il cancello della
+nonna), che invece di aprirsi sul giardino della nonna si apre — senza
+preavviso — su Casa Familiare. Nox la riconosce immediatamente.
+**Personaggi**: la Figura 1 (persistente, vedi sopra) più una **Figura 2**,
+esclusiva di questo mondo — un riflesso distorto di Luca, silenzioso e
+distante, che sembra ignorare Nox per quasi tutta la durata del mondo.
+Rompe il silenzio una sola volta, alla scena del divano ("Sono così
+belli", riferito al secondo dado) — il momento in cui l'accusa "non mi ha
+mai amato davvero" viene silenziosamente smentita dai fatti, non da un
+discorso.
+**Dado ottenuto**: **D6** — donato da Figura 1 dopo la scena del divano.
+**Finale del mondo — La Stanza dei Dadi**: risolto il resto della Casa,
+Nox accede alla stanza dove di solito si preparano i dadi (dettaglio
+reale: l'hobby di Desy). Qui la Figura 1 la affronta un'ultima volta con
+l'attacco più diretto di tutto il gioco. Nox trova un portadadi (ha già
+D4 e D6) e decide — da altruista — di completare il lavoro, creando i
+cinque dadi rimanenti: **D8, D10, D12, D%, D20** (il set poliedrico
+completo, sette dadi in tutto). Minigioco in 5 fasi che segue il processo
+reale di lavorazione della resina (dosaggio, colata nello stampo,
+pigmenti col contagocce, marmorizzazione con stuzzicadenti, pressure pot).
+Al termine, Figura 1 — commossa dalla qualità del lavoro — si ricrede,
+sorride, ringrazia Nox e la lascia andare. È qui che si risolve l'intero
+arco dell'impostore, non in un mondo separato.
+**Stato**: storyboard in scrittura, dialoghi chiave forniti, mancano
+ambientazione delle stanze pre-divano, minigiochi intermedi, e alcuni testi
+(la battuta che fa ricredere Figura 1 dopo la reazione di Figura 2, il
+testo esatto della resa finale, la riflessione interna di Nox al risveglio).
 
 ### Finale
 
-Tutti e 3 i dadi si combinano nella camera (puzzle combinazione tipo
-lucchetto). Si apre una scatola/forziere con il **messaggio personale di Luca**
-— fuori dalla finzione narrativa del gioco. L'ultimo enigma è il più semplice
-(aprire la finestra, guardarsi allo specchio senza distorsioni) a simboleggiare
-che il vero ultimo passo non è complesso, è solo _scegliere di farlo_.
+Nox si risveglia nella sua stanza. Il tempo è ripartito — non più le 03:00
+fisse. Una breve riflessione interna, poi il gioco si chiude come se fosse
+stato tutto un sogno. **Crediti finali** con una dedica personale di Luca
+a Desy (testo suo, fuori dalla finzione narrativa del gioco).
+
+I sette dadi (D4, D6, D8, D10, D12, D%, D20) restano come collezione
+visibile — un set completo di dadi da gioco reali, coerente con l'hobby di
+Desy. _(Nota: il precedente concept "combinazione finale dei dadi tipo
+lucchetto" può restare come idea opzionale se si vuole un gesto finale in
+camera, ma non è più necessario strutturalmente — il vero climax emotivo è
+già avvenuto nella Stanza dei Dadi.)_
 
 ---
 
@@ -114,7 +157,7 @@ che il vero ultimo passo non è complesso, è solo _scegliere di farlo_.
 4. **Pattern matching / costellazione** — collega punti nell'ordine giusto
 5. **Memory tematico** — accoppia frammenti per ricostruire un ricordo
 6. **Luce/oscurità** — muovi un cerchio di luce per scoprire dettagli nascosti
-7. **Trova le differenze** — tra lei e il riflesso (Mondo 3)
+7. **Trova le differenze** — tra lei e il riflesso _(concept originale del vecchio Mondo 3, ora non più necessario dato che l'arco dell'impostore si risolve nella Stanza dei Dadi — può restare in libreria per un mondo futuro, se mai se ne aggiungessero)_
 8. **Riordino temporale** — frammenti da riordinare cronologicamente
 9. **Simon Says / sequenza audio** — ripeti una sequenza (opzionale)
 
@@ -230,8 +273,7 @@ palette fredda/nebbiosa che si scalda col progresso del gioco.
 
 - Vecchio negozio illuminato (N4, Mondo 1)
 - Protagonista (poche pose statiche: idle, esamina, reazione)
-- Fondali Mondo 2 (5-6 scene, ambientazione da definire)
-- Fondali Mondo 3 (5-6 scene, stanza degli specchi)
+- Fondali Mondo 2 / Casa Familiare — foto come riferimento, rifatte in stile illustrato coerente con Nettuno (stanze pre-divano ancora da definire, + scena del divano, + Stanza dei Dadi)
 - Musica per Mondo 1, 2, 3 (opzionale, può restare silenzioso/ambient)
 
 ---
@@ -257,16 +299,19 @@ palette fredda/nebbiosa che si scalda col progresso del gioco.
 
 - [ ] Mondo 1: scena N4 (vecchio negozio) con puzzle tracce + orologio da tasca
 - [ ] Mondo 1: resa finale della figura + ritorno all'hub
-- [ ] Mondo 2: design completo, storyboard, puzzle, asset, codice
-- [ ] Mondo 3: design completo, storyboard, puzzle, asset, codice
-- [ ] Finale: combinazione dadi + messaggio personale
+- [ ] Mondo 2 (Casa Familiare): stanze pre-divano da progettare (ambienti + minigiochi)
+- [ ] Mondo 2: scena del divano — testo della battuta che fa ricredere Figura 1
+- [ ] Mondo 2: Stanza dei Dadi — testo esatto della resa finale di Figura 1
+- [ ] Mondo 2: minigioco creazione dadi (5 fasi) — decidere se ripetuto per ciascuno dei 5 dadi o in batch
+- [ ] Finale: riflessione interna di Nox al risveglio + dedica crediti (testo di Luca)
+- [x] ~~Mondo 3~~ — non esiste più come mondo separato, arco assorbito nel finale del Mondo 2
 - [ ] Asset protagonista (sprite statici)
 - [ ] Audio ambientale per scene di gioco
 - [ ] Scene generate da JS (non hardcoded in index.html) per scalabilità
 - [ ] APK via Capacitor (post-completamento contenuti)
 - [ ] Luca deve riscrivere `INTRO_LINES` in prologue.js con testo personale
 - [ ] Decidere incisione sull'orologio da tasca (data/iniziali significative)
-- [ ] Decidere numeri/simboli sulle facce dei 3 dadi per la combinazione finale
+- [ ] Inventario da rifare: eliminare gli slot dadi multipli nell'HUD, sostituire con una singola "icona-zaino" più grande che apre il pannello inventario già esistente — tutti i dadi (D4, D6, D8, D10, D12, D%, D20) e ogni altro oggetto vivono lì dentro
 
 ---
 
@@ -319,27 +364,30 @@ Script dialogico completo con:
 
 **Settimana 1** (ora → 15 luglio):
 
-- Completare Mondo 1 (negozio + resa finale)
-- Design e storyboard Mondo 2
-- Generare asset Mondo 2
+- Completare Mondo 1 (negozio "Casa" nella piazza + resa finale di Figura 1)
+- Design delle stanze pre-divano di Casa Familiare (Mondo 2) + relativi minigiochi
+- Scrivere i testi ancora mancanti (battuta di Figura 1 dopo la scena del
+  divano, resa finale nella Stanza dei Dadi, riflessione di Nox al risveglio)
+- Generare i primi asset di Casa Familiare (foto come riferimento, rifatte in stile illustrato)
 
 **Settimana 2** (15 → 22 luglio):
 
-- Implementare Mondo 2 completo
-- Design e storyboard Mondo 3
-- Generare asset Mondo 3
+- Implementare Mondo 1 completo in codice
+- Implementare le stanze pre-divano + scena del divano di Casa Familiare
+- Decidere ed implementare il minigioco di creazione dadi (5 fasi × 5 dadi)
+- Rifare l'inventario: icona-zaino unica, niente slot multipli
 
 **Settimana 3** (22 → 29 luglio):
 
-- Implementare Mondo 3 completo
-- Finale (combinazione dadi + messaggio)
+- Implementare la Stanza dei Dadi e il finale (risveglio + riflessione)
+- Scrivere e integrare la dedica dei crediti
 - Polish: audio, transizioni, testing su tablet
 
 **Ultimi giorni**:
 
 - Build APK con Capacitor
 - Test finale sul tablet target
-- Luca scrive il messaggio personale finale
+- Luca scrive/rifinisce la dedica finale
 
 ---
 

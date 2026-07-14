@@ -167,7 +167,7 @@ all'orologio.)_
 > Ok, sono sicura che quella cosa non fosse lì fino a poco fa.
 
 > **NOX** _(avvicinandosi)_
-> Ehi. Scusami? Sai dirmi dove siamo?
+> Ehi. Scusami? Sai dirmi cosa sta succedendo?
 
 > **?** _(senza alzare troppo lo sguardo)_
 > Ehi. Se sei venuta a dirmi che devo "reagire", puoi anche tornare da dove
@@ -506,7 +506,7 @@ decade lentamente nel tempo se il drag si ferma — non un semplice
 | Chiave      | `chiave.png`      | 🔲 da generare                                         |
 | Dado        | `dado.png`        | 🔲 da generare                                         |
 
---- APPUNTI SOLO PER UTENTE, NON PER FLUSSO IA E SVILUPPO CODICE, IGNORARE ---
+---
 
 - **Riga vuota nel dialogo N4**: nell'appunto originale una battuta di "?"
   è lasciata senza testo, tra "ferma a contemplare il vuoto" e la risposta

@@ -50,6 +50,18 @@ function setBagnoState() {
   layer.style.backgroundImage = `url("${BAGNO_BG[S.flags.mirrorSolved ? 'solved' : 'base']}")`;
 }
 
+// ---- Stato di Piazza Nettuno (l'ingranaggio sparisce dalla fontana) ----
+const NETTUNO_BG = {
+  base: '/assets/images/CittaFerma/piazza-nettuno.png',
+  taken: '/assets/images/CittaFerma/piazza-nettuno-2.png',
+};
+
+function setNettunoState() {
+  const layer = $('.scene[data-scene="nettuno"] .layer');
+  if (!layer) return;
+  layer.style.backgroundImage = `url("${NETTUNO_BG[S.has.ingranaggio ? 'taken' : 'base']}")`;
+}
+
 // ---- Stato della Spiaggia (la figura appare nell'arte col dado) ----
 const SPIAGGIA_BG = {
   base: '/assets/images/CittaFerma/spiaggia.png',
@@ -74,6 +86,10 @@ export function refreshHotspots() {
     setHS('to-nettuno', t);
     setHS('porta-casa', S.flags.clockFixed);
     if (hs('piazza-clock')) hs('piazza-clock').classList.toggle('done', S.flags.clockFixed);
+  }
+
+  if (S.scene === 'nettuno') {
+    setNettunoState();
   }
 
   if (S.scene === 'casa-soggiorno') {
@@ -167,6 +183,12 @@ function talkFigureBeach() {
       writeSave();
       refreshHotspots();
       if (typeof window.__refreshPrologueHotspots === 'function') window.__refreshPrologueHotspots();
+      speak([
+        P('Sono riuscita a tornare a casa!'),
+        P('Stavo forse sognando? Chi era quella figura misteriosa? Forse stavo ancora dormendo?'),
+        SG('In tasca noti qualcosa, è un D4.'),
+        P('Impossibile...E questo come ci è finito qui? Era tutto vero?'),
+      ]);
     }, 1000);
   });
 }
@@ -268,6 +290,12 @@ const ACTIONS = {
   ]),
   'figura-spiaggia': talkFigureBeach,
   'spiaggia-back': () => { show('nettuno'); refreshHotspots(); },
+
+  // --- FUORI CASA (placeholder) ---
+  'fuori-casa-back': () => {
+    show('hub');
+    if (typeof window.__refreshPrologueHotspots === 'function') window.__refreshPrologueHotspots();
+  },
 };
 
 // ---- Callback per i puzzle (bridge fra moduli) ----

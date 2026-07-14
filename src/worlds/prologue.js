@@ -108,9 +108,17 @@ const ACTIONS = {
     });
   },
 
-  'porta': () => speak([
-    P('È il momento di alzarsi.'),
-  ], () => fadeWhite(() => { show('piazza'); arrivePiazza(); })),
+  'porta': () => {
+    // Dopo il ritorno dalla spiaggia la porta non porta più nella piazza
+    // dell'orologio, ma davvero fuori casa (scena segnaposto, arte da fare).
+    if (S.flags.dadoGifted) {
+      fadeWhite(() => { show('fuori-casa'); });
+      return;
+    }
+    speak([
+      P('È il momento di alzarsi.'),
+    ], () => fadeWhite(() => { show('piazza'); arrivePiazza(); }));
+  },
 };
 
 export function initPrologueHotspots() {

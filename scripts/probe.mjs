@@ -48,22 +48,35 @@ assert('cassaforte: overlay chiuso dopo la soluzione', await page.evaluate(() =>
 // chiude eventuale dialogo aperto dalla soluzione
 await page.evaluate(() => document.querySelector('#dialogue')?.classList.remove('show'));
 
-// --- SPECCHIO: rubinetto → vapore ~5s → numero + mirrorSolved ---
+// --- SPECCHIO: rubinetto apre l'acqua → vapore sale → numero affiora ---
+// Il giocatore controlla il vapore: un tocco apre l'acqua, il livello
+// sale da solo fino al pieno e a quel punto il numero è leggibile →
+// mirrorSolved. Il numero è su un layer separato (#mirrorNumber) che
+// fa crossfade con l'opacità, non uno swap di sfondo.
 await page.evaluate(() => {
   document.querySelectorAll('.puzzle').forEach((p) => p.classList.remove('open'));
-  document.getElementById('mirrorPuzzle').classList.add('open');
 });
-// reset dello stato interno del modulo via il vero flusso non è esposto:
-// forziamo lo sfondo di partenza e azioniamo il rubinetto reale.
-await page.evaluate(() => {
-  document.getElementById('mirrorBg').style.backgroundImage = "url('/assets/images/CittaFerma/closeup-specchio.png')";
-});
-await page.click('#mirrorTap');
-await page.waitForTimeout(6000);
+
+// 1) Chiudendo l'acqua troppo presto NON risolve.
+await page.evaluate(() => document.getElementById('mirrorPuzzle').classList.add('open'));
+await page.click('#mirrorTap');        // apre l'acqua
+await page.waitForTimeout(400);
+await page.click('#mirrorTap');        // la richiude quasi subito (sotto soglia)
+await page.waitForTimeout(200);
 save = await readSave(page);
-assert('specchio: mirrorSolved = true dopo il vapore', save.flags?.mirrorSolved === true);
-assert('specchio: sfondo passato al numero', await page.evaluate(() =>
-  document.getElementById('mirrorBg').style.backgroundImage.includes('closeup-specchio-numero')));
+assert('specchio: chiudere presto NON risolve', !save.flags?.mirrorSolved);
+assert('specchio: il vapore si congela (numero parzialmente visibile)', await page.evaluate(() => {
+  const o = parseFloat(document.getElementById('mirrorNumber').style.opacity || '0');
+  return o > 0 && o < 0.75;
+}));
+
+// 2) Riaprendo l'acqua e lasciandola salire al pieno → risolve.
+await page.click('#mirrorTap');
+await page.waitForTimeout(5000);
+save = await readSave(page);
+assert('specchio: mirrorSolved = true a vapore pieno', save.flags?.mirrorSolved === true);
+assert('specchio: numero completamente affiorato', await page.evaluate(() =>
+  parseFloat(document.getElementById('mirrorNumber').style.opacity || '0') >= 0.99));
 
 await browser.close();
 
