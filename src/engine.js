@@ -145,20 +145,28 @@ function nextLine() {
 }
 
 // ---- Ritratti personaggio (stile visual novel) ----
-// image è il nome file senza estensione (es. "Nox_worried"); la cartella
-// del personaggio è tutto ciò che precede il primo "_".
+// Ogni personaggio ha un unico ritratto fisso. La battuta porta un id
+// stabile (`char`) mappato al file dalla tabella qui sotto, indipendente
+// dal nome mostrato nella targhetta (`who`).
 
-function portraitSrc(image) {
-  const folder = image.split("_")[0];
-  return `/assets/images/characters/${folder}/${image}.png`;
+const PORTRAITS = {
+  Nox: "Nox",
+  LEI: "LEI",
+  LUI: "LUI",
+};
+
+function portraitSrc(char) {
+  const file = PORTRAITS[char];
+  return file ? `/assets/images/characters/${file}.png` : null;
 }
 
-function setPortrait(el, image) {
-  if (!image) {
+function setPortrait(el, char) {
+  const src = portraitSrc(char);
+  if (!src) {
     el.classList.remove("show");
     return;
   }
-  el.style.backgroundImage = `url("${portraitSrc(image)}")`;
+  el.style.backgroundImage = `url("${src}")`;
   el.classList.add("show");
 }
 
@@ -166,9 +174,9 @@ function updatePortraits(l) {
   const left = $("#portraitLeft");
   const right = $("#portraitRight");
   if (!left || !right) return;
-  if (l.who === "Nox") setPortrait(left, l.image);
-  else if (l.who) setPortrait(right, l.image);
-  const active = l.who === "Nox" ? "left" : l.who ? "right" : null;
+  if (l.char === "Nox") setPortrait(left, l.char);
+  else if (l.char) setPortrait(right, l.char);
+  const active = l.char === "Nox" ? "left" : l.char ? "right" : null;
   left.classList.toggle("dim", active !== "left");
   right.classList.toggle("dim", active !== "right");
 }
@@ -191,13 +199,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ---- Shortcut per costruire battute ----
 
-export const P = (t, image = "Nox_worried") => ({ who: "Nox", text: t, image });
-export const L = (t, image = "FiguraMisteriosa_neutral") => ({
-  who: "?",
-  text: t,
-  image,
-});
-export const SG = (t, image) => ({ stage: true, text: t, image });
+export const P = (t) => ({ who: "Nox", char: "Nox", text: t });
+export const L = (t) => ({ who: "LEI", char: "LEI", text: t });
+export const SG = (t) => ({ stage: true, text: t });
 
 // ---- Parallax ----
 

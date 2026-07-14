@@ -167,12 +167,12 @@ function talkFigureBeach() {
     SG('Nox tira fuori il dado che ha trovato nella casa.'),
     P('...Questo è tuo? Lo hai fatto tu? È molto bello.'),
     SG('La figura trasale per un attimo, quasi a mostrare un’emozione.'),
-    L('Non è niente di che. È pieno di imperfezioni.', 'FiguraMisteriosa_neutral2'),
+    L('Non è niente di che. È pieno di imperfezioni.'),
     P('Non sono forse quelle a renderlo unico?'),
     P('E comunque questo smentisce il fatto che tu sia capace solo a restare immobile.'),
-    L('...', 'FiguraMisteriosa_neutral2'),
+    L('...'),
     SG("L'ombra fissa Nox intensamente."),
-    L('Tu dici? Sarà... Vabbè, per questa volta te lo regalo. Puoi tenerlo.', 'FiguraMisteriosa_neutral2'),
+    L('Tu dici? Sarà... Vabbè, per questa volta te lo regalo. Puoi tenerlo.'),
   ], () => {
     S.flags.dadoGifted = true;
     collectDie(1);
