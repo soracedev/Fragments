@@ -226,8 +226,11 @@ const LEI_FINALE_2 = [
   SG('La sua voce trema, per la prima volta senza difendersi.'),
   L('Non so se sono pronta a crederci davvero.'),
   P('Non serve crederci subito. Basta provarci. Un po’ alla volta — come con l’orologio.'),
-  SG('LEI si alza dalla sedia. Si avvicina. Le due si abbracciano.'),
 ];
+
+// La battuta dell'abbraccio è separata: si gioca sopra l'illustrazione
+// dedicata (scena "abbraccio"), non nell'interno lavanderia.
+const ABBRACCIO_SG = SG('LEI si alza dalla sedia. Si avvicina. Le due si abbracciano.');
 
 // [SEGNAPOSTO] Riflessione di Nox al risveglio — testo da scrivere (Luca).
 const REFLECTION = [
@@ -256,16 +259,20 @@ function openCredits() {
 // risveglio in camera (warm-3) → riflessione → crediti.
 function runFinale() {
   speak(LEI_FINALE_2, () => {
-    fadeBlack(() => {
-      show('hub');
-      setWarmth(3);
-      writeSave();
-      speak(REFLECTION, () => {
-        S.flags.gameDone = true;
+    // L'abbraccio: si passa all'illustrazione dedicata, poi al nero.
+    show('abbraccio');
+    speak([ABBRACCIO_SG], () => {
+      fadeBlack(() => {
+        show('hub');
+        setWarmth(3);
         writeSave();
-        openCredits();
-      });
-    }, 1000);
+        speak(REFLECTION, () => {
+          S.flags.gameDone = true;
+          writeSave();
+          openCredits();
+        });
+      }, 1000);
+    });
   });
 }
 
