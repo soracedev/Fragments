@@ -13,7 +13,7 @@
 
 import { S, writeSave } from '../state.js';
 import { $, speak, SG, P, L } from '../engine.js';
-import { addItem } from '../inventory.js';
+import { acquire } from '../inventory.js';
 
 const TH = 3, TM = 0; // bersaglio 03:00: ore sul 3, minuti sul 12
 
@@ -142,17 +142,18 @@ function onSolved() {
       P('Una chiave.'),
     ], () => {
       S.has.chiave = true;
-      addItem('chiave');
-      writeSave();
-      if (typeof window.__refreshHotspots === 'function') window.__refreshHotspots();
+      acquire('chiave', 'Raccogli la chiave.', () => {
+        writeSave();
+        if (typeof window.__refreshHotspots === 'function') window.__refreshHotspots();
 
-      speak([
-        P('Hai visto? Incredibile, ma ce l’ho fatta.'),
-        L('Ok, riparte. E quindi?'),
-        L('Va bene, eh. Sul serio. Solo... non è che uno «riparte» così, perché un orologio ticchetta di nuovo.'),
-        SG('In fondo alla piazza, una finestra prima buia si illumina. Sotto, una porta.'),
-      ], () => {
-        if (typeof window.__onClockDone === 'function') window.__onClockDone();
+        speak([
+          P('Hai visto? Incredibile, ma ce l’ho fatta.'),
+          L('Ok, riparte. E quindi?'),
+          L('Va bene, eh. Sul serio. Solo... non è che uno «riparte» così, perché un orologio ticchetta di nuovo.'),
+          SG('In fondo alla piazza, una finestra prima buia si illumina. Sotto, una porta.'),
+        ], () => {
+          if (typeof window.__onClockDone === 'function') window.__onClockDone();
+        });
       });
     });
   }, 1100);

@@ -56,11 +56,13 @@
         <div
           class="layer"
           data-depth="0.03"
-          style="background-image: url(&quot;/assets/images/CittaFerma/piazza.png&quot;)"
+          style="
+            background-image: url(&quot;/assets/images/CittaFerma/piazza.png&quot;);
+          "
         ></div>
         <button
           class="hotspot char hidden"
-          style="left: 41%; top: 62%"
+          style="left: 60%; top: 64%"
           data-action="figura"
         >
           <span class="ring"></span>
@@ -83,10 +85,10 @@
         </button>
         <button
           class="hotspot nav hidden"
-          style="left: 86%; top: 34%"
+          style="left: 15%; top: 31%"
           data-action="to-nettuno"
           data-goto="nettuno"
-          data-dir="right"
+          data-dir="left"
         >
           <span class="ring"></span><span class="arrow"></span>
         </button>
@@ -107,7 +109,9 @@
         <div
           class="layer"
           data-depth="0.03"
-          style="background-image: url(&quot;/assets/images/CittaFerma/vicolo.png&quot;)"
+          style="
+            background-image: url(&quot;/assets/images/CittaFerma/vicolo.png&quot;);
+          "
         ></div>
         <button
           class="hotspot"
@@ -138,7 +142,7 @@
         ></div>
         <button
           class="hotspot"
-          style="left: 43%; top: 77%"
+          style="left: 41%; top: 66%"
           data-action="ingranaggio"
         >
           <span class="ring"></span><span class="dot"></span>
@@ -175,7 +179,9 @@
         <div
           class="layer"
           data-depth="0.03"
-          style="background-image: url(&quot;/assets/images/CittaFerma/spiaggia.png&quot;)"
+          style="
+            background-image: url(&quot;/assets/images/CittaFerma/spiaggia.png&quot;);
+          "
         ></div>
         <button
           class="hotspot"
@@ -207,7 +213,9 @@
         <div
           class="layer"
           data-depth="0.03"
-          style="background-image: url(&quot;/assets/images/CittaFerma/casa-soggiorno.png&quot;)"
+          style="
+            background-image: url(&quot;/assets/images/CittaFerma/casa-soggiorno.png&quot;);
+          "
         ></div>
         <button
           class="hotspot"
@@ -248,7 +256,9 @@
         <div
           class="layer"
           data-depth="0.03"
-          style="background-image: url(&quot;/assets/images/CittaFerma/casa-bagno.png&quot;)"
+          style="
+            background-image: url(&quot;/assets/images/CittaFerma/casa-bagno.png&quot;);
+          "
         ></div>
         <button
           class="hotspot"
@@ -279,11 +289,320 @@
           "
         ></div>
         <button
+          class="hotspot"
+          style="left: 24%; top: 66%"
+          data-action="auto"
+          data-label="Auto"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot"
+          style="left: 68%; top: 52%"
+          data-action="cancello"
+          data-label="Cancello"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
           class="hotspot nav"
           style="left: 50%; top: 90%"
           data-action="fuori-casa-back"
           data-goto="hub"
           data-dir="down"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+      </div>
+
+      <!-- ===== SCENE: FUORI CASA · CLOSEUP AUTO ===== -->
+      <div class="scene" data-scene="closeup-auto">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="
+            background-color: #cfc9bd;
+            background-image: url(&quot;/assets/images/casa/closeup-auto.png&quot;);
+          "
+        ></div>
+        <button
+          class="hotspot"
+          style="left: 50%; top: 55%"
+          data-action="auto-take"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot nav"
+          style="left: 10%; top: 88%"
+          data-action="closeup-auto-back"
+          data-goto="fuori-casa"
+          data-dir="down"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+      </div>
+
+      <!-- ===== SCENE: FUORI CASA · CLOSEUP CANCELLO ===== -->
+      <div class="scene" data-scene="closeup-cancello">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="
+            background-color: #c7c2b6;
+            background-image: url(&quot;/assets/images/casa/closeup-cancello.png&quot;);
+          "
+        ></div>
+        <button
+          class="hotspot"
+          style="left: 50%; top: 50%"
+          data-action="cancello-enter"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot nav"
+          style="left: 10%; top: 88%"
+          data-action="closeup-cancello-back"
+          data-goto="fuori-casa"
+          data-dir="down"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+      </div>
+
+      <!-- ===== MONDO 2: CASA FAMILIARE ===== -->
+
+      <!-- ===== SCENE: CASA FAMILIARE · SOGGIORNO ===== -->
+      <div class="scene" data-scene="casaf-soggiorno">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="
+            background-color: #cdbfa8;
+            background-image: url(&quot;/assets/images/casaFamiliare/soggiorno.png&quot;);
+          "
+        ></div>
+        <button
+          class="hotspot"
+          style="left: 40%; top: 82%"
+          data-action="bigliettino-lei"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button class="hotspot" style="left: 37%; top: 50%" data-action="lui">
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button class="hotspot" style="left: 64%; top: 47%" data-action="pc">
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot nav"
+          style="left: 90%; top: 62%"
+          data-action="to-camera"
+          data-goto="casaf-camera"
+          data-dir="right"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+        <button
+          class="hotspot nav hidden"
+          style="left: 10%; top: 50%"
+          data-action="to-giardino"
+          data-goto="giardino"
+          data-dir="left"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+      </div>
+
+      <!-- ===== SCENE: CASA FAMILIARE · CAMERA DA LETTO ===== -->
+      <div class="scene" data-scene="casaf-camera">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="
+            background-color: #b9b3c4;
+            background-image: url(&quot;/assets/images/casaFamiliare/camera-da-letto.png&quot;);
+          "
+        ></div>
+        <button
+          class="hotspot"
+          style="left: 30%; top: 64%"
+          data-action="bigliettino-lui"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot frag"
+          style="left: 46%; top: 58%"
+          data-action="frammento-1"
+        >
+          <span
+            class="fragImg"
+            style="
+              background-image: url(&quot;/assets/images/casaFamiliare/frammento-cuore-sinistro.png&quot;);
+            "
+          ></span>
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot"
+          style="left: 80%; top: 20%"
+          data-action="stampante"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot nav"
+          style="left: 52%; top: 14%"
+          data-action="to-soggiorno-cf"
+          data-goto="casaf-soggiorno"
+          data-dir="up"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+      </div>
+
+      <!-- ===== SCENE: CASA FAMILIARE · GIARDINO ===== -->
+      <div class="scene" data-scene="giardino">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="
+            background-color: #b7c6a8;
+            background-image: url(&quot;/assets/images/casaFamiliare/giardino.png&quot;);
+          "
+        ></div>
+        <button
+          class="hotspot"
+          style="left: 56%; top: 46%"
+          data-action="lei-giardino"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot frag"
+          style="left: 38%; top: 82%"
+          data-action="frammento-2"
+        >
+          <span
+            class="fragImg"
+            style="
+              background-image: url(&quot;/assets/images/casaFamiliare/frammento-cuore-destro.png&quot;);
+            "
+          ></span>
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot nav"
+          style="left: 90%; top: 62%"
+          data-action="giardino-back"
+          data-goto="casaf-soggiorno"
+          data-dir="right"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+      </div>
+
+      <!-- ===== SCENE: CORTILE DELLA NONNA ===== -->
+      <div class="scene" data-scene="cortile-nonna">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="
+            background-color: #c8c2b4;
+            background-image: url(&quot;/assets/images/casa/cortile-nonna.jpeg&quot;);
+          "
+        ></div>
+        <button
+          class="hotspot nav"
+          style="left: 80%; top: 33%"
+          data-action="to-lavanderia"
+          data-goto="lavanderia-closeup"
+          data-label="Lavanderia"
+          data-dir="right"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+        <button
+          class="hotspot"
+          style="left: 90%; top: 60%"
+          data-action="porta-nonna"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot nav"
+          style="left: 10%; top: 85%"
+          data-action="cortile-back"
+          data-goto="fuori-casa"
+          data-dir="left"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+      </div>
+
+      <!-- ===== SCENE: LAVANDERIA · CLOSEUP PORTA ===== -->
+      <div class="scene" data-scene="lavanderia-closeup">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="
+            background-color: #bdb6aa;
+            background-image: url(&quot;/assets/images/casa/closup-lavanderia.jpeg&quot;);
+          "
+        ></div>
+        <button
+          class="hotspot"
+          style="left: 50%; top: 52%"
+          data-action="enter-lavanderia"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot nav"
+          style="left: 10%; top: 86%"
+          data-action="lavanderia-back"
+          data-goto="cortile-nonna"
+          data-dir="left"
+        >
+          <span class="ring"></span><span class="arrow"></span>
+        </button>
+      </div>
+
+      <!-- ===== SCENE: LAVANDERIA · INTERNO (finale) ===== -->
+      <div class="scene" data-scene="interno-lavanderia">
+        <div
+          class="layer"
+          data-depth="0.03"
+          style="
+            background-color: #b3ada2;
+            background-image: url(&quot;/assets/images/casa/interno-lavanderia.jpeg&quot;);
+          "
+        ></div>
+        <button
+          class="hotspot hidden"
+          style="left: 38%; top: 58%"
+          data-action="tavolino"
+          data-label="Tavolino"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot hidden"
+          style="left: 60%; top: 88%"
+          data-action="compressore"
+          data-label="Compressore"
+        >
+          <span class="ring"></span><span class="dot"></span>
+        </button>
+        <button
+          class="hotspot nav"
+          style="left: 10%; top: 86%"
+          data-action="interno-lavanderia-back"
+          data-goto="lavanderia-closeup"
+          data-dir="left"
         >
           <span class="ring"></span><span class="arrow"></span>
         </button>
@@ -296,14 +615,14 @@
       <div id="portraitLeft" class="portrait left"></div>
       <div id="portraitRight" class="portrait right"></div>
 
+      <!-- ===== SPRITE OGGETTO OTTENUTO (primo piano) ===== -->
+      <div id="acquireImg"></div>
+
       <!-- ===== DISSOLVENZA BIANCA ===== -->
       <div id="whiteout"></div>
 
       <!-- ===== HUD ===== -->
       <div id="hud">
-        <div class="slot" data-die="1">&#9671;</div>
-        <div class="slot" data-die="2">&#9671;</div>
-        <div class="slot" data-die="3">&#9671;</div>
         <button id="backpackBtn" title="Zaino">
           &#127890;<span id="backpackBadge">0</span>
         </button>
@@ -348,7 +667,9 @@
       <div class="puzzle" id="clockPuzzle">
         <div
           class="zoombg"
-          style="background-image: url(&quot;/assets/images/CittaFerma/piazza.png&quot;)"
+          style="
+            background-image: url(&quot;/assets/images/CittaFerma/piazza.png&quot;);
+          "
         ></div>
         <div class="scrim"></div>
         <div id="clock">
@@ -364,7 +685,9 @@
       <div class="puzzle" id="safePuzzle">
         <div
           class="zoombg"
-          style="background-image: url('/assets/images/CittaFerma/wallsafe.png')"
+          style="
+            background-image: url(&quot;/assets/images/CittaFerma/wallsafe.png&quot;);
+          "
         ></div>
         <div class="scrim"></div>
         <div class="pcard">
@@ -384,14 +707,16 @@
         <div
           class="zoombg"
           id="mirrorBg"
-          style="background-image: url('/assets/images/CittaFerma/closeup-specchio.png')"
+          style="
+            background-image: url(&quot;/assets/images/CittaFerma/closeup-specchio.png&quot;);
+          "
         ></div>
         <div
           class="zoombg"
           id="mirrorNumber"
           style="
             opacity: 0;
-            background-image: url('/assets/images/CittaFerma/closeup-specchio-numero.png');
+            background-image: url(&quot;/assets/images/CittaFerma/closeup-specchio-numero.png&quot;);
           "
         ></div>
         <div id="mirrorSteam"></div>
@@ -405,6 +730,142 @@
           <div id="mirrorBar"><div id="mirrorFill"></div></div>
           <div class="pactions">
             <button class="link" id="mirrorBack">&larr; indietro</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PUZZLE: CUORE (ricomponi le due metà → USB) ===== -->
+      <div class="puzzle" id="heartPuzzle">
+        <div
+          class="zoombg"
+          style="
+            background-image: url(&quot;/assets/images/casaFamiliare/closup-pc.png&quot;);
+          "
+        ></div>
+        <div class="scrim"></div>
+        <div id="heartStage">
+          <div class="hHalf ghost" id="ghostL" data-side="L"></div>
+          <div class="hHalf ghost" id="ghostR" data-side="R"></div>
+          <div class="hHalf piece" id="pieceL" data-side="L"></div>
+          <div class="hHalf piece" id="pieceR" data-side="R"></div>
+        </div>
+        <div class="pcard">
+          <h2>Il cuore</h2>
+          <p class="hint">Rimetti insieme i due pezzi.</p>
+          <div class="pfeedback" id="heartFb">&hellip;</div>
+          <div class="pactions">
+            <button class="link" id="heartTransfer" style="display: none">
+              Trasferisci su USB
+            </button>
+            <button class="link" id="heartBack">&larr; indietro</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PUZZLE: STAMPA D6 (gauge + reveal dal basso) ===== -->
+      <div class="puzzle" id="printPuzzle">
+        <div
+          class="zoombg"
+          style="
+            background-image: url(&quot;/assets/images/casaFamiliare/closup-stampante.png&quot;);
+          "
+        ></div>
+        <div class="scrim"></div>
+        <div id="printStage">
+          <div class="printDie" id="printDie"></div>
+        </div>
+        <div class="pcard">
+          <h2>La stampa</h2>
+          <p class="hint">
+            Batti quando l'indicatore passa sulla zona verde. Ad ogni colpo a
+            segno il dado prende forma.
+          </p>
+          <div id="gauge">
+            <div id="gaugeZone"></div>
+            <div id="gaugeNeedle"></div>
+          </div>
+          <div id="printBar"><div id="printFill"></div></div>
+          <div class="pfeedback" id="printFb">&hellip;</div>
+          <div class="pactions">
+            <button class="link" id="printBack">&larr; indietro</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PUZZLE FINALE: TAVOLINO (dosaggio + colore) ===== -->
+      <div class="puzzle" id="tavoloPuzzle">
+        <div
+          class="zoombg"
+          style="
+            background-image: url(&quot;/assets/images/casa/interno-lavanderia.jpeg&quot;);
+          "
+        ></div>
+        <div class="scrim"></div>
+        <div id="beaker"><div id="beakerFill"></div></div>
+        <div class="pcard">
+          <h2>Lo stampo</h2>
+          <p class="hint">
+            Dosa i due componenti (portali nel verde) e aggiungi qualche goccia
+            di colore.
+          </p>
+          <div class="doseRow">
+            <span class="doseLbl">A</span
+            ><input
+              type="range"
+              id="doseA"
+              class="dose"
+              min="0"
+              max="100"
+              value="8"
+            />
+          </div>
+          <div class="doseRow">
+            <span class="doseLbl">B</span
+            ><input
+              type="range"
+              id="doseB"
+              class="dose"
+              min="0"
+              max="100"
+              value="92"
+            />
+          </div>
+          <div class="pactions">
+            <button class="link" id="dropBtn">&#128167; Aggiungi colore</button>
+          </div>
+          <div class="pfeedback" id="tavoloFb">&hellip;</div>
+          <div class="pactions">
+            <button class="link" id="tavoloPour" style="display: none">
+              Cola nello stampo
+            </button>
+            <button class="link" id="tavoloBack">&larr; indietro</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PUZZLE FINALE: COMPRESSORE (pressione) ===== -->
+      <div class="puzzle" id="compressorePuzzle">
+        <div
+          class="zoombg"
+          style="
+            background-image: url(&quot;/assets/images/casa/closup-compressore.jpeg&quot;);
+          "
+        ></div>
+        <div class="scrim"></div>
+        <div class="pcard">
+          <h2>Il compressore</h2>
+          <p class="hint">
+            Batti quando l'indicatore passa sulla zona verde, finché la
+            pressione è al massimo.
+          </p>
+          <div id="pressGauge">
+            <div id="pressZone"></div>
+            <div id="pressNeedle"></div>
+          </div>
+          <div id="pressBar"><div id="pressFill"></div></div>
+          <div class="pfeedback" id="pressFb">&hellip;</div>
+          <div class="pactions">
+            <button class="link" id="pressBack">&larr; indietro</button>
           </div>
         </div>
       </div>
@@ -479,10 +940,21 @@
         <div class="titleMenu">
           <nav class="menu">
             <button class="menuBtn" id="newGameBtn">Nuova Partita</button>
-            <button class="menuBtn" id="continueBtn" disabled>Continua</button>
+            <!--     <button class="menuBtn" id="continueBtn" disabled>Continua</button> -->
             <button class="menuBtn" id="optionsBtn">Opzioni</button>
           </nav>
-          <div class="credit">bozza &middot; prologo + nettuno</div>
+          <div class="credit">FRAGMENTS</div>
+        </div>
+      </div>
+
+      <!-- ===== CREDITI / EPILOGO ===== -->
+      <div id="credits">
+        <div class="creditsInner">
+          <h1 class="creditsTitle">Fragments</h1>
+          <p class="creditsDedica" id="creditsDedica">
+            [SEGNAPOSTO] Dedica di Luca a Desy &mdash; testo da scrivere.
+          </p>
+          <button class="btn" id="creditsBack">Torna al titolo</button>
         </div>
       </div>
     </div>

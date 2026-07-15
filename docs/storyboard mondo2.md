@@ -177,17 +177,17 @@ commento di Nox):
 
 ### Hotspot: Scrivania / PC _(collocazione proposta, da confermare)_
 
-**Minigioco 1 — Riordino frammenti**
+**Minigioco 1 — Ricomporre il cuore** _(2 pezzi — aggiornato in Passata 3)_
 
-- Un cuore diviso in **6 celle fisse**. Sotto/accanto, un vassoio con i
-  frammenti raccolti, trascinabili
-- **Ordine libero**: ogni frammento ha una sola cella corretta di
-  destinazione, ma il giocatore può riempirle nella sequenza che preferisce
-  — non è richiesto un ordine 1→2→3, è un puzzle di corrispondenza, non di
-  sequenza
-- Frammento sulla cella giusta → si aggancia con un piccolo feedback
-  visivo; sulla cella sbagliata → torna al vassoio, nessuna penalità
-- Completate tutte e 6 le celle → pulsante **"Trasferisci su USB"**
+- Il cuore è diviso in **2 metà** (`frammento-cuore-sinistro.png` /
+  `frammento-cuore-destro.png`), corrispondenti ai 2 frammenti raccolti nel
+  mondo (Camera + Giardino). _(Il design a "6 celle" della bozza precedente
+  è stato abbandonato: gli asset e i punti di raccolta sono due.)_
+- Al centro una **sagoma-guida fantasma** a bassa opacità; le due metà
+  partono in basso ai lati e si **trascinano** al loro posto
+- Metà vicina al bersaglio → si aggancia (snap) con feedback visivo; se
+  lasciata lontana resta dov'è, **nessuna penalità**, si può riprovare
+- Piazzate entrambe le metà → pulsante **"Trasferisci su USB"**
 
 ### Hotspot: Stampante 3D
 

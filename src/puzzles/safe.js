@@ -9,7 +9,7 @@
 
 import { S, writeSave } from '../state.js';
 import { $, speak, P, SG } from '../engine.js';
-import { addItem } from '../inventory.js';
+import { addItem, acquire } from '../inventory.js';
 
 const CODE = '210525';
 
@@ -49,14 +49,16 @@ function onSolved() {
   setTimeout(() => {
     $('#safePuzzle').classList.remove('open');
     S.has.dado = true;
-    addItem('dado1');
+    addItem('d4');
     writeSave();
     speak([
       SG('La cassaforte si apre. Dentro, un dado di resina e un biglietto piegato.'),
       P('Un D4. Quattro facce. Chi lo teneva chiuso qui dentro?'),
       SG('[SEGNAPOSTO DI SVILUPPO] Testo della nota nella cassaforte da scrivere.'),
     ], () => {
-      if (typeof window.__refreshHotspots === 'function') window.__refreshHotspots();
+      acquire('d4', 'Prendi il dado di resina — D4.', () => {
+        if (typeof window.__refreshHotspots === 'function') window.__refreshHotspots();
+      });
     });
   }, 900);
 }

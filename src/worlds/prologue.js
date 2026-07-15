@@ -4,7 +4,9 @@
 
 import { S, writeSave } from '../state.js';
 import { $, speak, P, SG, show, setHS, fadeWhite, isDialogueLocked } from '../engine.js';
+import { addItem } from '../inventory.js';
 import { arrivePiazza } from './mondo1.js';
+import { enterFuoriCasa } from './mondo2.js';
 
 // ---- P0 · Monologo a schermo nero ----
 
@@ -58,11 +60,17 @@ function startPrologue() {
   $('#hud').classList.add('show');
   show('hub');
 
+  // Il cellulare è nello zaino fin da subito: la sua nota ("fisso alle 3:00")
+  // fa da indizio per l'orologio di Nettuno.
+  addItem('cellulare');
+
   speak([
     P('Ok.'),
     P('Ok, non è ok. Manca qualcosa.'),
     SG("La stanza è immobile. Luce piatta, nessun'ombra viva. Sul letto il gatto dorme beato — l'unica cosa che sembra normale qui dentro."),
     P('Non ha suonato la sveglia. Che strano...'),
+    P('E che ora è, poi? ...Le 3:00?'),
+    P('Le 3:00 del mattino? Impossibile, di fuori è giorno e ricordo benissimo di essermi addormentata.'),
   ], refreshPrologueHotspots);
 }
 
@@ -80,13 +88,11 @@ const ACTIONS = {
 
   'telefono': () => {
     if (S.flags.checkedPhone) {
-      speak([P('Niente da fare, sembra bloccato. Segna sempre le 3:00.')]);
+      speak([P('Né campo né WiFi. Sai che novità.')]);
       return;
     }
     speak([
-      P('...?!?'),
-      P('Le 3:00 del mattino? Impossibile, di fuori è giorno e ricordo di essermi addormentata.'),
-      P('Niente da fare, sembra bloccato. A quanto pare non prende né internet né la linea del telefono. Sai che novità.'),
+      P('Né campo né WiFi. Sai che novità.'),
       P('Fammi andare a controllare giù da mia nonna. Con il suo WiFi dovrei riuscire a collegarmi.'),
     ], () => {
       S.flags.checkedPhone = true;
@@ -112,7 +118,7 @@ const ACTIONS = {
     // Dopo il ritorno dalla spiaggia la porta non porta più nella piazza
     // dell'orologio, ma davvero fuori casa (scena segnaposto, arte da fare).
     if (S.flags.dadoGifted) {
-      fadeWhite(() => { show('fuori-casa'); });
+      fadeWhite(() => { enterFuoriCasa(); });
       return;
     }
     speak([

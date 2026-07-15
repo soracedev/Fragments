@@ -20,8 +20,22 @@ export const S = {
     readNote: false,
     dadoGifted: false,
     mirrorSolved: false, // Casa-Bagno: enigma specchio risolto → bagno resta casa-bagno-2
+    // ---- MONDO 2 · Casa Familiare ----
+    fuoriCasaIntro: false, // battuta one-shot d'arrivo a Fuori Casa
+    casafArrival: false,   // battuta one-shot di riconoscimento nel Soggiorno
+    luiSpoke1: false,      // LUI ha fatto la prima interazione (S1)
+    fragCamera: false,     // frammento di cuore raccolto in Camera
+    fragGiardino: false,   // frammento di cuore raccolto in Giardino
+    usbLoaded: false,      // minigioco PC completato: cuore trasferito su USB
+    readNoteLei: false,    // bigliettino di LEI (Soggiorno) letto
+    readNoteLui: false,    // bigliettino di LUI (Camera) letto
+    mondo2Done: false,     // finale del Giardino concluso → cancello porta al Cortile
+    // ---- FINALE · Interno Lavanderia ----
+    leiLavIntro: false,    // dialogo d'ingresso con LEI in lavanderia fatto
+    tavoloDone: false,     // minigioco Tavolino completato (stampo pronto)
+    compressoreDone: false,// minigioco Compressore completato → set dadi
+    gameDone: false,       // finale concluso → crediti visti
   },
-  dice: [],
   inventory: [],
   warmth: 0,
 };

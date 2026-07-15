@@ -9,13 +9,13 @@
 // ============================================================
 
 import { S, writeSave } from '../state.js';
-import { $, speak, show, setHS, hs, fadeWhite, setWarmth, collectDie, P, L, SG, isDialogueLocked } from '../engine.js';
+import { $, speak, show, setHS, hs, fadeWhite, setWarmth, P, L, SG, isDialogueLocked } from '../engine.js';
 import { openShutter } from '../puzzles/shutter.js';
 import { openClock } from '../puzzles/clock.js';
 import { openSafe } from '../puzzles/safe.js';
 import { openMirror } from '../puzzles/mirror.js';
 import { openCloseup } from '../closeup.js';
-import { addItem } from '../inventory.js';
+import { addItem, acquire } from '../inventory.js';
 
 const TESTO_BIGLIETTINO =
   "Ma l'acqua qui dentro è solo bella da vedere? Serve a qualcosa? " +
@@ -175,7 +175,6 @@ function talkFigureBeach() {
     L('Tu dici? Sarà... Vabbè, per questa volta te lo regalo. Puoi tenerlo.'),
   ], () => {
     S.flags.dadoGifted = true;
-    collectDie(1);
     writeSave();
     fadeWhite(() => {
       show('hub');
@@ -219,16 +218,16 @@ const ACTIONS = {
   // --- CASA · SOGGIORNO ---
   'quadro': () => {
     if (S.has.dado) { speak([P('La cassaforte è aperta. Non c’è rimasto altro, qui dietro.')]); return; }
+    // Commento fuori campo (nessun nome): non è Nox a dirlo.
     speak([
-      P('Noto un piccolo spessore fra il muro e il quadro.'),
-      P('Sembra esserci qualcosa qui dietro.'),
+      SG('Un piccolo spessore fra il muro e il quadro. Sembra esserci qualcosa, qui dietro.'),
     ], openSafe);
   },
 
   'bigliettino-casa': () => {
-    // [SEGNAPOSTO FASE 2] Immagine e testo del bigliettino di Casa non
-    // esistono ancora (path da confermare, testo da scrivere).
-    speak([P('Un foglietto. La grafia è incerta.'), SG('[SEGNAPOSTO DI SVILUPPO] Testo del bigliettino di Casa da scrivere.')]);
+    // Nota mostrata col trattamento closeup, come la nota della fontana.
+    // [SEGNAPOSTO FASE 2] testo definitivo del bigliettino di Casa da scrivere.
+    openCloseup({ image: '/assets/images/bigliettino.png', text: '[SEGNAPOSTO] Testo del bigliettino di Casa da scrivere.' });
   },
 
   'to-bagno': () => { show('casa-bagno'); refreshHotspots(); },
@@ -265,9 +264,10 @@ const ACTIONS = {
       P('Un vecchio ingranaggio dentro una fontana? Potrebbe tornarmi utile.'),
     ], () => {
       S.has.ingranaggio = true;
-      addItem('ingranaggio');
-      writeSave();
-      refreshHotspots();
+      acquire('ingranaggio', 'Raccogli l’ingranaggio arrugginito.', () => {
+        writeSave();
+        refreshHotspots();
+      });
     });
   },
 

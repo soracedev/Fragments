@@ -39,6 +39,14 @@ export const SCENE_NAMES = {
   "casa-soggiorno": "Soggiorno",
   "casa-bagno": "Bagno",
   "fuori-casa": "Fuori casa",
+  "casaf-soggiorno": "Soggiorno",
+  "casaf-camera": "Camera da letto",
+  giardino: "Giardino",
+  "cortile-nonna": "Cortile della nonna",
+  "lavanderia-closeup": "Lavanderia",
+  "interno-lavanderia": "Lavanderia",
+  "closeup-auto": "Auto",
+  "closeup-cancello": "Cancello",
 };
 
 // Inietta l'etichetta col nome della destinazione in ogni hotspot di
@@ -46,8 +54,11 @@ export const SCENE_NAMES = {
 // `data-label` sull'hotspot sovrascrive il nome della mappa (serve p.es.
 // alla porta in piazza: "Appartamento" invece di "Soggiorno").
 export function initNavLabels() {
-  $$(".hotspot.nav[data-goto]").forEach((el) => {
-    const name = el.dataset.label || SCENE_NAMES[el.dataset.goto];
+  // Etichetta ogni hotspot che dichiara un data-label esplicito oppure un
+  // data-goto mappato in SCENE_NAMES (non solo gli hotspot di navigazione:
+  // anche gli hotspot-punto come Auto/Cancello a Fuori Casa).
+  $$(".hotspot").forEach((el) => {
+    const name = el.dataset.label || (el.dataset.goto ? SCENE_NAMES[el.dataset.goto] : null);
     if (!name || el.querySelector(".label")) return;
     const label = document.createElement("span");
     label.className = "label";
@@ -72,6 +83,25 @@ export function fadeWhite(swap, hold = 700) {
   }, hold);
 }
 
+// Come fadeWhite ma dissolve al nero (per il finale). Riusa #whiteout
+// cambiandone temporaneamente il colore, poi lo ripristina a fade concluso.
+export function fadeBlack(swap, hold = 900) {
+  const w = $("#whiteout");
+  if (!w) {
+    swap();
+    return;
+  }
+  w.style.background = "#08090c";
+  w.classList.add("on");
+  setTimeout(() => {
+    swap();
+    setTimeout(() => {
+      w.classList.remove("on");
+      setTimeout(() => { w.style.background = ""; }, 1000);
+    }, 80);
+  }, hold);
+}
+
 // ---- Warmth (riscaldamento visivo) ----
 
 export function setWarmth(n) {
@@ -79,18 +109,6 @@ export function setWarmth(n) {
   const stage = $("#stage");
   stage.classList.remove("warm-0", "warm-1", "warm-2", "warm-3");
   stage.classList.add("warm-" + n);
-}
-
-// ---- Dadi (slot HUD) ----
-
-export function collectDie(n) {
-  if (S.dice.includes(n)) return;
-  S.dice.push(n);
-  const slot = $(`.slot[data-die="${n}"]`);
-  if (slot) {
-    slot.classList.add("filled");
-    slot.textContent = "\u25c6";
-  }
 }
 
 // ---- Narrazione (testo breve in basso, auto-dismiss) ----
@@ -201,6 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 export const P = (t) => ({ who: "Nox", char: "Nox", text: t });
 export const L = (t) => ({ who: "LEI", char: "LEI", text: t });
+export const LU = (t) => ({ who: "LUI", char: "LUI", text: t });
 export const SG = (t) => ({ stage: true, text: t });
 
 // ---- Parallax ----

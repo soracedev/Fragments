@@ -3,15 +3,20 @@
 // ============================================================
 
 import { S, hasSave, readSave, writeSave } from './state.js';
-import { $, show, collectDie, say, setWarmth, initParallax, initDust, initNavLabels } from './engine.js';
+import { $, show, say, setWarmth, initParallax, initDust, initNavLabels } from './engine.js';
 import { refreshBackpackBadge, initInventoryUI } from './inventory.js';
 import { initCloseup } from './closeup.js';
 import { initShutterPuzzle } from './puzzles/shutter.js';
 import { initClockPuzzle } from './puzzles/clock.js';
 import { initSafePuzzle } from './puzzles/safe.js';
 import { initMirrorPuzzle } from './puzzles/mirror.js';
+import { initHeartPuzzle } from './puzzles/heart.js';
+import { initPrintPuzzle } from './puzzles/print.js';
+import { initTavoloPuzzle } from './puzzles/tavolino.js';
+import { initCompressorePuzzle } from './puzzles/compressore.js';
 import { runIntro, initIntro, initPrologueHotspots, refreshPrologueHotspots } from './worlds/prologue.js';
 import { initMondo1, refreshHotspots } from './worlds/mondo1.js';
+import { initMondo2, refreshMondo2Hotspots } from './worlds/mondo2.js';
 
 // ---- Attendi il DOM ----
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,9 +30,17 @@ document.addEventListener('DOMContentLoaded', () => {
   initClockPuzzle();
   initSafePuzzle();
   initMirrorPuzzle();
+  initHeartPuzzle();
+  initPrintPuzzle();
+  initTavoloPuzzle();
+  initCompressorePuzzle();
   initIntro();
+
+  // Crediti: "Torna al titolo" ricarica pulito sulla title screen.
+  $('#creditsBack')?.addEventListener('click', () => location.reload());
   initPrologueHotspots();
   initMondo1();
+  initMondo2();
   initNavLabels();
 
   // ---- Title Screen ----
@@ -77,11 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setWarmth(S.warmth || 0);
     refreshPrologueHotspots();
     refreshHotspots();
+    refreshMondo2Hotspots();
     refreshBackpackBadge();
-    (S.dice || []).forEach(n => {
-      const s = $(`.slot[data-die="${n}"]`);
-      if (s) { s.classList.add('filled'); s.textContent = '\u25c6'; }
-    });
     say('Bentornata. Riprendi da dove avevi lasciato.');
   });
 

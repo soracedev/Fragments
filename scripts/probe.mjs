@@ -42,7 +42,7 @@ await tapKeys(['2', '1', '0', '5', '2', '5']);
 await page.waitForTimeout(1300);
 save = await readSave(page);
 assert('cassaforte: codice 210525 dà il dado', save.has?.dado === true);
-assert('cassaforte: dado1 in inventario', (save.inventory || []).includes('dado1'));
+assert('cassaforte: d4 in inventario', (save.inventory || []).includes('d4'));
 assert('cassaforte: overlay chiuso dopo la soluzione', await page.evaluate(() => !document.getElementById('safePuzzle').classList.contains('open')));
 
 // chiude eventuale dialogo aperto dalla soluzione

@@ -9,7 +9,7 @@
 
 import { S, writeSave } from '../state.js';
 import { $, speak, SG, P, show } from '../engine.js';
-import { addItem } from '../inventory.js';
+import { acquire } from '../inventory.js';
 
 const TARGET = 360;      // gradi da accumulare
 const DECAY = 55;        // gradi/secondo che si perdono quando non si gira
@@ -114,15 +114,16 @@ function onSolved() {
     close();
     S.has.lancetta = true;
     S.flags.shutterOpened = true;
-    addItem('lancetta');
     writeSave();
 
     speak([
       SG('La saracinesca si solleva di mezzo metro. Sotto, nella polvere, qualcosa di metallico.'),
       P('Sembra la lancetta di un orologio!'),
     ], () => {
-      show('vicolo');
-      if (typeof window.__refreshHotspots === 'function') window.__refreshHotspots();
+      acquire('lancetta', 'Raccogli la lancetta delle ore.', () => {
+        show('vicolo');
+        if (typeof window.__refreshHotspots === 'function') window.__refreshHotspots();
+      });
     });
   }, 1200);
 }
