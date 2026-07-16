@@ -1,13 +1,16 @@
 // ============================================================
 // PROBE FINALE — verifica la sequenza della lavanderia: LEI →
-// Tavolino → Compressore → set dadi → dialogo finale → risveglio →
-// crediti. Parte da un seed post-Mondo2 nel Cortile della nonna,
+// Tavolino → Compressore → set dadi → dialogo finale → abbraccio →
+// nero → dedica. Parte da un seed post-Mondo2 nel Cortile della nonna,
 // con le chiavi della lavanderia già raccolte. Esce !=0 se fallisce.
+//
+// Richiede `npm run dev` (:5173) — vedi scripts/seed.mjs.
 // ============================================================
 
 import { chromium } from 'playwright';
+import { seedGame, DEV_URL } from './seed.mjs';
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:4173';
+const BASE_URL = DEV_URL;
 const results = [];
 function assert(name, cond) {
   results.push({ name, ok: !!cond });
@@ -47,12 +50,7 @@ const page = await browser.newPage({ viewport: { width: 960, height: 720 } });
 page.on('pageerror', (e) => console.log('PAGEERROR', String(e)));
 
 await page.goto(BASE_URL, { waitUntil: 'networkidle' });
-await page.evaluate((s) => localStorage.setItem('fragments_save', JSON.stringify(s)), SEED);
-await page.reload({ waitUntil: 'networkidle' });
-await page.evaluate(() => document.getElementById('continueBtn')?.removeAttribute('disabled'));
-await page.click('#continueBtn');
-await page.evaluate(() => document.getElementById('title')?.style.setProperty('display', 'none'));
-await page.waitForTimeout(300);
+await seedGame(page, SEED);
 
 async function drain() {
   for (let i = 0; i < 80; i++) {
@@ -93,15 +91,28 @@ let s = await readSave(page);
 assert('Compressore completato', flag(s, 'compressoreDone'));
 assert('set dadi ottenuto (D8/D20)', hasItem(s, 'd8') && hasItem(s, 'd20'));
 await drain();                              // dialogo finale §6
-await page.waitForTimeout(1300);            // fadeBlack + swap al risveglio
-await drain();                              // riflessione al risveglio
-await page.waitForTimeout(300);
+assert('finale: illustrazione dell’abbraccio', (await scene(page)) === 'abbraccio');
+await drain();                              // battuta dell'abbraccio
+await page.waitForTimeout(1400);            // fadeBlack (hold 1000) + apertura crediti
+await page.waitForTimeout(1800);            // fade-in della dedica (1.6s)
 
+// Storyboard finale §7 + §9: niente ritorno in camera, niente riflessione
+// di Nox — dall'abbraccio si va al nero e dal nero alla dedica.
 s = await readSave(page);
 assert('finale: gameDone', flag(s, 'gameDone'));
-assert('finale: risveglio in camera (hub)', (await scene(page)) === 'hub');
-assert('finale: warmth pieno (warm-3)', await page.evaluate(() => document.getElementById('stage').classList.contains('warm-3')));
+assert('finale: nessun ritorno in camera (resta su abbraccio)', (await scene(page)) === 'abbraccio');
+assert('finale: nessuna riflessione (dialogo chiuso)',
+  !(await page.evaluate(() => document.getElementById('dialogue')?.classList.contains('show'))));
 assert('finale: crediti aperti', await isOpen(page, 'credits'));
+assert('finale: dedica in dissolvenza completata',
+  (await page.evaluate(() => +getComputedStyle(document.querySelector('.creditsInner')).opacity)) === 1);
+assert('finale: nessun segnaposto nella dedica',
+  !(await page.evaluate(() => document.body.innerHTML.includes('SEGNAPOSTO'))));
+assert('finale: dedica scorrevole (formato B)',
+  await page.evaluate(() => {
+    const c = document.getElementById('credits');
+    return c.scrollHeight > c.clientHeight;
+  }));
 
 await browser.close();
 

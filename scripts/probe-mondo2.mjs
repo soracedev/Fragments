@@ -2,11 +2,14 @@
 // PROBE MONDO 2 — verifica la catena della Casa Familiare pilotando
 // gli hotspot reali, partendo da un salvataggio seed a "Fuori Casa"
 // (Mondo 1 già concluso). Esce !=0 se un'asserzione fallisce.
+//
+// Richiede `npm run dev` (:5173) — vedi scripts/seed.mjs.
 // ============================================================
 
 import { chromium } from 'playwright';
+import { seedGame, DEV_URL } from './seed.mjs';
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:4173';
+const BASE_URL = DEV_URL;
 const results = [];
 function assert(name, cond) {
   results.push({ name, ok: !!cond });
@@ -42,12 +45,7 @@ const page = await browser.newPage({ viewport: { width: 960, height: 720 } });
 page.on('pageerror', (e) => console.log('PAGEERROR', String(e)));
 
 await page.goto(BASE_URL, { waitUntil: 'networkidle' });
-await page.evaluate((s) => localStorage.setItem('fragments_save', JSON.stringify(s)), SEED);
-await page.reload({ waitUntil: 'networkidle' });
-await page.evaluate(() => document.getElementById('continueBtn')?.removeAttribute('disabled'));
-await page.click('#continueBtn');
-await page.evaluate(() => document.getElementById('title')?.style.setProperty('display', 'none'));
-await page.waitForTimeout(300);
+await seedGame(page, SEED);
 
 async function drain() {
   for (let i = 0; i < 60; i++) {

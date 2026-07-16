@@ -4,6 +4,7 @@
 // ============================================================
 
 import { S, writeSave } from "./state.js";
+import { playForScene } from "./audio.js";
 
 // ---- Shortcut DOM ----
 export const $ = (s) => document.querySelector(s);
@@ -16,6 +17,7 @@ export function show(scene) {
     s.classList.toggle("active", s.dataset.scene === scene),
   );
   S.scene = scene;
+  playForScene(scene);
 }
 
 export function hs(action) {

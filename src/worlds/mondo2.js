@@ -305,14 +305,6 @@ const ABBRACCIO_SG = SG(
   "LEI si alza dalla sedia. Si avvicina. Le due si abbracciano.",
 );
 
-// [SEGNAPOSTO] Riflessione di Nox al risveglio — testo da scrivere (Luca).
-const REFLECTION = [
-  SG(
-    "Nox riapre gli occhi nella sua stanza. Fuori si sente di nuovo il vento; da qualche parte, un orologio ticchetta.",
-  ),
-  P("[SEGNAPOSTO] Riflessione di Nox al risveglio — da scrivere."),
-];
-
 function enterInternoLavanderia() {
   show("interno-lavanderia");
   refreshMondo2Hotspots();
@@ -327,25 +319,27 @@ function enterInternoLavanderia() {
 
 function openCredits() {
   const c = $("#credits");
-  if (c) c.classList.add("open");
+  if (!c) return;
+  c.classList.add("open");
+  void c.offsetWidth; // reflow: senza, il fade-in della dedica non parte
+  c.classList.add("vis");
 }
 
-// Innescato dal completamento del Compressore: dialogo finale → nero →
-// risveglio in camera (warm-3) → riflessione → crediti.
+// Innescato dal completamento del Compressore: dialogo finale → abbraccio
+// → dissolvenza al nero → dedica. Nessun ritorno in camera e nessuna
+// riflessione di Nox: §7 e §9 dello storyboard finale le escludono
+// esplicitamente, si passa dal nero direttamente alla dedica.
+// La scena `abbraccio` resta sotto il nero e casa.mp3 continua a suonare
+// senza interruzioni fin dentro i crediti.
 function runFinale() {
   speak(LEI_FINALE_2, () => {
     // L'abbraccio: si passa all'illustrazione dedicata, poi al nero.
     show("abbraccio");
     speak([ABBRACCIO_SG], () => {
       fadeBlack(() => {
-        show("hub");
-        setWarmth(3);
+        S.flags.gameDone = true;
         writeSave();
-        speak(REFLECTION, () => {
-          S.flags.gameDone = true;
-          writeSave();
-          openCredits();
-        });
+        openCredits();
       }, 1000);
     });
   });

@@ -2,9 +2,9 @@
 // MAIN — entry point. Importa tutti i moduli e li collega.
 // ============================================================
 
-import { S, hasSave, readSave, writeSave } from './state.js';
-import { $, show, say, setWarmth, initParallax, initDust, initNavLabels } from './engine.js';
-import { refreshBackpackBadge, initInventoryUI } from './inventory.js';
+import { $, initParallax, initDust, initNavLabels } from './engine.js';
+import { initAudio, playTheme, fadeOutTheme, setMasterVolume } from './audio.js';
+import { initInventoryUI } from './inventory.js';
 import { initCloseup } from './closeup.js';
 import { initShutterPuzzle } from './puzzles/shutter.js';
 import { initClockPuzzle } from './puzzles/clock.js';
@@ -14,14 +14,17 @@ import { initHeartPuzzle } from './puzzles/heart.js';
 import { initPrintPuzzle } from './puzzles/print.js';
 import { initTavoloPuzzle } from './puzzles/tavolino.js';
 import { initCompressorePuzzle } from './puzzles/compressore.js';
-import { runIntro, initIntro, initPrologueHotspots, refreshPrologueHotspots } from './worlds/prologue.js';
-import { initMondo1, refreshHotspots } from './worlds/mondo1.js';
-import { initMondo2, refreshMondo2Hotspots } from './worlds/mondo2.js';
+import { runIntro, initIntro, initPrologueHotspots } from './worlds/prologue.js';
+import { initMondo1 } from './worlds/mondo1.js';
+import { initMondo2 } from './worlds/mondo2.js';
 
 // ---- Attendi il DOM ----
 document.addEventListener('DOMContentLoaded', () => {
 
   // ---- Init sistemi ----
+  // L'audio va inizializzato prima di tutto: show() lo chiama a ogni cambio
+  // scena, quindi il deck deve esistere prima che un mondo possa muoversi.
+  initAudio($('#themeAudio'));
   initParallax();
   initDust();
   initInventoryUI();
@@ -44,55 +47,20 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavLabels();
 
   // ---- Title Screen ----
-  const themeAudio = $('#themeAudio');
   const title = $('#title');
-
-  // Continua: attiva solo se c'è un salvataggio
-  if (hasSave()) $('#continueBtn').removeAttribute('disabled');
 
   function closeTitle() {
     title.style.opacity = 0;
     setTimeout(() => { title.style.display = 'none'; }, 1400);
-    stopMusic();
+    // Il tema sfuma e il monologo del prologo resta in silenzio: la musica
+    // di gioco entra solo al risveglio in camera, via show('hub').
+    fadeOutTheme();
   }
 
-  function stopMusic() {
-    if (!themeAudio) return;
-    const startVol = themeAudio.volume;
-    const steps = 20;
-    let i = 0;
-    const fade = setInterval(() => {
-      i++;
-      themeAudio.volume = Math.max(0, startVol * (1 - i / steps));
-      if (i >= steps) {
-        clearInterval(fade);
-        themeAudio.pause();
-        themeAudio.currentTime = 0;
-        themeAudio.volume = startVol;
-      }
-    }, 60);
-  }
-
-  // Nuova Partita
+  // Nuova Partita — unica via d'ingresso: si riparte sempre da zero.
   $('#newGameBtn').addEventListener('click', () => {
     closeTitle();
     runIntro();
-  });
-
-  // Continua
-  $('#continueBtn').addEventListener('click', () => {
-    const saved = readSave();
-    if (!saved) return;
-    Object.assign(S, saved);
-    closeTitle();
-    $('#hud').classList.add('show');
-    show(S.scene || 'hub');
-    setWarmth(S.warmth || 0);
-    refreshPrologueHotspots();
-    refreshHotspots();
-    refreshMondo2Hotspots();
-    refreshBackpackBadge();
-    say('Bentornata. Riprendi da dove avevi lasciato.');
   });
 
   // ---- Opzioni ----
@@ -102,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const volSlider = $('#volMusic');
   function applyVolume() {
-    if (themeAudio) themeAudio.volume = (+volSlider.value) / 100;
+    setMasterVolume((+volSlider.value) / 100);
   }
   volSlider.addEventListener('input', applyVolume);
   applyVolume();
@@ -115,11 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleAutoBtn.dataset.on = autoAdvance ? '1' : '0';
   });
 
-  // Musica: il primo click sulla title la avvia (policy autoplay browser)
-  let musicStarted = false;
-  title.addEventListener('click', () => {
-    if (musicStarted || !themeAudio) return;
-    themeAudio.play().then(() => { musicStarted = true; }).catch(() => {});
-  }, { once: true });
+  // Musica: il primo click sulla title la avvia (policy autoplay browser).
+  // Sblocca anche l'audio per le tracce di scena che partiranno dopo.
+  title.addEventListener('click', () => { playTheme(); }, { once: true });
 
 });
