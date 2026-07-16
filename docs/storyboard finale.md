@@ -1,10 +1,5 @@
 # Storyboard — Finale: Cortile, Lavanderia, Epilogo
 
-> ✅ **IMPLEMENTATO** nella Passata 5 (vedi `TODO-passate.md`). I due
-> minigiochi sono resi "quasi simbolici" per rispettare la decisione di
-> design §8.7 ("l'ultimo enigma è il più semplice"). Restano [SEGNAPOSTO]:
-> la riflessione di Nox al risveglio e la dedica dei crediti (testi di Luca).
-
 ### "Fragments" — protagonista: Nox
 
 > Sequenza raggiunta dopo aver concluso sia Nettuno (Mondo 1) sia Casa
@@ -222,11 +217,88 @@ _(Dissolvenza al nero.)_
 
 ## 7 · Epilogo
 
-Schermata nera. Dedica personale di Luca a Desy — testo suo, fuori dalla
-finzione narrativa del gioco. _(Vedi anche la riflessione interna di Nox
-al risveglio, ancora da scrivere, prevista subito prima di questa
-schermata secondo il documento master — va deciso se resta un passaggio
-separato o si fonde direttamente in questa schermata finale.)_
+_(Dopo l'abbraccio: lenta dissolvenza al nero. Nessuna riflessione interna
+di Nox — si passa direttamente dal nero alla dedica.)_
+
+Schermata nera. **Formato B confermato**: testo continuo, scorrevole a
+proprio ritmo (nessun limite di tempo, fade-in dolce all'apparizione) —
+non a righe scandite come l'intro del prologo. È un testo troppo
+importante per rischiare che scada prima che lei finisca di leggerlo.
+
+**Testo della dedica** _(corretto solo di un refuso di battitura — un
+punto isolato a metà testo, probabile artefatto di copia-incolla;
+contenuto invariato):_
+
+> Per me sei sempre stata una ragazza capace di fare infinite cose, anche
+> meglio di me. Come ti dissi più volte.
+>
+> Pensi di essere rimasta bloccata nel tempo. Di non aver fatto progressi
+> o passi avanti nella tua vita.
+>
+> E sì, su qualcosa potresti esserti fermata, ma hai sempre avuto la forza
+> di alzarti e camminare, al pari di tutti, al fianco di chiunque tu voglia.
+>
+> Pensi di non essere capace di fare niente e questo ti crea tanta
+> insicurezza. Penseresti di non essere in grado di riparare un orologio,
+> ma sono convinto che con un po' di dedizione e impegno riusciresti a
+> ripararlo alla perfezione, ed anche qualcosa di così apparentemente
+> complicato diventerebbe facile.
+>
+> Vorrei che le tue insicurezze diventassero la spinta che ti serve per
+> fare quello che desideri.
+>
+> Non sto qui a parlare di me, ma di te. Ma alla fine, quella che può
+> rimettere insieme i suoi frammenti, sparsi un po' qua e un po' là, sei
+> tu. So che sei in grado di dipendere da te stessa e non dover dar conto
+> a nessuno.
+>
+> Ed io in tutto questo posso solo starti vicino, essere la spalla su cui
+> piangi, il bastone su cui ti posi quando sei esausta.
+>
+> Quello che ti sembra imperfetto, in realtà va bene così.
+>
+> Le imperfezioni, i fallimenti, e le ferite del tempo, i brutti ricordi,
+> le pessime esperienze sono parte di noi, sono ciò che ci definisce. Sono
+> la spinta che ci ricorda che possiamo sempre fare di più.
+>
+> Sono parte dell'impronta di ciò che siamo, ma non ci definiscono
+> completamente.
+>
+> Bisogna accettare e accogliere tutto quello che siamo ma senza farci
+> sopraffare da una parte di essa.
+>
+> Potresti storcere il naso, o interpretare come una critica quello che
+> hai visto e letto. Potresti pensare che mi sono convinto di come sei
+> fatta.
+>
+> Volevo solamente farti capire che io in tutto questo tempo ti ho vista,
+> nonostante i miei infiniti sbagli e la mia freddezza. Nonostante io non
+> ti abbia fatto sentire amata.
+>
+> Forse ho sbagliato a farti carico dei miei problemi, forse ti hanno
+> fatto distogliere l'attenzione dalle cose veramente importanti per te.
+>
+> Voglio che ti ricordi che sei stata la persona più importante che io
+> abbia mai avuto nella mia vita. L'unica che nei periodi più impossibili
+> della mia vita c'è sempre stata, a prendere le mie parti.
+>
+> Vorrei vedere quella grinta e volontà anche verso te stessa.
+>
+> E non voglio che tu lo faccia per me o per qualcun altro, ma per te.
+>
+> Vorrei che tu faccia ciò che desideri.
+>
+> Vorrei vederti libera, felice, sorridente.
+>
+> Spensierata.
+>
+> Vorrei poterti sentir dire che ti senti veramente amata come tu hai
+> sempre voluto.
+>
+> Indipendentemente da come vadano le cose, sappi che sei una persona
+> veramente unica e magnifica, nel bene o nel male.
+>
+> Ti amo.
 
 ---
 
@@ -248,9 +320,8 @@ separato o si fonde direttamente in questa schermata finale.)_
   `closeup-compressore.jpg`, più gli sprite del minigioco resina
 - **Filo "nonno"**: ancora senza seguito — la porta di casa della nonna
   resta un vicolo cieco puramente atmosferico
-- **Riflessione di Nox al risveglio**: ancora da scrivere (segnalata anche
-  nel documento del Mondo 2) — va capito se precede questa schermata o si
-  fonde con essa
+- ~~Riflessione di Nox al risveglio~~ — **rimossa**: nessun ritorno alla
+  camera, l'abbraccio dissolve direttamente al nero e poi alla dedica
 - ~~Continuazione del dialogo finale: bozza~~ — **confermato, sezione 6
   ora contiene il testo definitivo** (tema corretto: valore di sé,
   non perfezionismo). Unica riga di sintesi mia da rivalutare se non

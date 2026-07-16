@@ -114,17 +114,23 @@ pigmenti col contagocce, marmorizzazione con stuzzicadenti, pressure pot).
 Al termine, Figura 1 — commossa dalla qualità del lavoro — si ricrede,
 sorride, ringrazia Nox e la lascia andare. È qui che si risolve l'intero
 arco dell'impostore, non in un mondo separato.
-**Stato**: storyboard in scrittura, dialoghi chiave forniti, mancano
-ambientazione delle stanze pre-divano, minigiochi intermedi, e alcuni testi
-(la battuta che fa ricredere Figura 1 dopo la reazione di Figura 2, il
-testo esatto della resa finale, la riflessione interna di Nox al risveglio).
+**Stato**: storyboard completo per la parte narrativa principale (Fuori
+Casa, Soggiorno, Figura 2, Camera da letto, Giardino) — mancano
+ambientazione delle stanze pre-divano e alcuni minigiochi intermedi minori.
 
-### Finale
+### Finale — Cortile, Lavanderia, Epilogo
 
-Nox si risveglia nella sua stanza. Il tempo è ripartito — non più le 03:00
-fisse. Una breve riflessione interna, poi il gioco si chiude come se fosse
-stato tutto un sogno. **Crediti finali** con una dedica personale di Luca
-a Desy (testo suo, fuori dalla finzione narrativa del gioco).
+_(Dettaglio completo in `storyboard-finale.md`.)_ Dopo aver concluso sia
+Nettuno sia Casa Familiare, il cancello porta al **Cortile della Nonna**
+(luogo reale, non più onirico) e da lì alla **Lavanderia**, dove Nox
+affronta per l'ultima volta Figura 1 ("LEI"). Qui, non a Nettuno né a
+Casa Familiare, si risolve l'intero arco dell'impostore: un confronto
+diretto, due minigiochi di creazione dei dadi rimanenti (D8, D10, D12, D%,
+D20), e un dialogo finale che porta Nox e LEI ad accettarsi a vicenda.
+Il gioco si chiude con un abbraccio, dissolvenza al nero, e la **dedica
+personale di Luca a Desy** — testo continuo e scorrevole, senza limiti di
+tempo. Nessun ritorno alla camera da letto, nessuna riflessione finale di
+Nox: si passa direttamente dall'abbraccio al nero, dal nero alla dedica.
 
 I sette dadi (D4, D6, D8, D10, D12, D%, D20) restano come collezione
 visibile — un set completo di dadi da gioco reali, coerente con l'hobby di
@@ -303,7 +309,8 @@ palette fredda/nebbiosa che si scalda col progresso del gioco.
 - [ ] Mondo 2: scena del divano — testo della battuta che fa ricredere Figura 1
 - [ ] Mondo 2: Stanza dei Dadi — testo esatto della resa finale di Figura 1
 - [ ] Mondo 2: minigioco creazione dadi (5 fasi) — decidere se ripetuto per ciascuno dei 5 dadi o in batch
-- [ ] Finale: riflessione interna di Nox al risveglio + dedica crediti (testo di Luca)
+- [x] Finale: dedica crediti — testo di Luca integrato in `storyboard-finale.md` (formato B, scorrevole)
+- [ ] Finale: asset e implementazione della sequenza Cortile/Lavanderia
 - [x] ~~Mondo 3~~ — non esiste più come mondo separato, arco assorbito nel finale del Mondo 2
 - [ ] Asset protagonista (sprite statici)
 - [ ] Audio ambientale per scene di gioco
@@ -367,7 +374,7 @@ Script dialogico completo con:
 - Completare Mondo 1 (negozio "Casa" nella piazza + resa finale di Figura 1)
 - Design delle stanze pre-divano di Casa Familiare (Mondo 2) + relativi minigiochi
 - Scrivere i testi ancora mancanti (battuta di Figura 1 dopo la scena del
-  divano, resa finale nella Stanza dei Dadi, riflessione di Nox al risveglio)
+  divano, resa finale nella Lavanderia)
 - Generare i primi asset di Casa Familiare (foto come riferimento, rifatte in stile illustrato)
 
 **Settimana 2** (15 → 22 luglio):
@@ -379,7 +386,7 @@ Script dialogico completo con:
 
 **Settimana 3** (22 → 29 luglio):
 
-- Implementare la Stanza dei Dadi e il finale (risveglio + riflessione)
+- Implementare la sequenza finale (Cortile, Lavanderia, abbraccio, dedica)
 - Scrivere e integrare la dedica dei crediti
 - Polish: audio, transizioni, testing su tablet
 
