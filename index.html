@@ -944,6 +944,17 @@
         </div>
       </div>
 
+      <!-- ===== ASCOLTA — lista tracce, una alla volta (nessuna playlist) ===== -->
+      <div id="sounds">
+        <div class="optCard">
+          <h2>Ascolta</h2>
+          <div id="soundList"></div>
+          <button class="btn" id="soundsBack" style="margin-top: 22px">
+            Indietro
+          </button>
+        </div>
+      </div>
+
       <!-- ===== GATE — primo tocco: sblocca l'audio ===== -->
       <div id="gate">
         <div class="gateHint">clicca per iniziare</div>
@@ -962,6 +973,9 @@
         <div class="titleMenu">
           <nav class="menu">
             <button class="menuBtn" id="newGameBtn">Nuova Partita</button>
+            <!-- Compare solo a gioco concluso almeno una volta (main.js) -->
+            <button class="menuBtn hidden" id="dedicaBtn">Dedica</button>
+            <button class="menuBtn" id="soundsBtn">Ascolta</button>
             <button class="menuBtn" id="optionsBtn">Opzioni</button>
           </nav>
           <div class="credit">FRAGMENTS</div>

@@ -44,6 +44,22 @@ export const S = {
 
 const SAVE_KEY = 'fragments_save';
 
+// Chiave separata dal salvataggio: "il gioco è stato finito almeno una volta".
+// Non può stare in S.flags.gameDone perché "Nuova Partita" riparte da un S
+// vergine che sovrascrive il save al primo writeSave() — il pulsante della
+// dedica sparirebbe appena si ricomincia a giocare.
+const DONE_KEY = 'fragments_completed';
+
+export function markCompleted() {
+  try { localStorage.setItem(DONE_KEY, '1'); }
+  catch { /* silently fail */ }
+}
+
+export function hasCompleted() {
+  try { return localStorage.getItem(DONE_KEY) === '1'; }
+  catch { return false; }
+}
+
 export function hasSave() {
   try { return !!localStorage.getItem(SAVE_KEY); }
   catch { return false; }

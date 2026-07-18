@@ -16,6 +16,18 @@ const SRC = {
   mondo2: '/assets/audio/mondo2.mp3',
 };
 
+// Elenco per la finestra "Ascolta" del titolo: chiave → nome mostrato.
+// `theme` non sta in SRC (è l'elemento #themeAudio del markup) ma qui sì:
+// nell'ascolto è una traccia come le altre.
+export const TRACKS = [
+  { key: 'theme', name: 'Tema' },
+  { key: 'casa', name: 'Casa' },
+  { key: 'mondo1', name: 'La Città Ferma' },
+  { key: 'mondo2', name: 'La Casa Familiare' },
+];
+
+const THEME_SRC = '/assets/audio/theme.mp3';
+
 // Scena → traccia. Ogni scena di gioco è qui: una scena che manca cade sul
 // ramo "nessuna traccia nota" di playForScene() e lascia suonare l'ultima.
 const SCENE_TRACKS = {
@@ -64,9 +76,16 @@ function makeEl() {
   return el;
 }
 
+let preview = null;    // elemento dedicato all'ascolto dal titolo
+let previewKey = null; // traccia in ascolto, o null
+
 export function initAudio(themeEl) {
   theme = themeEl || null;
   deck = [makeEl(), makeEl()];
+  // Elemento separato dal deck: l'ascolto avviene sulla title screen, dove
+  // il deck non sta suonando, ma tenerli distinti evita che una preview
+  // lasci sporco `current` e confonda il primo playForScene() della partita.
+  preview = makeEl();
 }
 
 // Volume: un solo valore per tema e tracce di gioco. I fade puntano sempre
@@ -75,9 +94,52 @@ export function initAudio(themeEl) {
 export function setMasterVolume(v) {
   masterVol = Math.max(0, Math.min(1, v));
   if (theme) theme.volume = masterVol;
+  if (preview) preview.volume = masterVol;
   // Se un crossfade è in corso non tocchiamo il deck: ci pensa il fade,
   // che legge masterVol a ogni step.
   if (!fadeTimer && deck[active]) deck[active].volume = masterVol;
+}
+
+// ---- Ascolto dal titolo ----
+// Una traccia alla volta, in loop, al posto del tema. Nessuna playlist:
+// finita o fermata una traccia non ne parte un'altra.
+
+export function currentPreview() {
+  return previewKey;
+}
+
+// Riprende il tema del titolo (dopo un ascolto o alla chiusura della finestra).
+function resumeTheme() {
+  if (!theme) return;
+  theme.volume = masterVol;
+  theme.play().catch(() => {});
+}
+
+export function stopPreview() {
+  if (!preview || !previewKey) return;
+  preview.pause();
+  preview.removeAttribute('src');
+  preview.load(); // libera lo stream: le tracce pesano 4-7MB l'una
+  previewKey = null;
+  resumeTheme();
+}
+
+// Avvia `key`; se è già in ascolto la ferma (toggle).
+export function playPreview(key) {
+  if (!preview) return;
+  if (previewKey === key) {
+    stopPreview();
+    return;
+  }
+  const src = key === 'theme' ? THEME_SRC : SRC[key];
+  if (!src) return; // chiave sconosciuta: meglio non fare nulla che caricare "undefined"
+  if (previewKey) stopPreview(); // resumeTheme qui è innocuo: lo ri-mettiamo in pausa subito
+  if (theme) theme.pause();
+  preview.src = src;
+  preview.volume = masterVol;
+  preview.currentTime = 0;
+  preview.play().catch(() => {});
+  previewKey = key;
 }
 
 export function playTheme() {

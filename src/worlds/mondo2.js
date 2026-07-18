@@ -15,7 +15,7 @@
 // fase sono STUB auto-risolvibili: verranno sostituiti nella Passata 3.
 // ============================================================
 
-import { S, writeSave } from "../state.js";
+import { S, writeSave, markCompleted } from "../state.js";
 import {
   $,
   speak,
@@ -382,6 +382,8 @@ function runFinale() {
         fadeBlack(() => {
           S.flags.gameDone = true;
           writeSave();
+          // Sblocca la dedica dal menu del titolo, per sempre.
+          markCompleted();
           openCredits();
         }, 1000);
       });

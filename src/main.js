@@ -3,7 +3,11 @@
 // ============================================================
 
 import { $, initParallax, initDust, initNavLabels, preloadBackgrounds } from './engine.js';
-import { initAudio, playTheme, fadeOutTheme, setMasterVolume } from './audio.js';
+import {
+  initAudio, playTheme, fadeOutTheme, setMasterVolume,
+  TRACKS, playPreview, stopPreview, currentPreview,
+} from './audio.js';
+import { hasCompleted } from './state.js';
 import { initInventoryUI } from './inventory.js';
 import { initCloseup } from './closeup.js';
 import { initShutterPuzzle } from './puzzles/shutter.js';
@@ -40,8 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
   initCompressorePuzzle();
   initIntro();
 
-  // Crediti: "Torna al titolo" ricarica pulito sulla title screen.
-  $('#creditsBack')?.addEventListener('click', () => location.reload());
+  // Crediti: dopo il finale "Torna al titolo" ricarica pulito. Se invece la
+  // dedica è stata aperta dal menu, il gioco non è in corso: basta chiudere
+  // l'overlay, senza ricaricare (e senza rivedere il gate d'ingresso).
+  let creditsFromTitle = false;
+  $('#creditsBack')?.addEventListener('click', () => {
+    if (!creditsFromTitle) { location.reload(); return; }
+    creditsFromTitle = false;
+    const c = $('#credits');
+    c.classList.remove('open', 'vis');
+  });
   initPrologueHotspots();
   initMondo1();
   initMondo2();
@@ -62,6 +74,53 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#newGameBtn').addEventListener('click', () => {
     closeTitle();
     runIntro();
+  });
+
+  // ---- Dedica (solo a gioco concluso almeno una volta) ----
+  const dedicaBtn = $('#dedicaBtn');
+  if (hasCompleted()) dedicaBtn.classList.remove('hidden');
+  dedicaBtn.addEventListener('click', () => {
+    creditsFromTitle = true;
+    const c = $('#credits');
+    c.scrollTop = 0; // riparte dall'inizio anche se era già stata letta
+    c.classList.add('open');
+    void c.offsetWidth; // reflow: senza, il fade-in della dedica non parte
+    c.classList.add('vis');
+  });
+
+  // ---- Ascolta ----
+  // Lista secca: una traccia alla volta, nessuna playlist. Ritoccare la
+  // traccia in ascolto la ferma; uscendo torna il tema del titolo.
+  const soundsPanel = $('#sounds');
+  const soundList = $('#soundList');
+
+  function paintTracks() {
+    const playing = currentPreview();
+    soundList.querySelectorAll('.trackBtn').forEach((b) => {
+      const on = b.dataset.key === playing;
+      b.dataset.playing = on ? '1' : '0';
+      b.querySelector('.trackIcon').textContent = on ? '■' : '▶';
+    });
+  }
+
+  TRACKS.forEach((t) => {
+    const b = document.createElement('button');
+    b.className = 'trackBtn';
+    b.dataset.key = t.key;
+    b.innerHTML = '<span class="trackIcon"></span>';
+    b.appendChild(document.createTextNode(t.name));
+    b.addEventListener('click', () => { playPreview(t.key); paintTracks(); });
+    soundList.appendChild(b);
+  });
+
+  $('#soundsBtn').addEventListener('click', () => {
+    soundsPanel.classList.add('open');
+    paintTracks();
+  });
+  $('#soundsBack').addEventListener('click', () => {
+    stopPreview(); // il tema del titolo riprende
+    paintTracks();
+    soundsPanel.classList.remove('open');
   });
 
   // ---- Opzioni ----
