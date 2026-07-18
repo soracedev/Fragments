@@ -92,6 +92,11 @@ assert('Compressore completato', flag(s, 'compressoreDone'));
 assert('set dadi ottenuto (D8/D20)', hasItem(s, 'd8') && hasItem(s, 'd20'));
 await drain();                              // dialogo finale §6
 assert('finale: illustrazione dell’abbraccio', (await scene(page)) === 'abbraccio');
+// La battuta dell'abbraccio entra con ~2s di ritardo (anti-click accidentale):
+// prima di allora non c'è nulla da far avanzare.
+assert('finale: abbraccio non cliccabile subito',
+  !(await page.evaluate(() => document.getElementById('dialogue')?.classList.contains('show'))));
+await page.waitForTimeout(2300);
 await drain();                              // battuta dell'abbraccio
 await page.waitForTimeout(1400);            // fadeBlack (hold 1000) + apertura crediti
 await page.waitForTimeout(1800);            // fade-in della dedica (1.6s)

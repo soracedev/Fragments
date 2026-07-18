@@ -142,6 +142,11 @@ assert('finale: mondo2Done = true', flag(s, 'mondo2Done'));
 assert('finale: ritorno a Fuori Casa', (await scene(page)) === 'fuori-casa');
 assert('finale: warmth a livello 2', await page.evaluate(() => document.getElementById('stage').classList.contains('warm-2')));
 
+// Al rientro dal Mondo 2 Nox riconosce LEI e la casa: il dialogo blocca gli
+// hotspot finché non lo si chiude.
+await drain();
+assert('finale: battuta di ritorno consumata', flag(await readSave(page), 'fuoriCasaRitorno'));
+
 // --- Post-Mondo2: Cancello (closeup) → Cortile della nonna ---
 await tap('cancello'); await tap('cancello-enter'); await drain();
 await page.waitForTimeout(900); await drain();

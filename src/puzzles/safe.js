@@ -54,7 +54,8 @@ function onSolved() {
     speak([
       SG('La cassaforte si apre. Dentro, un dado di resina e un biglietto piegato.'),
       P('Un D4. Quattro facce. Chi lo teneva chiuso qui dentro?'),
-      SG('[SEGNAPOSTO DI SVILUPPO] Testo della nota nella cassaforte da scrivere.'),
+      SG('Sul biglietto, piegato sotto il dado, una grafia stretta:'),
+      SG('«L’ho fatto io. Non benissimo, ma l’ho fatto io. Lo chiudo qui perché se resta fuori, prima o poi qualcuno mi spiega cos’ho sbagliato. Comunque non è niente de che.»'),
     ], () => {
       acquire('d4', 'Prendi il dado di resina — D4.', () => {
         if (typeof window.__refreshHotspots === 'function') window.__refreshHotspots();

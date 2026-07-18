@@ -45,7 +45,7 @@
           data-action="porta"
           data-goto="piazza"
           data-label="Fuori casa"
-          data-dir="up"
+          data-dir="down"
         >
           <span class="ring"></span><span class="arrow"></span>
         </button>
@@ -156,7 +156,7 @@
         </button>
         <button
           class="hotspot nav"
-          style="left: 5%; top: 45%"
+          style="left: 11%; top: 45%"
           data-action="to-spiaggia"
           data-goto="spiaggia"
           data-dir="left"
@@ -165,10 +165,10 @@
         </button>
         <button
           class="hotspot nav"
-          style="left: 8%; top: 82%"
+          style="left: 90%; top: 82%"
           data-action="nettuno-back"
           data-goto="piazza"
-          data-dir="left"
+          data-dir="right"
         >
           <span class="ring"></span><span class="arrow"></span>
         </button>
@@ -290,19 +290,20 @@
         ></div>
         <button
           class="hotspot"
-          style="left: 24%; top: 66%"
+          style="left: 50%; top: 55%"
           data-action="auto"
           data-label="Auto"
         >
           <span class="ring"></span><span class="dot"></span>
         </button>
         <button
-          class="hotspot"
-          style="left: 68%; top: 52%"
+          class="hotspot nav"
+          style="left: 7%; top: 57%"
           data-action="cancello"
           data-label="Cancello"
+          data-dir="left"
         >
-          <span class="ring"></span><span class="dot"></span>
+          <span class="ring"></span><span class="arrow"></span>
         </button>
         <button
           class="hotspot nav"
@@ -337,7 +338,7 @@
           style="left: 10%; top: 88%"
           data-action="closeup-auto-back"
           data-goto="fuori-casa"
-          data-dir="down"
+          data-dir="left"
         >
           <span class="ring"></span><span class="arrow"></span>
         </button>
@@ -385,7 +386,7 @@
         ></div>
         <button
           class="hotspot"
-          style="left: 40%; top: 82%"
+          style="left: 64%; top: 88%"
           data-action="bigliettino-lei"
         >
           <span class="ring"></span><span class="dot"></span>
@@ -611,7 +612,7 @@
       <!-- ===== SCENE: ABBRACCIO FINALE (solo illustrazione) ===== -->
       <div class="scene" data-scene="abbraccio">
         <div
-          class="layer"
+          class="layer zoomslow"
           data-depth="0.02"
           style="
             background-color: #b3ada2;
@@ -821,8 +822,8 @@
         <div class="pcard">
           <h2>Lo stampo</h2>
           <p class="hint">
-            Dosa i due componenti (portali nel verde) e aggiungi qualche goccia
-            di colore.
+            Porta A e B nel verde per sbloccare il colore. Ogni goccia sposta le
+            zone: ricentra e ripeti.
           </p>
           <div class="doseRow">
             <span class="doseLbl">A</span
@@ -972,28 +973,72 @@
         <div class="creditsInner">
           <h1 class="creditsTitle">Fragments</h1>
           <div class="creditsDedica" id="creditsDedica">
-            <p>Per me sei sempre stata una ragazza capace di fare infinite cose, anche meglio di me. Come ti dissi più volte.</p>
-            <p>Pensi di essere rimasta bloccata nel tempo. Di non aver fatto progressi o passi avanti nella tua vita.</p>
-            <p>E sì, su qualcosa potresti esserti fermata, ma hai sempre avuto la forza di alzarti e camminare, al pari di tutti, al fianco di chiunque tu voglia.</p>
-            <p>Pensi di non essere capace di fare niente e questo ti crea tanta insicurezza. Penseresti di non essere in grado di riparare un orologio, ma sono convinto che con un po’ di dedizione e impegno riusciresti a ripararlo alla perfezione, ed anche qualcosa di così apparentemente complicato diventerebbe facile.</p>
-            <p>Vorrei che le tue insicurezze diventassero la spinta che ti serve per fare quello che desideri.</p>
-            <p>Non sto qui a parlare di me, ma di te. Ma alla fine, quella che può rimettere insieme i suoi frammenti, sparsi un po’ qua e un po’ là, sei tu. So che sei in grado di dipendere da te stessa e non dover dar conto a nessuno.</p>
-            <p>Ed io in tutto questo posso solo starti vicino, essere la spalla su cui piangi, il bastone su cui ti posi quando sei esausta.</p>
-            <p>Quello che ti sembra imperfetto, in realtà va bene così.</p>
-            <p>Le imperfezioni, i fallimenti, e le ferite del tempo, i brutti ricordi, le pessime esperienze sono parte di noi, sono ciò che ci definisce. Sono la spinta che ci ricorda che possiamo sempre fare di più.</p>
-            <p>Sono parte dell’impronta di ciò che siamo, ma non ci definiscono completamente.</p>
-            <p>Bisogna accettare e accogliere tutto quello che siamo ma senza farci sopraffare da una parte di essa.</p>
-            <p>Potresti storcere il naso, o interpretare come una critica quello che hai visto e letto. Potresti pensare che mi sono convinto di come sei fatta.</p>
-            <p>Volevo solamente farti capire che io in tutto questo tempo ti ho vista, nonostante i miei infiniti sbagli e la mia freddezza. Nonostante io non ti abbia fatto sentire amata.</p>
-            <p>Forse ho sbagliato a farti carico dei miei problemi, forse ti hanno fatto distogliere l’attenzione dalle cose veramente importanti per te.</p>
-            <p>Voglio che ti ricordi che sei stata la persona più importante che io abbia mai avuto nella mia vita. L’unica che nei periodi più impossibili della mia vita c’è sempre stata, a prendere le mie parti.</p>
-            <p>Vorrei vedere quella grinta e volontà anche verso te stessa.</p>
-            <p>E non voglio che tu lo faccia per me o per qualcun altro, ma per te.</p>
+            <p>
+              Ho sempre creduto che tu fossi capace di fare qualsiasi cosa.
+              Anche meglio di me. Te l’ho detto più volte, e lo penso ancora.
+            </p>
+            <p>
+              Ma so che tu non ci credi allo stesso modo. So che spesso ti fermi
+              prima ancora di provare, convinta di non essere all’altezza di
+              qualcosa che magari non hai nemmeno mai tentato davvero. E questo
+              mi fa stare male, perché io so che potresti farcela — sei tu
+              quella che non se lo lascia dire.
+            </p>
+            <p>
+              Non c’è stato un tempo in cui tutto si è fermato. È adesso. È da
+              tanto che ti senti bloccata, come se non sapessi più come andare
+              avanti, come se le lancette non riuscissero più a muoversi. Lo so,
+              e non voglio far finta che non sia così.
+            </p>
+            <p>
+              Vorrei che tu trovassi la forza di rialzarti e continuare, senza
+              cadere di nuovo — o se cadi, di rialzarti ancora più forte di
+              prima. Non per dimostrarlo a qualcuno. Solo perché ne sei capace,
+              anche se adesso non riesci a vederlo.
+            </p>
+            <p>
+              Hai sempre provato a rimettere insieme i tuoi pezzi. Ma tra quei
+              pezzi ci sono crepe profonde, che negli anni si sono allargate
+              sempre di più. Io le ho viste. Non ho mai fatto finta che non
+              esistessero. Mi dispiace essere stato inerme davanti a loro —
+              pensavo di dover essere io la soluzione, il collante che riempisse
+              quel vuoto. Ma forse non lo sono. È per questo che nel gioco mi
+              sento impotente: cerco sempre quei frammenti, ma finisco sempre
+              per romperli di nuovo. Perché non credo di essere io il collante
+              giusto.
+            </p>
+            <p>
+              Ma quelle crepe non vanno corrette, né riempite. Sono solo una
+              cicatrice — la prova di quello che è successo, che ci definisce e
+              che portiamo con noi andando avanti. Fanno parte dell’impronta di
+              ciò che siamo, e non dobbiamo lasciarci sopraffare da questa parte
+              di noi. Anzi, dovremmo usarla come spinta per continuare.
+            </p>
+            <p>
+              Io in tutto questo posso solo starti vicino. Essere la spalla su
+              cui piangi, il bastone su cui ti appoggi quando sei stanca.
+            </p>
+            <p>
+              Voglio che ti ricordi che sei stata la persona più importante che
+              io abbia mai avuto nella mia vita. L’unica che, nei momenti più
+              difficili, c’è sempre stata a prendere le mie parti.
+            </p>
+            <p>
+              Vorrei vedere quella stessa fiducia — quella che ti ha sempre
+              fatto credere in me, anche quando il resto del mondo non lo faceva
+              — rivolta anche verso te stessa.
+            </p>
             <p>Vorrei che tu faccia ciò che desideri.</p>
             <p>Vorrei vederti libera, felice, sorridente.</p>
             <p>Spensierata.</p>
-            <p>Vorrei poterti sentir dire che ti senti veramente amata come tu hai sempre voluto.</p>
-            <p>Indipendentemente da come vadano le cose, sappi che sei una persona veramente unica e magnifica, nel bene o nel male.</p>
+            <p>
+              Vorrei poterti sentir dire che ti senti veramente amata come hai
+              sempre voluto.
+            </p>
+            <p>
+              Indipendentemente da come vadano le cose, sappi che sei una
+              persona veramente unica e magnifica, nel bene o nel male.
+            </p>
             <p class="creditsClose">Ti amo.</p>
           </div>
           <button class="btn" id="creditsBack">Torna al titolo</button>

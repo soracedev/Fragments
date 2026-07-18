@@ -67,6 +67,25 @@ body {
   background-position: center;
 }
 
+/* Abbraccio finale: zoom lentissimo, quasi impercettibile, che continua a
+   correre anche sotto la dissolvenza al nero. Il parallax salta i layer
+   .zoomslow (engine.js): scriverebbe un transform inline sovrascrivendo
+   la scala dell'animazione. */
+.layer.zoomslow {
+  transform: scale(1);
+}
+.scene.active .layer.zoomslow {
+  animation: zoomslow 20s ease-out forwards;
+}
+@keyframes zoomslow {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
 #dust {
   position: absolute;
   top: 0;
@@ -221,6 +240,9 @@ body {
 }
 .hotspot.nav[data-dir="up"] .arrow {
   transform: translate(-50%, -40%) rotate(-45deg);
+}
+.hotspot.nav[data-dir="down"] .arrow {
+  transform: translate(-50%, -60%) rotate(135deg);
 }
 .hotspot .label {
   position: absolute;

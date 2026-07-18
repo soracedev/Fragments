@@ -243,7 +243,9 @@ function parallax(px, py) {
     // Niente parallax mentre un puzzle/inventario/closeup copre la scena.
     if (document.querySelector(".puzzle.open, #inventory.open, #closeup.open"))
       return;
-    $$(".scene.active .layer").forEach((l) => {
+    // .zoomslow è escluso: ha una sua animazione di scala e un transform
+    // inline qui la sovrascriverebbe.
+    $$(".scene.active .layer:not(.zoomslow)").forEach((l) => {
       const d = parseFloat(l.dataset.depth || 0);
       l.style.transform = `translate(${-_pxLast * d * 38}px, ${-_pyLast * d * 38}px)`;
     });

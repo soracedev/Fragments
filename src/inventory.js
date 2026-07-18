@@ -17,12 +17,12 @@ export const ITEM_DB = {
     desc: 'Niente da fare, il telefono è fisso alle 3:00.',
   },
   ingranaggio: {
-    icon: '⚙️',
+    icon: '/assets/images/CittaFerma/saracinesca-disco.png',
     name: 'Ingranaggio arrugginito',
     desc: "Ripescato dalla fontana del Dio Nettuno. Denti consumati, ruggine ovunque, eppure gira ancora. Sembra fatto apposta per un meccanismo rimasto scoperto da qualche parte.",
   },
   lancetta: {
-    icon: '\u{1F550}',
+    icon: '/assets/images/CittaFerma/lancetta.png',
     name: 'Lancetta delle ore',
     desc: "Una piccola lancetta di ferro battuto, trovata sotto la saracinesca del vicolo. È quella corta: quella che segna le ore, non i minuti.",
   },
@@ -53,7 +53,7 @@ export const ITEM_DB = {
     desc: "Le chiavi dell'auto. «Ti serviranno per uscire», ha detto LUI, senza guardarla.",
   },
   usb: {
-    icon: '\u{1F4BE}',
+    icon: '/assets/images/chiave-usb.png',
     name: 'Chiavetta USB',
     desc: "Gliel'ha lasciata LUI. Custodiva quei frammenti, dice. Forse qui dentro c'è quello che non è mai riuscito a rimettere insieme.",
   },

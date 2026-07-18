@@ -75,6 +75,22 @@ export function enterFuoriCasa() {
   show("fuori-casa");
   refreshMondo2Hotspots();
   writeSave();
+  // Al ritorno dal Mondo 2 Nox mette a fuoco il riconoscimento. Flag
+  // dedicato: enterFuoriCasa è chiamata anche da "cortile-back", senza
+  // one-shot la battuta tornerebbe a ogni rientro dal cortile.
+  if (S.flags.mondo2Done && !S.flags.fuoriCasaRitorno) {
+    speak(
+      [
+        P("LEI mi ricorda qualcuno. Sembra così familiare…"),
+        P("Anche quella casa, la conosco."),
+      ],
+      () => {
+        S.flags.fuoriCasaRitorno = true;
+        writeSave();
+      },
+    );
+    return;
+  }
   if (S.flags.fuoriCasaIntro) return;
   speak([P("La sua auto è qui? Strano che non mi abbia avvertito.")], () => {
     S.flags.fuoriCasaIntro = true;
@@ -102,6 +118,26 @@ function enterCasaf() {
 
 // ---- LUI (Figura 2) — interazione a 3 stadi dal divano ----
 
+// S2 · consegna le chiavi dell'auto e apre il giardino (serve frammento Camera).
+// [BOZZA] Riga S2 — da revisionare.
+function luiGiveKeys() {
+  speak(
+    [
+      LU(
+        "Ne hai trovato uno. Erano sparsi ovunque… continuo a perderli, come se non volessi ritrovarli davvero.",
+      ),
+      LU("Tieni. Ti serviranno per uscire."),
+      SG("Oltre il vetro, il cigolio di una porta che si apre. Il giardino."),
+    ],
+    () => {
+      acquire("chiavi-auto", "LUI ti mette in mano le chiavi dell’auto.", () => {
+        writeSave();
+        refreshMondo2Hotspots();
+      });
+    },
+  );
+}
+
 function talkLui() {
   // S1 · prima interazione: parla dei pezzi che cercava e non ricorda dove.
   if (!S.flags.luiSpoke1) {
@@ -117,12 +153,14 @@ function talkLui() {
       () => {
         S.flags.luiSpoke1 = true;
         writeSave();
+        // Se il frammento è già in tasca, LUI prosegue subito con le chiavi:
+        // ricliccare sull'hotspot per far partire S2 è controintuitivo.
+        if (S.flags.fragCamera && !has("chiavi-auto")) luiGiveKeys();
       },
     );
     return;
   }
 
-  // S2 · consegna le chiavi dell'auto e apre il giardino (serve frammento Camera).
   if (!has("chiavi-auto")) {
     if (!S.flags.fragCamera) {
       speak([
@@ -132,26 +170,7 @@ function talkLui() {
       ]);
       return;
     }
-    // [BOZZA] Riga S2 — da revisionare.
-    speak(
-      [
-        LU(
-          "Ne hai trovato uno. Erano sparsi ovunque… continuo a perderli, come se non volessi ritrovarli davvero.",
-        ),
-        LU("Tieni. Ti serviranno per uscire."),
-        SG("Oltre il vetro, il cigolio di una porta che si apre. Il giardino."),
-      ],
-      () => {
-        acquire(
-          "chiavi-auto",
-          "LUI ti mette in mano le chiavi dell’auto.",
-          () => {
-            writeSave();
-            refreshMondo2Hotspots();
-          },
-        );
-      },
-    );
+    luiGiveKeys();
     return;
   }
 
@@ -218,23 +237,43 @@ const LEI_FINALE = [
   L("Ma… grazie. Per avermelo detto."),
 ];
 
+// Ultima battuta di LEI_BASE: è quella che resta come "eco" se torni a
+// parlarle senza aver ancora stampato il D6.
+const LEI_BASE_ECO = LEI_BASE[LEI_BASE.length - 1];
+
 function talkLeiGiardino() {
   if (S.flags.mondo2Done) {
     speak([SG("La figura guarda l'orizzonte. Non dice altro.")]);
     return;
   }
+
   if (has("d6")) {
-    speak([...LEI_BASE, ...LEI_FINALE], () => {
-      S.flags.mondo2Done = true;
-      writeSave();
-      fadeWhite(() => {
-        setWarmth(2);
-        enterFuoriCasa();
-      }, 1000);
-    });
+    // Se la base è già stata ascoltata non la ripetiamo: si va dritti al
+    // finale; altrimenti si sente tutto di fila.
+    speak(
+      S.flags.leiGiardinoBase ? [...LEI_FINALE] : [...LEI_BASE, ...LEI_FINALE],
+      () => {
+        S.flags.leiGiardinoBase = true;
+        S.flags.mondo2Done = true;
+        writeSave();
+        fadeWhite(() => {
+          setWarmth(2);
+          enterFuoriCasa();
+        }, 1000);
+      },
+    );
     return;
   }
-  speak(LEI_BASE);
+
+  // Senza D6: la prima volta il dialogo intero, dalla seconda solo l'eco.
+  if (S.flags.leiGiardinoBase) {
+    speak([LEI_BASE_ECO]);
+    return;
+  }
+  speak(LEI_BASE, () => {
+    S.flags.leiGiardinoBase = true;
+    writeSave();
+  });
 }
 
 // ---- FINALE · Interno Lavanderia (LEI, minigiochi, epilogo) ----
@@ -334,14 +373,19 @@ function openCredits() {
 function runFinale() {
   speak(LEI_FINALE_2, () => {
     // L'abbraccio: si passa all'illustrazione dedicata, poi al nero.
+    // Il testo entra con ~2s di ritardo: senza, si può cliccare d'istinto
+    // sull'ultima battuta e saltare la scena senza averla vista. Nel
+    // frattempo lo zoom lentissimo (.zoomslow) è già partito.
     show("abbraccio");
-    speak([ABBRACCIO_SG], () => {
-      fadeBlack(() => {
-        S.flags.gameDone = true;
-        writeSave();
-        openCredits();
-      }, 1000);
-    });
+    setTimeout(() => {
+      speak([ABBRACCIO_SG], () => {
+        fadeBlack(() => {
+          S.flags.gameDone = true;
+          writeSave();
+          openCredits();
+        }, 1000);
+      });
+    }, 2000);
   });
 }
 
