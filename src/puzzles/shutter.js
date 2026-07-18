@@ -23,6 +23,7 @@ let lastGain = 0;
 let solved = false;
 let raf = null;
 let lastTs = 0;
+let center = null; // centro del disco, misurato una volta per drag
 
 function discCenter() {
   const r = $('#shutterDisc').getBoundingClientRect();
@@ -31,7 +32,7 @@ function discCenter() {
 
 // Angolo del puntatore attorno al perno, in gradi. Cresce in senso orario.
 function pointerAngle(e) {
-  const c = discCenter();
+  const c = center || discCenter();
   return (Math.atan2(e.clientY - c.y, e.clientX - c.x) * 180) / Math.PI;
 }
 
@@ -70,6 +71,7 @@ function tick(now) {
 function onDown(e) {
   if (solved) return;
   dragging = true;
+  center = discCenter();
   lastAngle = pointerAngle(e);
   lastGain = performance.now();
   $('#shutterDisc').classList.add('grabbing');
@@ -97,6 +99,7 @@ function onMove(e) {
 
 function onUp(e) {
   dragging = false;
+  center = null;
   const disc = $('#shutterDisc');
   disc.classList.remove('grabbing');
   if (disc.hasPointerCapture?.(e.pointerId)) disc.releasePointerCapture(e.pointerId);

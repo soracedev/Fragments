@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">fragments</string>
+    <string name="title_activity_main">fragments</string>
+    <string name="package_name">com.fragments.app</string>
+    <string name="custom_url_scheme">com.fragments.app</string>
+</resources>

@@ -41,8 +41,12 @@ export async function seedGame(page, SEED) {
   });
   await page.waitForFunction(() => typeof window.__seed === 'function');
   await page.evaluate((s) => window.__seed(s), SEED);
-  await page.evaluate(() =>
-    document.getElementById('title')?.style.setProperty('display', 'none'),
-  );
+  // Gate e titolo coprono il palco: vanno tolti o i click sugli hotspot
+  // finiscono su di loro.
+  await page.evaluate(() => {
+    ['#gate', '#title'].forEach((s) =>
+      document.querySelector(s)?.style.setProperty('display', 'none'),
+    );
+  });
   await page.waitForTimeout(300);
 }

@@ -226,10 +226,27 @@ export const SG = (t) => ({ stage: true, text: t });
 
 // ---- Parallax ----
 
+// Il giroscopio del tablet (deviceorientation) spara eventi in continuazione:
+// senza throttle si ridisegnano i layer a ogni tick — e persino dietro un
+// puzzle aperto — inchiodando i minigiochi su WebView vecchie. Coalizziamo a
+// un aggiornamento per frame e saltiamo del tutto quando c'è un overlay aperto.
+let _pxLast = 0,
+  _pyLast = 0,
+  _parallaxRAF = 0;
+
 function parallax(px, py) {
-  $$(".scene.active .layer").forEach((l) => {
-    const d = parseFloat(l.dataset.depth || 0);
-    l.style.transform = `translate(${-px * d * 38}px, ${-py * d * 38}px)`;
+  _pxLast = px;
+  _pyLast = py;
+  if (_parallaxRAF) return;
+  _parallaxRAF = requestAnimationFrame(() => {
+    _parallaxRAF = 0;
+    // Niente parallax mentre un puzzle/inventario/closeup copre la scena.
+    if (document.querySelector(".puzzle.open, #inventory.open, #closeup.open"))
+      return;
+    $$(".scene.active .layer").forEach((l) => {
+      const d = parseFloat(l.dataset.depth || 0);
+      l.style.transform = `translate(${-_pxLast * d * 38}px, ${-_pyLast * d * 38}px)`;
+    });
   });
 }
 
@@ -269,4 +286,26 @@ export function initDust() {
     m.style.opacity = 0.2 + Math.random() * 0.4;
     dust.appendChild(m);
   }
+}
+
+// ---- Preload sfondi ----
+// Al cambio scena la .layer che diventa visibile deve decodificare la sua
+// immagine di sfondo: su device lenti è uno stallo che lascia il nero per un
+// istante. Precarichiamo e DECODIFICHIAMO tutti gli sfondi all'avvio e teniamo
+// i riferimenti agli Image, così i bitmap restano in memoria e non vengono
+// ri-decodificati al momento del passaggio.
+const _bgCache = [];
+export function preloadBackgrounds() {
+  const urls = new Set();
+  $$(".layer, .zoombg, .bgpeek").forEach((el) => {
+    const bg = getComputedStyle(el).backgroundImage;
+    const m = /url\(["']?([^"')]+)["']?\)/.exec(bg);
+    if (m && m[1] !== "none") urls.add(m[1]);
+  });
+  urls.forEach((u) => {
+    const img = new Image();
+    img.src = u;
+    if (img.decode) img.decode().catch(() => {});
+    _bgCache.push(img);
+  });
 }

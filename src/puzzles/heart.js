@@ -23,6 +23,7 @@ const SNAP = 16; // raggio di aggancio in % dello stage
 let placed = { L: false, R: false };
 let drag = null;
 let solved = false;
+let rectC = null; // rect dello stage, misurato una volta per drag
 
 const pieceEl = (k) => $(k === "L" ? "#pieceL" : "#pieceR");
 
@@ -31,7 +32,7 @@ function stageRect() {
 }
 
 function pctFromEvent(e) {
-  const r = stageRect();
+  const r = rectC || stageRect();
   return {
     x: ((e.clientX - r.left) / r.width) * 100,
     y: ((e.clientY - r.top) / r.height) * 100,
@@ -47,6 +48,7 @@ function onDown(key, e) {
   if (solved || placed[key]) return;
   const el = pieceEl(key);
   drag = { key, el };
+  rectC = stageRect();
   el.classList.add("grab");
   el.setPointerCapture?.(e.pointerId);
   onMove(e); // la metà salta subito sotto il dito

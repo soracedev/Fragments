@@ -29,27 +29,26 @@ body {
 /* overflow:clip, non hidden: `hidden` resta un contenitore scrollabile, e il
      browser lo scrolla per portare in vista un bottone che prende il focus —
      .layer sborda del 3% per il parallax, così tutta la scena slittava di ~29px. */
+/* Target: Lenovo TB-X606X (Android 10, WebView Chrome 81), landscape 1280×728.
+   L'arte è 4:3: la scena riempie tutta l'altezza (100vh) restando 4:3, centrata,
+   con due barre laterali. Niente `aspect-ratio` (assente su Chrome 81): entrambe
+   le dimensioni sono espresse con min()/vh/vw, sempre esplicite. Nessun cap in px,
+   così la scena sfrutta l'intera altezza dello schermo. */
 #stage {
   position: relative;
-  width: 100vw;
-  height: 100vh;
-  aspect-ratio: 4/3;
-  max-width: 960px;
-  max-height: 720px;
+  width: min(100vw, 133.3333vh); /* 4/3 * 100vh */
+  height: min(100vh, 75vw); /* 3/4 * 100vw */
   overflow: hidden;
   overflow: clip;
   background: #14151c;
 }
-@media (min-aspect-ratio: 4/3) {
-  #stage {
-    width: auto;
-    height: 100vh;
-  }
-}
 
 .scene {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   opacity: 0;
   transition: opacity 1.1s ease;
   pointer-events: none;
@@ -60,15 +59,20 @@ body {
 }
 .layer {
   position: absolute;
-  inset: -3%;
+  top: -3%;
+  right: -3%;
+  bottom: -3%;
+  left: -3%;
   background-size: cover;
   background-position: center;
-  will-change: transform;
 }
 
 #dust {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   pointer-events: none;
   z-index: 5;
 }
@@ -159,7 +163,6 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   pointer-events: none;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.55));
 }
 .hotspot.frag .dot {
   display: none;
@@ -187,7 +190,9 @@ body {
   align-items: center;
   justify-content: center;
   font-size: clamp(64px, 16vw, 104px);
-  filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.6));
+  /* niente drop-shadow: è animata durante lo scale della raccolta e su
+     WebView Chrome 81/GPU debole ricalcola il filtro ogni frame (scatti) e
+     fa sfarfallare al nero lo sfondo per la pressione sulla memoria GPU. */
   transition:
     opacity 0.35s ease,
     transform 0.35s ease;
@@ -254,7 +259,10 @@ body {
 /* TITLE */
 #title {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 60;
   display: flex;
   flex-direction: column;
@@ -271,7 +279,10 @@ body {
 }
 #title .bgpeek {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background-size: cover;
   background-position: center 30%;
   opacity: 0.55;
@@ -279,7 +290,10 @@ body {
 #title::after {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: radial-gradient(
     120% 90% at 50% 55%,
     rgba(12, 13, 18, 0.35) 0%,
@@ -289,7 +303,10 @@ body {
 }
 #title .frame {
   position: absolute;
-  inset: 22px;
+  top: 22px;
+  right: 22px;
+  bottom: 22px;
+  left: 22px;
   border: 1px solid rgba(139, 142, 163, 0.22);
 }
 #title .kicker {
@@ -356,7 +373,6 @@ body {
   margin-top: 40px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
   align-items: center;
   opacity: 0;
   animation: fadeUp 1.6s 1.5s both;
@@ -385,13 +401,15 @@ body {
 }
 #options {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 65;
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(10, 11, 16, 0.92);
-  backdrop-filter: blur(4px);
+  background: rgba(10, 11, 16, 0.96);
 }
 #options.open {
   display: flex;
@@ -413,7 +431,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
   margin-bottom: 16px;
 }
 .optRow label {
@@ -441,7 +458,10 @@ body {
 /* INTRO */
 #intro {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 55;
   display: none;
   align-items: center;
@@ -509,7 +529,10 @@ body {
 /* DISSOLVENZA BIANCA (transizioni fra scene) */
 #whiteout {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 45;
   background: #f4f1ea;
   opacity: 0;
@@ -569,8 +592,7 @@ body {
   position: relative;
   max-width: 640px;
   width: 100%;
-  background: rgba(12, 13, 18, 0.86);
-  backdrop-filter: blur(6px);
+  background: rgba(12, 13, 18, 0.95);
   border: 1px solid rgba(139, 142, 163, 0.28);
   border-top: 2px solid rgba(242, 217, 168, 0.4);
   padding: 16px 22px 18px;
@@ -657,7 +679,6 @@ body {
   right: 14px;
   z-index: 35;
   display: flex;
-  gap: 8px;
   align-items: center;
   opacity: 0;
   transition: opacity 1s;
@@ -722,13 +743,15 @@ body {
 
 #inventory {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 66;
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(10, 11, 16, 0.92);
-  backdrop-filter: blur(4px);
+  background: rgba(10, 11, 16, 0.96);
 }
 #inventory.open {
   display: flex;
@@ -763,7 +786,6 @@ body {
   padding: 2px;
 }
 .invItem {
-  aspect-ratio: 1;
   border: 1px solid rgba(139, 142, 163, 0.4);
   border-radius: 6px;
   background: rgba(20, 22, 30, 0.5);
@@ -773,6 +795,13 @@ body {
   font-size: 24px;
   cursor: pointer;
   transition: 0.25s;
+}
+/* Cella quadrata senza `aspect-ratio` (assente su Chrome 81): lo spacer
+   ::before alto 100% della larghezza tiene il quadrato, la flex centra
+   emoji/immagine senza toccare il flusso del contenuto. */
+.invItem::before {
+  content: "";
+  padding-bottom: 100%;
 }
 .invItem:hover {
   border-color: var(--glow);
@@ -831,13 +860,15 @@ body {
 /* CLOSEUP — vista ravvicinata di un oggetto (bigliettino, incisioni, ...) */
 #closeup {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 64;
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(8, 9, 13, 0.94);
-  backdrop-filter: blur(5px);
+  background: rgba(8, 9, 13, 0.97);
 }
 #closeup.open {
   display: flex;
@@ -846,14 +877,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
   max-height: 92%;
   animation: fadeUp 0.5s both;
 }
 .cuImage {
   position: relative;
   width: min(300px, 68vw);
-  aspect-ratio: 1200/1818;
+  height: calc(min(300px, 68vw) * 1818 / 1200); /* rapporto senza aspect-ratio */
   max-height: 74vh;
   background-size: contain;
   background-repeat: no-repeat;
@@ -875,7 +905,10 @@ body {
 /* PUZZLE GENERIC */
 .puzzle {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 50;
   display: none;
   align-items: flex-end;
@@ -886,13 +919,19 @@ body {
 }
 .puzzle .zoombg {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background-size: cover;
   background-position: center;
 }
 .puzzle .scrim {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: linear-gradient(
     180deg,
     rgba(12, 13, 18, 0.2),
@@ -905,8 +944,7 @@ body {
   z-index: 2;
   width: min(440px, 94%);
   margin-bottom: 24px;
-  background: rgba(20, 22, 30, 0.86);
-  backdrop-filter: blur(6px);
+  background: rgba(20, 22, 30, 0.95);
   border: 1px solid rgba(139, 142, 163, 0.3);
   padding: 20px 24px 18px;
   text-align: center;
@@ -936,7 +974,6 @@ body {
 }
 .pactions {
   display: flex;
-  gap: 12px;
   justify-content: center;
 }
 .link {
@@ -965,7 +1002,8 @@ body {
   left: 68%;
   top: 34%;
   width: min(180px, 34%);
-  aspect-ratio: 1;
+  height: 0;
+  padding-bottom: min(180px, 34%); /* quadrato senza aspect-ratio */
   transform: translate(-50%, -50%) rotate(0deg);
   transform-origin: 50% 50%;
   z-index: 3;
@@ -975,7 +1013,8 @@ body {
   background-position: center;
   cursor: grab;
   touch-action: none;
-  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.55));
+  /* niente drop-shadow: il disco ruota di continuo e il filtro verrebbe
+     ricalcolato a ogni frame → scatti su WebView Chrome 81 / GPU debole. */
 }
 #shutterDisc.grabbing {
   cursor: grabbing;
@@ -1005,7 +1044,9 @@ body {
      Gli sprite sono disegnati in diagonale: l'offset di rotazione che li
      riporta a mezzogiorno è applicato in clock.js, non qui. */
 #clockPuzzle .zoombg {
-  filter: blur(4px);
+  /* niente blur: la sfocatura a tutto schermo è una grossa texture che, sotto
+     al puzzle, contende memoria GPU e favorisce lo sfarfallio allo sblocco.
+     Lo scrim scurisce già lo sfondo a sufficienza. */
   transform: scale(1.06);
 }
 #clockPuzzle .scrim {
@@ -1017,7 +1058,8 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
   width: min(76%, 90vh);
-  aspect-ratio: 576/433;
+  height: 0;
+  padding-bottom: calc(min(76%, 90vh) * 433 / 576); /* rapporto senza aspect-ratio */
   z-index: 2;
   cursor: grab;
   touch-action: none;
@@ -1025,7 +1067,8 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.6));
+  /* niente drop-shadow: il filtro si applica anche alle lancette-figlie e
+     verrebbe ricalcolato a ogni loro spostamento → scatti. */
 }
 #clock.grabbing {
   cursor: grabbing;
@@ -1048,13 +1091,15 @@ body {
 }
 #handH {
   width: 12.03%;
-  aspect-ratio: 1/1;
+  height: 0;
+  padding-bottom: 12.03%; /* quadrato senza aspect-ratio */
   background-image: url("/assets/images/CittaFerma/orologio-lancetta-ore.png");
   z-index: 3;
 }
 #handM {
   width: 22.03%;
-  aspect-ratio: 2/1;
+  height: 0;
+  padding-bottom: 11.015%; /* 2:1 senza aspect-ratio */
   background-image: url("/assets/images/CittaFerma/orologio-lancetta-minuti.png");
   z-index: 2;
 }
@@ -1122,7 +1167,10 @@ input[type="range"] {
 /* SPECCHIO puzzle — velo di vapore che si addensa, poi il numero affiora. */
 #mirrorSteam {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 1;
   pointer-events: none;
   opacity: 0;
@@ -1156,12 +1204,14 @@ input[type="range"] {
   top: 36%;
   transform: translate(-50%, -50%);
   width: min(360px, 82vw);
-  aspect-ratio: 1/1;
+  height: 0;
+  padding-bottom: min(360px, 82vw); /* quadrato senza aspect-ratio */
 }
 #heartStage .hHalf {
   position: absolute;
   width: 34%;
-  aspect-ratio: 1/1;
+  height: 0;
+  padding-bottom: 34%; /* quadrato senza aspect-ratio */
   transform: translate(-50%, -50%);
   background-size: contain;
   background-repeat: no-repeat;
@@ -1200,11 +1250,15 @@ input[type="range"] {
   top: 34%;
   transform: translate(-50%, -50%);
   width: min(300px, 64vw);
-  aspect-ratio: 1/1;
+  height: 0;
+  padding-bottom: min(300px, 64vw); /* quadrato senza aspect-ratio */
 }
 #printStage .printDie {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -1293,7 +1347,6 @@ input[type="range"] {
 .doseRow {
   display: flex;
   align-items: center;
-  gap: 10px;
   margin: 9px 0;
 }
 .doseLbl {
@@ -1387,6 +1440,45 @@ input[type="range"] {
   color: #d98a7a;
 }
 
+/* GATE — schermata nera d'ingresso, sopra il titolo.
+   Esiste solo per ottenere il gesto utente che i browser esigono prima di
+   far partire l'audio: senza, la musica del titolo (e di conseguenza le
+   tracce di scena) resterebbe muta finché non si tocca lo schermo per
+   caso. Il click qui sblocca l'audio per tutto il resto della partita. */
+#gate {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #08090c;
+  cursor: pointer;
+  transition: opacity 1s ease;
+}
+#gate.off {
+  opacity: 0;
+  pointer-events: none;
+}
+.gateHint {
+  font-size: clamp(12px, 2.2vw, 15px);
+  letter-spacing: 0.24em;
+  color: var(--ink);
+  animation: gatePulse 2.8s ease-in-out infinite;
+}
+@keyframes gatePulse {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
 /* CREDITI / epilogo — schermata nera con dedica.
    Formato B (storyboard finale §7): testo continuo che si scorre a proprio
    ritmo, nessun limite di tempo, fade-in dolce.
@@ -1397,7 +1489,10 @@ input[type="range"] {
    mentre il whiteout se ne va. */
 #credits {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 70;
   display: none;
   justify-content: center;
@@ -1440,18 +1535,55 @@ input[type="range"] {
   color: var(--glow);
 }
 
-.warm-0 .scene .layer {
-  filter: saturate(0.7) brightness(0.86);
+/* "Calore" della scena reso con un velo di colore leggero (#warmth) invece che
+   con un filter full-screen sullo sfondo. Il filter (saturate/brightness) su una
+   .layer a tutto schermo, sempre attivo e con will-change, è la texture più
+   pesante su WebView Chrome 81: al cambio scena viene ri-rasterizzata/ricaricata
+   e per un istante affiora il nero sotto, con rallentamento. Un overlay colorato
+   costa quasi nulla. Il velo sta sotto polvere, hotspot e personaggi (z-index 4),
+   quindi tinta solo lo sfondo, come faceva il filter. */
+#warmth {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  pointer-events: none;
+  transition: background-color 2.5s ease;
 }
-.warm-1 .scene .layer {
-  filter: saturate(0.85) brightness(0.94);
+.warm-0 #warmth {
+  background-color: rgba(18, 26, 42, 0.34);
 }
-.warm-2 .scene .layer {
-  filter: saturate(0.95) brightness(1);
+.warm-1 #warmth {
+  background-color: rgba(16, 22, 34, 0.18);
 }
-.warm-3 .scene .layer {
-  filter: saturate(1.08) brightness(1.05) sepia(0.06);
+.warm-2 #warmth {
+  background-color: rgba(0, 0, 0, 0);
 }
-#stage .scene .layer {
-  transition: filter 2.5s ease;
+.warm-3 #warmth {
+  background-color: rgba(255, 206, 148, 0.1);
+}
+
+/* Spaziature che sostituiscono `gap` nei contenitori FLEX: il gap dei flex non
+   esiste su Chrome 81 (arrivato in Chrome 84), quindi la distanza fra fratelli
+   è resa con margin sul fratello successivo. I gap nei GRID (#invGrid, #safeKeys)
+   restano invariati: quelli Chrome 81 li supporta già. */
+.menu > * + * {
+  margin-top: 14px;
+}
+.cuWrap > * + * {
+  margin-top: 6px;
+}
+.optRow > * + * {
+  margin-left: 16px;
+}
+#hud > * + * {
+  margin-left: 8px;
+}
+.pactions > * + * {
+  margin-left: 12px;
+}
+.doseRow > * + * {
+  margin-left: 10px;
 }

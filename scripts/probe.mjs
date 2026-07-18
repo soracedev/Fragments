@@ -20,7 +20,11 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 960, height: 720 } });
 page.on('pageerror', (e) => console.log('PAGEERROR', String(e)));
 await page.goto(BASE_URL, { waitUntil: 'networkidle' });
-await page.evaluate(() => document.querySelector('#title')?.style.setProperty('display', 'none'));
+await page.evaluate(() => {
+  ['#gate', '#title'].forEach((s) =>
+    document.querySelector(s)?.style.setProperty('display', 'none'),
+  );
+});
 
 // --- CASSAFORTE: codice sbagliato non risolve, codice giusto sì ---
 const openSafe = () => page.evaluate(() => document.getElementById('safePuzzle').classList.add('open'));

@@ -33,6 +33,7 @@ let hAngle = START_H * 30;            // angolo mostrato: 0 = mezzogiorno, orari
 let mAngle = START_M * 30;
 let grabbed = null;                   // 'H' | 'M' | null
 let solved = false;
+let dialC = null;                     // rect del quadrante, misurato una volta per drag
 
 function dialCenter() {
   const r = $('#clock').getBoundingClientRect();
@@ -78,7 +79,7 @@ function pickHand(angle, dist, radius) {
 
 function onDown(e) {
   if (solved) return;
-  const c = dialCenter();
+  const c = (dialC = dialCenter());
   const a = pointerAngle(e, c);
   const dist = Math.hypot(e.clientX - c.x, e.clientY - c.y);
   grabbed = pickHand(a, dist, c.radius);
@@ -93,7 +94,7 @@ function onDown(e) {
 
 function onMove(e) {
   if (!grabbed || solved) return;
-  const a = pointerAngle(e, dialCenter());
+  const a = pointerAngle(e, dialC || dialCenter());
   if (grabbed === 'H') hAngle = a; else mAngle = a;
   render();
 }
@@ -108,6 +109,7 @@ function onUp(e) {
   // (e non 0) così lo snap da ~355° non torna indietro di un giro.
   const hand = grabbed;
   grabbed = null;
+  dialC = null;
   if (hand === 'H') {
     const raw = Math.round(hAngle / 30);
     hTick = raw % 12;

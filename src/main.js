@@ -2,7 +2,7 @@
 // MAIN — entry point. Importa tutti i moduli e li collega.
 // ============================================================
 
-import { $, initParallax, initDust, initNavLabels } from './engine.js';
+import { $, initParallax, initDust, initNavLabels, preloadBackgrounds } from './engine.js';
 import { initAudio, playTheme, fadeOutTheme, setMasterVolume } from './audio.js';
 import { initInventoryUI } from './inventory.js';
 import { initCloseup } from './closeup.js';
@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAudio($('#themeAudio'));
   initParallax();
   initDust();
+  preloadBackgrounds(); // decodifica gli sfondi ora, così i cambi scena non stallano
   initInventoryUI();
   initCloseup();
   initShutterPuzzle();
@@ -83,8 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleAutoBtn.dataset.on = autoAdvance ? '1' : '0';
   });
 
-  // Musica: il primo click sulla title la avvia (policy autoplay browser).
-  // Sblocca anche l'audio per le tracce di scena che partiranno dopo.
-  title.addEventListener('click', () => { playTheme(); }, { once: true });
+  // ---- Gate d'ingresso ----
+  // Il click sul gate è il gesto utente che sblocca l'audio per tutta la
+  // partita: avvia il tema e scopre il titolo con la musica già in corso.
+  const gate = $('#gate');
+  gate?.addEventListener('click', () => {
+    playTheme();
+    gate.classList.add('off');
+    setTimeout(() => { gate.style.display = 'none'; }, 1000);
+  }, { once: true });
 
 });

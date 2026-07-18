@@ -40,13 +40,18 @@ await page.goto(BASE_URL, { waitUntil: 'networkidle' });
 
 const stage = page.locator('#stage');
 
-// --- Title screen (com'è al caricamento) ---
+// --- Gate d'ingresso (la prima cosa che si vede) ---
 await page.waitForTimeout(300);
-await stage.screenshot({ path: `${OUT}/00-title.png` });
+await stage.screenshot({ path: `${OUT}/00-gate.png` });
 
-// --- Nasconde title/intro/hud overlays per vedere le scene ---
+// --- Title screen (dietro il gate) ---
+await page.evaluate(() => document.querySelector('#gate')?.style.setProperty('display', 'none'));
+await page.waitForTimeout(200);
+await stage.screenshot({ path: `${OUT}/01-title.png` });
+
+// --- Nasconde gate/title/intro/hud overlays per vedere le scene ---
 await page.evaluate(() => {
-  ['#title', '#intro'].forEach((s) => {
+  ['#gate', '#title', '#intro'].forEach((s) => {
     const el = document.querySelector(s);
     if (el) el.style.display = 'none';
   });
