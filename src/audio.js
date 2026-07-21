@@ -26,7 +26,7 @@ export const TRACKS = [
   { key: 'mondo2', name: 'La Casa Familiare' },
 ];
 
-const THEME_SRC = '/assets/audio/theme.mp3';
+const THEME_SRC = '/assets/audio/frammenti.mp3';
 
 // Scena → traccia. Ogni scena di gioco è qui: una scena che manca cade sul
 // ramo "nessuna traccia nota" di playForScene() e lascia suonare l'ultima.
