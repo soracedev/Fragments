@@ -91,7 +91,7 @@ letto, il gatto dorme beato.)_
 > Ok.
 
 > **NOX**
-> Ok, non è ok. Manca qualcosa.
+> Manca qualcosa.
 
 _(Nota di continuità: queste due righe, già presenti nella v1/v2, restano
 come primo respiro dopo il monologo a schermo nero — il passaggio dal
@@ -108,7 +108,7 @@ come primo respiro dopo il monologo a schermo nero — il passaggio dal
 > addormentata.
 
 > **NOX**
-> "Niente da fare, sembra bloccato. A quanto pare non prende né internet né
+> "A quanto pare non prende né internet né
 > la linea del telefono. Sai che novità."
 
 > **NOX**
