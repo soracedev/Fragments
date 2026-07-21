@@ -506,7 +506,7 @@ const ACTIONS = {
   // --- SOGGIORNO ---
   "bigliettino-lei": () => {
     openCloseup(
-      { image: "/assets/images/bigliettino.png", text: NOTA_LEI },
+      { image: "/assets/images/bigliettino.webp", text: NOTA_LEI },
       () => {
         if (S.flags.readNoteLei) return;
         S.flags.readNoteLei = true;
@@ -527,7 +527,7 @@ const ACTIONS = {
   // --- CAMERA DA LETTO ---
   "bigliettino-lui": () => {
     openCloseup(
-      { image: "/assets/images/bigliettino.png", text: NOTA_LUI },
+      { image: "/assets/images/bigliettino.webp", text: NOTA_LUI },
       () => {
         if (S.flags.readNoteLui) return;
         S.flags.readNoteLui = true;

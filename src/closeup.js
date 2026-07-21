@@ -3,7 +3,7 @@
 // risolvere. Nessuna logica di gioco: mostra un'immagine e, se
 // serve, un testo sovrapposto. Chiudendola si torna alla scena.
 //
-// Uso:  openCloseup({ image: '/assets/images/bigliettino.png',
+// Uso:  openCloseup({ image: '/assets/images/bigliettino.webp',
 //                     text: 'La frase scritta sul foglio.' }, onClose)
 // ============================================================
 

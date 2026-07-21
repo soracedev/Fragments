@@ -42,9 +42,9 @@ const TESTO_BIGLIETTINO =
 //   B (orologio ok)   piazza-2.png  — finestra accesa, porta "Appartamento" sbloccata
 //   C (dado ottenuto) piazza-3.png  — la figura non è più sulla panchina
 const PIAZZA_BG = {
-  A: "/assets/images/CittaFerma/piazza.png",
-  B: "/assets/images/CittaFerma/piazza-2.png",
-  C: "/assets/images/CittaFerma/piazza-3.png",
+  A: "/assets/images/CittaFerma/piazza.webp",
+  B: "/assets/images/CittaFerma/piazza-2.webp",
+  C: "/assets/images/CittaFerma/piazza-3.webp",
 };
 
 function setPiazzaState() {
@@ -56,8 +56,8 @@ function setPiazzaState() {
 
 // ---- Stato del Bagno (swap permanente dopo l'enigma dello specchio) ----
 const BAGNO_BG = {
-  base: "/assets/images/CittaFerma/casa-bagno.png",
-  solved: "/assets/images/CittaFerma/casa-bagno-2.png",
+  base: "/assets/images/CittaFerma/casa-bagno.webp",
+  solved: "/assets/images/CittaFerma/casa-bagno-2.webp",
 };
 
 function setBagnoState() {
@@ -68,8 +68,8 @@ function setBagnoState() {
 
 // ---- Stato di Piazza Nettuno (l'ingranaggio sparisce dalla fontana) ----
 const NETTUNO_BG = {
-  base: "/assets/images/CittaFerma/piazza-nettuno.png",
-  taken: "/assets/images/CittaFerma/piazza-nettuno-2.png",
+  base: "/assets/images/CittaFerma/piazza-nettuno.webp",
+  taken: "/assets/images/CittaFerma/piazza-nettuno-2.webp",
 };
 
 function setNettunoState() {
@@ -80,8 +80,8 @@ function setNettunoState() {
 
 // ---- Stato della Spiaggia (la figura appare nell'arte col dado) ----
 const SPIAGGIA_BG = {
-  base: "/assets/images/CittaFerma/spiaggia.png",
-  reveal: "/assets/images/CittaFerma/spiaggia-2.png",
+  base: "/assets/images/CittaFerma/spiaggia.webp",
+  reveal: "/assets/images/CittaFerma/spiaggia-2.webp",
 };
 
 function setSpiaggiaState() {
@@ -295,7 +295,7 @@ const ACTIONS = {
   "bigliettino-casa": () => {
     // Nota mostrata col trattamento closeup, come la nota della fontana.
     openCloseup({
-      image: "/assets/images/bigliettino.png",
+      image: "/assets/images/bigliettino.webp",
       text: TESTO_BIGLIETTINO_CASA,
     });
   },
@@ -380,7 +380,7 @@ const ACTIONS = {
 
   bigliettino: () => {
     openCloseup(
-      { image: "/assets/images/bigliettino.png", text: TESTO_BIGLIETTINO },
+      { image: "/assets/images/bigliettino.webp", text: TESTO_BIGLIETTINO },
       () => {
         if (S.flags.readNote) return;
         S.flags.readNote = true;

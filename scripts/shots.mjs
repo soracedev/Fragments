@@ -78,8 +78,8 @@ for (const name of SCENES) {
 
 // --- Stati alternativi della Piazza (swap sfondo diretto: verifica load/rendering) ---
 const PIAZZA_STATES = [
-  ['piazza-B', '/assets/images/CittaFerma/piazza-2.png'],
-  ['piazza-C', '/assets/images/CittaFerma/piazza-3.png'],
+  ['piazza-B', '/assets/images/CittaFerma/piazza-2.webp'],
+  ['piazza-C', '/assets/images/CittaFerma/piazza-3.webp'],
 ];
 await showScene('piazza');
 for (const [label, url] of PIAZZA_STATES) {
@@ -97,7 +97,7 @@ await showScene('spiaggia');
 await page.evaluate((u) => {
   const layer = document.querySelector('.scene[data-scene="spiaggia"] .layer');
   if (layer) layer.style.backgroundImage = `url("${u}")`;
-}, '/assets/images/CittaFerma/spiaggia-2.png');
+}, '/assets/images/CittaFerma/spiaggia-2.webp');
 await page.waitForTimeout(400);
 await stage.screenshot({ path: `${OUT}/${String(i).padStart(2, '0')}-spiaggia-2.png` });
 i++;
@@ -107,7 +107,7 @@ await showScene('casa-bagno');
 await page.evaluate((u) => {
   const layer = document.querySelector('.scene[data-scene="casa-bagno"] .layer');
   if (layer) layer.style.backgroundImage = `url("${u}")`;
-}, '/assets/images/CittaFerma/casa-bagno-2.png');
+}, '/assets/images/CittaFerma/casa-bagno-2.webp');
 await page.waitForTimeout(400);
 await stage.screenshot({ path: `${OUT}/${String(i).padStart(2, '0')}-casa-bagno-2.png` });
 i++;
@@ -130,7 +130,7 @@ await page.evaluate(() => {
   const el = document.getElementById('mirrorPuzzle');
   if (el) el.classList.add('open');
   const bg = document.getElementById('mirrorBg');
-  if (bg) bg.style.backgroundImage = "url('/assets/images/CittaFerma/closeup-specchio-numero.png')";
+  if (bg) bg.style.backgroundImage = "url('/assets/images/CittaFerma/closeup-specchio-numero.webp')";
   const steam = document.getElementById('mirrorSteam');
   if (steam) steam.style.opacity = '0.15';
 });
